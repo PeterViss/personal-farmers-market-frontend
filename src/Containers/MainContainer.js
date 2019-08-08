@@ -1,19 +1,30 @@
 import React, {Component} from 'react'
 import FarmerContainer from './FarmerContainer'
-import NavBar from './Components/NavBar'
+import CustomerContainer from './CustomerContainer'
+import {Route,Redirect} from 'react-router-dom'
 export default class MainContainer extends Component {
     state = {
-
+        user: {}
     }
     componentDidMount(){
-        fetch("")
+      let  t = this
+        fetch("http://localhost:3000/users/58")
+        .then(resp => resp.json())
+        .then(data => t.setState({
+            user: data
+        }))
+    
     }
 
     render(){
+        
         return(
             <div>
-                <NavBar />
-                <FarmerContainer />
+                { this.state.user.role === "farmer" ?
+                <FarmerContainer farmer={this.state.user}/>
+            :
+                <CustomerContainer customer={this.state.user}/>
+            }
             </div>
         )
     }

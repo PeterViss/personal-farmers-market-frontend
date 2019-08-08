@@ -1,35 +1,41 @@
 import React, {Component} from 'react'
-import { Menu, Segment } from 'semantic-ui-react'
+import Navbar from '../Components/Navbar' 
+import {Route} from 'react-router-dom'
+import FarmerHome from '../Components/FarmerHome'
+import Biography from '../Components/Biography'
+import PostContainer from '../Components/PostContainer'
+
 export default class FarmerContainer extends Component{
-    state = { activeItem: 'home' }
+    state = {
+        activeItem: 'Home',
+        
+    }
+
+    navigating = (e) => {
+        this.setState({
+            activeItem: e.target.innerText
+        })
+    }
+
+
     render(){
-        const { activeItem } = this.state
+       let names = ["Home", "Bio", "Posts"]
         return(
             <div>
-                <Menu pointing secondary>
-          <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
-          <Menu.Item
-            name='messages'
-            active={activeItem === 'messages'}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            name='friends'
-            active={activeItem === 'friends'}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Menu position='right'>
-            <Menu.Item
-              name='logout'
-              active={activeItem === 'logout'}
-              onClick={this.handleItemClick}
-            />
-          </Menu.Menu>
-        </Menu>
+              <Navbar clickHandler={this.navigating} active={this.state.activeItem} names={names} username={this.props.farmer.username}/> 
+             
+             
+             <Route exact path="/Home" render={() =>
+              <FarmerHome customer={this.props.customer}/>
+            }/>
 
-        <Segment>
-          <img src='/images/wireframe/media-paragraph.png' />
-        </Segment>
+            <Route exact path="/Bio" render={() =>
+                <Biography />     
+            }/>
+
+            <Route exact path="/Posts" render={() => 
+                <PostContainer />
+            }/>
             </div>
         )
     }

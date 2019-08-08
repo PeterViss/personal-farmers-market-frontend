@@ -1,33 +1,44 @@
-import React, {Component} from 'react'
-import { Menu, Segment } from 'semantic-ui-react'
+import React from 'react'
+import { Menu } from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
 const Navbar = (props) => {
-    return(
-        <div>
+
+    
+    return( 
+     <div>
+        { props.names ? 
         <Menu pointing secondary>
-        <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
-        <Menu.Item
-          name='messages'
-          active={activeItem === 'messages'}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Item
-          name='friends'
-          active={activeItem === 'friends'}
-          onClick={this.handleItemClick}
-        />
+        {props.names.map((info, i)=> {
+            return <Menu.Item
+            as={Link}
+            to={`/${info}`}
+            key={i}
+          name={info}
+          active={props.active === info}
+          onClick={(event) => props.clickHandler(event)}
+        />})} 
         <Menu.Menu position='right'>
+          <Menu.Item
+            name={props.username}
+            
+          />
+        </Menu.Menu>
+        </Menu>
+        :
+        null
+        }
+
+        {/* <Menu.Menu position='right'>
           <Menu.Item
             name='logout'
             active={activeItem === 'logout'}
-            onClick={this.handleItemClick}
+            onClick={props.clickHandler}
           />
-        </Menu.Menu>
-      </Menu>
+        </Menu.Menu> */}
+     
 
-      <Segment>
-        <img src='/images/wireframe/media-paragraph.png' />
-      </Segment>
-      </div>
+      
+       </div>
     )
 }
 
