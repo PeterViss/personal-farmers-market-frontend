@@ -3,7 +3,8 @@ import Navbar from '../Components/Navbar'
 import {Route} from 'react-router-dom'
 import FarmerHome from '../Components/FarmerHome'
 import Biography from '../Components/Biography'
-import PostContainer from '../Components/PostContainer'
+import PostContainer from './PostContainer'
+import PostForm from '../Components/PostForm'
 
 export default class FarmerContainer extends Component{
     state = {
@@ -18,7 +19,9 @@ export default class FarmerContainer extends Component{
     }
 
 
+
     render(){
+      
        let names = ["Home", "Bio", "Posts"]
         return(
             <div>
@@ -26,15 +29,19 @@ export default class FarmerContainer extends Component{
              
              
              <Route exact path="/Home" render={() =>
-              <FarmerHome customer={this.props.customer}/>
+              <FarmerHome farmer={this.props.farmer}/>
             }/>
 
             <Route exact path="/Bio" render={() =>
-                <Biography />     
+                <Biography bio={this.props.farmer.biography} bioHandler={this.props.bioHandler} sendBio={this.props.sendBio}/>     
             }/>
 
             <Route exact path="/Posts" render={() => 
                 <PostContainer />
+            }/>
+
+            <Route exact path="/PostForm" render={() => 
+                <PostForm />
             }/>
             </div>
         )

@@ -5,7 +5,7 @@ import React from 'react'
         <div>
             <ul>
             {props.posts.map(post => {
-               return <li key={post.id} onClick={() => props.clickHandler(post)}>{new Date(post.date).toDateString()}</li>
+               return <li key={post.id} onClick={() => props.clickHandler(post)}>{new Date(post.startTime).toDateString()}</li>
             })}
             </ul>
         </div>
