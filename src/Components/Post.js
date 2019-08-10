@@ -1,46 +1,73 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import { Form } from 'semantic-ui-react'
-import moment from 'moment'
-import {
-    DateInput,
-    TimeInput,
-    DateTimeInput
-  } from 'semantic-ui-calendar-react';
 
+
+ import DatetimePicker from 'react-datetime-picker';
+import moment from 'moment'
+
+  
 class Post extends Component{
    constructor(props){
-       super(props)
+       super(props);
     this.state = {
-        startTime: this.props.post.startTime,
-        test: []
+        disabled: false,
+        date: new Date(),
+        post: {},
     } 
    }
 
    
 
-    // componentWillReceiveProps(props){
-    //     debugger
-    //     this.setState({
-    //         startTime: props.post.startTime
-    //     })
-    // }
-    //  const dayCount = (props.post.month) => {
-    //     return "okay"
-    // } 
+   onChange = date => {
+    let nuDate = Date(moment(date))  
+    this.setState({ 
+        post: {
+            ...this.state.post,
+            startTime: date
+        } , 
+        date: date
+ 
+    })}
+
+    enableForm = (e) => {
+        
+        this.setState({
+            disabled: true
+        })
+    }
+    componentDidMount(){
+    fetch('http://localhost:3000/posts/1')
+    .then(resp => resp.json())
+    .then(data => this.setState({
+        post: data
+
+        })
+    )}
+
     render(){
-     
-        let t = this
+       console.log(moment(this.state.post.startTime).format())
         
     return(
         
         <div>
         <div>
-            <form>
-            <input value={this.props.post.content || ""} name="content" onChange={this.props.handleChange}/>
-          
             
-        
+            {moment(this.state.post.startTime).format('MMM-D-YYYY hh:mm a')} <button onClick={this.enableForm}>edit</button>
+            <div>
+                {this.state.disabled ? 
+            <DatetimePicker
+                value={this.state.date}
+                 onChange={this.onChange}
+                 disableClock={true}
+                 disableCalendar={false}
+                 clearIcon={null}
+            /> 
+            :
+            null
+        }
+          </div>
+            
+  {/* moment(this.props.post.startTime).format('MM-D-YYYY hh:mm a')
 
             <input value={this.props.post.zip || ""} name="zip"  onChange={this.props.handleChange}/>
             
@@ -66,8 +93,9 @@ class Post extends Component{
           value={this.state.time}
           iconPosition="left"
           onChange={this.changeTime}
-        />
-        </form>
+        /> */}
+        
+        
         </div>
         
             <Link to="/PostForm"><button>Create New Post</button></Link>  
