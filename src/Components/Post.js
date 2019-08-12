@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-
-
- import DatetimePicker from 'react-datetime-picker';
+import DatetimePicker from 'react-datetime-picker';
 import moment from 'moment'
 
   
@@ -10,94 +8,117 @@ class Post extends Component{
    constructor(props){
        super(props);
     this.state = {
-        disabled: false,
+        enabled: false,
         date: new Date(),
         post: {},
     } 
-   }
+}
 
-   
-
-   onChange = date => {
-    let nuDate = Date(moment(date))  
+   onChange = (date) => {
+       let newDate = date.toISOString()
     this.setState({ 
         post: {
             ...this.state.post,
-            startTime: date
+            startTime: newDate
         } , 
         date: date
- 
     })}
 
-    enableForm = (e) => {
-        
+    changePost = (event) => { 
+        debugger
         this.setState({
-            disabled: true
+            post: {
+                ...this.state.post,
+                [event.target.name]: event.target.value 
+            }
         })
     }
-    componentDidMount(){
-    fetch('http://localhost:3000/posts/1')
-    .then(resp => resp.json())
-    .then(data => this.setState({
-        post: data
+    
+    
+    
+    enableForm = (e) => {
+        e.preventDefault()
+        this.setState({
+            enabled: !this.state.enabled
+        })
+    }
 
+
+    componentDidMount(){
+        let id = this.props.postId
+    fetch( `http://localhost:3000/posts/${id}`)
+    .then(resp => resp.json())
+    .then(data => 
+        this.setState({
+        post: data
         })
     )}
 
+    patchForm = (e) => {
+        let t = this
+        let post = this.state.post
+        debugger
+        e.preventDefault()
+        let id = this.props.postId
+        fetch(`http://localhost:3000/posts/${id}`, {
+            method: 'PATCH',
+            headers:{
+                "Content-Type": "application/json", 
+                Accept: "application/json"
+            },
+            body: JSON.stringify({
+                post: {
+                    id: post.id,
+                    content: post.content, 
+                    startTime: post.startTime,
+                    location: post.location,
+                    zip: post.zip,
+                    state: post.state,
+                    attending: post.attending, 
+                    user_id: post.user_id,
+                    comments: post.comments,
+                }  
+            })
+    
+        })
+        .then(resp => resp.json())
+        .then(data => console.log(data))
+    }
+
+
     render(){
-       console.log(moment(this.state.post.startTime).format())
+       console.log(this.state.post)
+    //    console.log(this.props.postId)
         
     return(
         
         <div>
+            <form>
         <div>
             
-            {moment(this.state.post.startTime).format('MMM-D-YYYY hh:mm a')} <button onClick={this.enableForm}>edit</button>
+            {moment(this.state.post.startTime).format('MMM-D-YYYY hh:mm a')} 
+                <button onClick={this.enableForm}>edit</button>
+
+            <input name='content' value={this.state.post.content} onChange={this.changePost}/>    
+                <button onClick={this.props.falsifyPost}>nevermind</button>
+                <button onClick={this.patchForm}>submit</button>
+
+
             <div>
-                {this.state.disabled ? 
-            <DatetimePicker
-                value={this.state.date}
-                 onChange={this.onChange}
-                 disableClock={true}
-                 disableCalendar={false}
-                 clearIcon={null}
-            /> 
-            :
-            null
-        }
-          </div>
-            
-  {/* moment(this.props.post.startTime).format('MM-D-YYYY hh:mm a')
-
-            <input value={this.props.post.zip || ""} name="zip"  onChange={this.props.handleChange}/>
-            
-
-            {new Date(this.props.post.startTime).toDateString()}
-        <DateTimeInput
-          name="dateTime"
-          placeholder="Date Time"
-          value={moment(this.props.post.startTime).format('MM-D-YY hh:mm ')}
-          iconPosition="left"
-          onChange={this.props.changeDate}
-        />
-         <DateInput
-          name="date"
-          placeholder="Date"
-          value={moment(this.props.post.startTime).format('MM-D-YY')}
-          iconPosition="left"
-          onChange={this.props.changeDate}
-        />
-        <TimeInput
-          name="time"
-          placeholder="Time"
-          value={this.state.time}
-          iconPosition="left"
-          onChange={this.changeTime}
-        /> */}
-        
-        
+                {this.state.enabled ? 
+                    <DatetimePicker
+                        value={this.state.date}
+                        onChange={this.onChange}
+                        disableClock={true}
+                        disableCalendar={false}
+                        clearIcon={null}
+                    /> 
+                :
+                     null
+                }
+          </div>      
         </div>
-        
+        </form>
             <Link to="/PostForm"><button>Create New Post</button></Link>  
         </div>
     )

@@ -5,6 +5,7 @@ import FarmerHome from '../Components/FarmerHome'
 import Biography from '../Components/Biography'
 import PostContainer from './PostContainer'
 import PostForm from '../Components/PostForm'
+import Post from '../Components/Post'
 
 export default class FarmerContainer extends Component{
     state = {
@@ -42,6 +43,10 @@ export default class FarmerContainer extends Component{
 
             <Route exact path="/PostForm" render={() => 
                 <PostForm />
+            }/>
+
+            <Route exact path="/Post" render={() =>
+                <Post/>
             }/>
             </div>
         )
