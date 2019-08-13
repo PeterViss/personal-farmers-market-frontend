@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PostList from '../Components/PostList'
 import Post from '../Components/Post'
-import PostForm from '../Components/PostForm'
+//import PostForm from '../Components/PostForm'
 export default class PostContainer extends Component{
     state = {
         post: false,
@@ -24,7 +24,7 @@ export default class PostContainer extends Component{
 
 
     componentDidMount(){
-        fetch('http://localhost:3000/user/posts/1')
+        fetch('http://localhost:3000/user/posts/10')
         .then(resp => resp.json())
         .then(data => this.setState({
             posts: data 
@@ -42,7 +42,7 @@ export default class PostContainer extends Component{
                null
                 }
        
-                {this.state.post ? <Post postId={this.state.onePost.id} changeDate={this.changeDate} handleChange={this.changePost} falsifyPost={this.falsifyPost}/> 
+                {this.state.post ? <Post show={"edit"} postId={this.state.onePost.id} changeDate={this.changeDate} handleChange={this.changePost} falsifyPost={this.falsifyPost}/> 
                 : 
                 null
                 }

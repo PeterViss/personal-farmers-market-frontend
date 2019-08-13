@@ -41,7 +41,7 @@ export default class MainContainer extends Component {
 
     componentDidMount(){
       let  t = this
-        fetch("http://localhost:3000/users/3")
+        fetch("http://localhost:3000/users/12")
         .then(resp => resp.json())
         .then(data => t.setState({
             user: data

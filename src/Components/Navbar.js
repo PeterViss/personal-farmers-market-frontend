@@ -1,15 +1,16 @@
 import React from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Grid } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 const Navbar = (props) => {
 
     
     return( 
      <div>
+       <Grid.Row width={16} >
         { props.names ? 
-        <Menu pointing secondary>
+        <Menu pointing secondary width={16} >
         {props.names.map((info, i)=> {
-            return <Menu.Item
+            return <Menu.Item position='right'
             as={Link}
             to={`/${info}`}
             key={i}
@@ -17,8 +18,9 @@ const Navbar = (props) => {
           active={props.active === info}
           onClick={(event) => props.clickHandler(event)}
         />})} 
-        <Menu.Menu position='right'>
+        <Menu.Menu >
           <Menu.Item
+            position='left'
             name={props.username}
             
           />
@@ -27,8 +29,8 @@ const Navbar = (props) => {
         :
         null
         }
-
-        {/* <Menu.Menu position='right'>
+{/* 
+        <Menu.Menu position='right'>
           <Menu.Item
             name='logout'
             active={activeItem === 'logout'}
@@ -37,7 +39,9 @@ const Navbar = (props) => {
         </Menu.Menu> */}
      
 
-      
+     </Grid.Row>
+
+     
        </div>
     )
 }

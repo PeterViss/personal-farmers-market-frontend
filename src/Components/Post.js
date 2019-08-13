@@ -25,7 +25,6 @@ class Post extends Component{
     })}
 
     changePost = (event) => { 
-        debugger
         this.setState({
             post: {
                 ...this.state.post,
@@ -55,7 +54,6 @@ class Post extends Component{
     )}
 
     patchForm = (e) => {
-        let t = this
         let post = this.state.post
         debugger
         e.preventDefault()
@@ -87,7 +85,7 @@ class Post extends Component{
 
 
     render(){
-       console.log(this.state.post)
+       //console.log(this.state.post)
     //    console.log(this.props.postId)
         
     return(
