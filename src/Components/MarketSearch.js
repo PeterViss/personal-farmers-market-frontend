@@ -1,9 +1,11 @@
 import React, {Component, Fragment} from 'react'
 import {Input,  Checkbox, Grid, Segment} from 'semantic-ui-react'
 import moment from 'moment'
+
+
 export default class MarketSearch extends Component{
     state = {
-
+        disabled: true,
         value: '',
         filtered: false,
         posts: [],
@@ -53,15 +55,17 @@ export default class MarketSearch extends Component{
     handleSearchChange = (e, {value}) => {
         const re = /^[0-9\b]+$/
         if(value === '' || re.test(value)){
-        let zips = this.state.posts.filter(post => {
-            
-            if(post.zip.toString().includes(value)){
-                return post 
-            }else{return}
-        })
+        let zips = this.state.posts.filter(post => { 
+            if(value === ''){return}
+            else{
+                if(post.zip.toString().includes(value)){
+                    return post 
+                }else{return}
+        }})
         this.setState({
             value: value, 
-            chooseZip: zips
+            chooseZip: zips,
+            disabled: false,
         })}else{}
 
     }
@@ -84,20 +88,22 @@ export default class MarketSearch extends Component{
     }
 
     render(){
-        console.log(this.state.chooseCat)
-        
+        // console.log(this.state.filtered)
+        // console.log(this.state.chooseZip)
+        console.log()
         return(
             <Fragment>
             <Grid>
             <Grid.Row >
-            <Grid.Column width={5}>
+                <Grid.Column width={1}></Grid.Column>
+            <Grid.Column width={4}>
               <Input placeholder='Search By Zipcode...' value={this.state.value} onChange={this.handleSearchChange}/>
         
             <h3>Filter By Categories:</h3>
            
               {this.state.categories.map((category, i )=> 
-              <Grid.Column key={category.id}>
-                <Checkbox label={<label>{category.name}</label>} onClick={this.chosenCat}/>
+              <Grid.Column disabled={true} key={category.id}>
+                <Checkbox label={<label>{category.name}</label>} onClick={this.chosenCat} disabled={this.state.disabled}/>
                 </Grid.Column> 
                 )}
                 
@@ -105,15 +111,10 @@ export default class MarketSearch extends Component{
                 </Grid.Column> 
             
 
-            <Grid.Column width={10}>
+            <Grid.Column width={4}>
             <h2>Farmers Markets Available:</h2>
-                { this.state.filtered ? 
+                { this.state.filtered.length > 0 ? 
                    this.state.chooseCat.map(post => {
-                    //    return post.message ? 
-                    //     <Segment key={post.id} raised>
-                    //         Message: {post.message} 
-                    //     </Segment>
-                    //     :
                       return   <Segment key={post.id} raised>
                             Title: Farmer Market
                             <br></br>
@@ -124,7 +125,7 @@ export default class MarketSearch extends Component{
                    </Segment> })
 
                 :
-                    this.state.chooseZip.map(post => {
+                    this.state.posts.map(post => {
                    return <Segment key={post.id} raised>
                        Market Name: Farmer Market 
                        <br></br>
@@ -133,6 +134,10 @@ export default class MarketSearch extends Component{
                         Category: {post.category.name}
                     </Segment>
                 })}
+            </Grid.Column>
+
+            <Grid.Column width={6} align="center">
+                <h1>Post</h1>
             </Grid.Column>
             </Grid.Row>
             

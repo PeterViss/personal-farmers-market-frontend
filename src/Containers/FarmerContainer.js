@@ -23,10 +23,10 @@ export default class FarmerContainer extends Component{
 
     render(){
       
-       let names = ["Home", "Bio", "Posts"]
+       let names = ["Posts", "Bio", "Home"]
         return(
             <div>
-              <Navbar clickHandler={this.navigating} active={this.state.activeItem} names={names} username={this.props.farmer.username}/> 
+              <Navbar clickHandler={this.navigating} active={this.state.activeItem} names={names} username={this.props.farmer.username} logout={this.props.logout}/> 
              
              
              <Route exact path="/Home" render={() =>

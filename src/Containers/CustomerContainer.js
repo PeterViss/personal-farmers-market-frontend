@@ -4,6 +4,7 @@ import CustomerHome from '../Components/CustomerHome'
 import {Route} from 'react-router-dom' 
 import MarketSearch from '../Components/MarketSearch'
 import FarmerSearch from '../Components/FarmerSearch'
+import FarmerProfile from '../Components/FarmerProfile'
 import { Grid } from 'semantic-ui-react'
 
 
@@ -34,7 +35,7 @@ export default class CustomerContainer extends Component{
             <Grid>
                 <Grid.Column width={16}>
                 <Grid.Row>
-             <Navbar clickHandler={this.navigating} active={this.state.activeItem} names={["Home", "Search For Markets", "Search For Farmers"]} username={this.props.customer.username}/> 
+             <Navbar clickHandler={this.navigating} active={this.state.activeItem} names={["Search For Farmers", "Search For Markets", "Home"]} username={this.props.customer.username} logout={this.props.logout}/> 
              </Grid.Row>
              </Grid.Column>
            <Grid.Row>
@@ -55,6 +56,11 @@ export default class CustomerContainer extends Component{
             <Route exact path="/Search For Farmers" render={() => 
                 <FarmerSearch />
             }/>
+            </Grid.Column>
+
+            <Grid.Column width={16}>
+            <Route path="/FarmerProfile" exact component={FarmerProfile} 
+            />
             </Grid.Column>
             </Grid.Row>
             </Grid>

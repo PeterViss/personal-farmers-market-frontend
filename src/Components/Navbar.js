@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import { Menu, Grid } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 const Navbar = (props) => {
@@ -8,7 +8,15 @@ const Navbar = (props) => {
      <div>
        <Grid.Row width={16} >
         { props.names ? 
+        <Fragment>
+  
+     
         <Menu pointing secondary width={16} >
+          <Menu.Item position="right"
+         name='logout'
+        active={props.active === 'logout'}
+         onClick={props.logout}
+       />
         {props.names.map((info, i)=> {
             return <Menu.Item position='right'
             as={Link}
@@ -18,26 +26,21 @@ const Navbar = (props) => {
           active={props.active === info}
           onClick={(event) => props.clickHandler(event)}
         />})} 
+         
+        
         <Menu.Menu >
           <Menu.Item
             position='left'
-            name={props.username}
-            
+            name={props.username}   
           />
         </Menu.Menu>
         </Menu>
+        </Fragment>
         :
         null
         }
-{/* 
-        <Menu.Menu position='right'>
-          <Menu.Item
-            name='logout'
-            active={activeItem === 'logout'}
-            onClick={props.clickHandler}
-          />
-        </Menu.Menu> */}
-     
+
+       
 
      </Grid.Row>
 
