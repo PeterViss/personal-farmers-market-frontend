@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Input, Grid, Segment} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
 export default class FarmerSearch extends Component{
     state = {
         value: '',
@@ -8,17 +9,17 @@ export default class FarmerSearch extends Component{
     }
 
     handleSearchChange = (e, {value}) => { 
-       let filtered = this.state.farmers.filter(farmer => {
-           if(value = ''){return}
-           else{
+        if(value === ''){this.setState({value: value, filtered: []})}
+        else{
+             let filtered = this.state.farmers.filter(farmer => {
            if(farmer.biography.name.toLowerCase().includes(value.toLowerCase())){
                 return farmer
             }else{return }
-        }})
+        })
         this.setState({
             value: value,
             filtered: filtered
-        })
+        })}
     }
 
     componentDidMount(){
@@ -31,7 +32,7 @@ export default class FarmerSearch extends Component{
 
     
     render(){
-        console.log(this.state.filtered)
+       
         return(
             <div>
                 <div className="center">
@@ -55,6 +56,7 @@ export default class FarmerSearch extends Component{
                    return <Segment key={farmer.id} raised>
                     Title: {farmer.biography.name}
                     <br></br>
+                    <Link to={'/FarmerProfile'}> <button onClick={() => this.props.chooseFarmer(farmer)}>View</button> </Link>
                     <br></br>
                     Categories: 
                     <ul>

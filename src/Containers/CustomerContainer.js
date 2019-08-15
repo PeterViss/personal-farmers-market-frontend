@@ -14,21 +14,117 @@ import { Grid } from 'semantic-ui-react'
 export default class CustomerContainer extends Component{
     state = {
         activeItem: 'Home',
-      
-       
+        chosenFarmer: {},
+        following: false,
+        length: 0
     }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
     navigating = (e) => {
         this.setState({
             activeItem: e.target.innerText,
-            
         })
-        
+    }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////   
+    toggleUnFollow = (customer, farmer) => {
+        let followers = farmer.followers.filter(follower => {
+            if(follower.id !== customer.id){
+                              return follower
+                       }else{return}})
 
+        let followees = customer.followees.filter(followee => {
+            if(followee.id !== farmer.id){
+                return followee
+            }else{return}
+        })
+
+        let newCustomer = {...customer, followees: followees}          
+                      
+        fetch(`http://localhost:3000/follows`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            },
+            body: JSON.stringify({
+                follower_id: farmer.id, 
+                followee_id: customer.id
+        })
+        })
+        .then(resp => resp.json())
+        .then(data => { console.log(data)
+            this.setState({
+            chosenFarmer: {
+                ...this.state.chosenFarmer, 
+                followers: followers
+            }, 
+            following: false, 
+            length: this.state.length - 1
+        })
+    })
+    return this.props.updateUser(newCustomer)
     }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+    toggleFollow = (customer, farmer) => {
+        let thisCustomer = {customer: customer.id, username: customer.username, role: "customer"}
+        let newCustomer = {...customer, followees: [...customer.followees, farmer]}
+        fetch(`http://localhost:3000/follows`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            },
+            body: JSON.stringify({
+                follower_id: farmer.id, 
+                followee_id: customer.id
+            })
+        })
+        .then(resp => resp.json())
+        .then(data => { console.log(data)
+            this.setState({
+                chosenFarmer: {
+                    ...this.state.chosenFarmer, 
+                    followers: [
+                        ...this.state.chosenFarmer.followers, 
+                        thisCustomer
+                    ]
+                },
+                following: true,
+                length: this.state.length + 1
+            })
+        })
+        return this.props.updateUser(newCustomer)
+    }
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+    chooseFarmer = (farmer) => {
+        if(farmer.followers.length !== 0){
+         let followers = farmer.followers.filter(follower => {
+            if(follower.id === this.props.customer.id){
+	            return follower
+            }else{return}})
+        if(followers.length === 0){
+            this.setState({
+                chosenFarmer: farmer,
+                following: false,
+                length: 0
+            })}
+        else{
+            this.setState({
+                chosenFarmer: farmer,
+                following: true,
+                length: followers.length
+            })
+        }} 
+        else{
+            this.setState({
+                chosenFarmer: farmer,
+                following: false,
+                length: 0
+            })
+        }
+    } 
     
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////
     render(){
         return(
             <div>
@@ -42,24 +138,26 @@ export default class CustomerContainer extends Component{
             
             <Grid.Column width={16}>
             <Route exact path="/Home" render={() =>
-              <CustomerHome customer={this.props.customer}/>
+              <CustomerHome customer={this.props.customer} chooseFarmer={this.chooseFarmer}/>
             }/>
             </Grid.Column>
 
             <Grid.Column width={16}>
             <Route exact path="/Search For Markets" render={() =>
-                <MarketSearch />     
+                <MarketSearch   customer={this.props.customer}   chooseFarmer={this.chooseFarmer} />     
             }/>
             </Grid.Column>
 
             <Grid.Column width={16}>
             <Route exact path="/Search For Farmers" render={() => 
-                <FarmerSearch />
+                <FarmerSearch chooseFarmer={this.chooseFarmer}/>
             }/>
             </Grid.Column>
 
             <Grid.Column width={16}>
-            <Route path="/FarmerProfile" exact component={FarmerProfile} 
+            <Route path="/FarmerProfile" exact render={() => 
+                <FarmerProfile customer={this.props.customer} farmer={this.state.chosenFarmer} following={this.state.following} toggleUnFollow={this.toggleUnFollow} toggleFollow={this.toggleFollow} length={this.state.length}/>
+            } 
             />
             </Grid.Column>
             </Grid.Row>

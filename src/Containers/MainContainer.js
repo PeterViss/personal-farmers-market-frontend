@@ -13,14 +13,15 @@ export default class MainContainer extends Component {
             user: {}
         })
     }
+
+////////////////////////////////////////////////////////////////////////////////////////////
     updateLoggedInUser = (user) => {
-    
         this.setState({
             user: user
         })
     }
 
-
+//////////////////////////////////////////////////////////////////////////////////////////
     setBio = (event) => {
         this.setState({
             user: { 
@@ -32,11 +33,10 @@ export default class MainContainer extends Component {
             }
         })
     }
-
+////////////////////////////////////////////////////////////////////////////////////////////
     sendBio = (event) => {
         let bio = this.state.user.biography 
         let num = parseInt(event.target.id)
-        debugger
         fetch(`http://localhost:3000/biographies/${num}`, {
             method: 'PATCH',
             headers:{
@@ -53,16 +53,8 @@ export default class MainContainer extends Component {
     
     }
 
-    // componentDidMount(){
-    //   let  t = this
-    //     fetch("http://localhost:3000/users/12")
-    //     .then(resp => resp.json())
-    //     .then(data => t.setState({
-    //         user: data
-    //     })) 
-    // }
 
-   
+////////////////////////////////////////////////////////////////////////////////////////////////////////////   
 
     render(){
         
@@ -72,7 +64,7 @@ export default class MainContainer extends Component {
                 this.state.user.role === "farmer" ?
                 <FarmerContainer farmer={this.state.user} bioHandler={this.setBio} sendBio={this.sendBio} logout={this.logout}/>
             :
-                <CustomerContainer customer={this.state.user} logout={this.logout}/>
+                <CustomerContainer customer={this.state.user} logout={this.logout} updateUser={this.updateLoggedInUser}/>
                 :
                 <Redirect to="/login"/>
             }

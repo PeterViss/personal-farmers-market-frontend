@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import PostList from '../Components/PostList'
 import Post from '../Components/Post'
-//import PostForm from '../Components/PostForm'
+import PostForm from '../Components/PostForm'
 export default class PostContainer extends Component{
     state = {
+        form: false,
         post: false,
         onePost: {}
     }
@@ -35,19 +36,34 @@ export default class PostContainer extends Component{
     render(){
         console.log(this.state.onePost.id)
         return(
-            <div> 
+            <div className='center'> 
                 { this.state.posts ? 
-               <PostList posts={this.state.posts} clickHandler={this.showPost} post={this.state.post}/>
-               : 
-               null
-                }
-       
-                {this.state.post ? <Post show={"edit"} postId={this.state.onePost.id} changeDate={this.changeDate} handleChange={this.changePost} falsifyPost={this.falsifyPost}/> 
+                    <PostList 
+                        posts={this.state.posts} 
+                        clickHandler={this.showPost} 
+                        post={this.state.post} 
+                        show={"edit"}
+                    />
                 : 
+                    null
+               }
+       
+            {this.state.post ? 
+                <Post 
+                    show={"edit"} 
+                    postId={this.state.onePost.id} 
+                    changeDate={this.changeDate} 
+                    handleChange={this.changePost} 
+                    falsifyPost={this.falsifyPost}
+                /> 
+            : 
                 null
+            }
+                {this.state.form ? 
+                    <PostForm/> 
+                :  
+                    null
                 }
-             
-                
             </div>
         )
     }
