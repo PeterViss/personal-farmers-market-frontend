@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
 import DatetimePicker from 'react-datetime-picker';
 import moment from 'moment'
 import { Form, TextArea, Segment} from 'semantic-ui-react'
@@ -16,6 +15,8 @@ class Post extends Component{
 
    onChange = (date) => {
        let newDate = date.toISOString()
+    
+
     this.setState({ 
         post: {
             ...this.state.post,
@@ -25,7 +26,6 @@ class Post extends Component{
     })}
 
     changePost = (e, {name, value}) => { 
-        debugger
         this.setState({
             post: {
                 ...this.state.post,
@@ -34,6 +34,36 @@ class Post extends Component{
         })
     }
     
+    changeSelect = (e, {name, value}) => {
+        let item = {}
+         this.props.categories.forEach(category => {
+            if(category.name === value){
+                return item = category
+            }else{}
+        })
+        debugger
+        this.setState({
+            post: {
+                ...this.state.post,
+                [name]: item
+            }
+        })
+    }
+
+    changeState = (e, {name, value}) => {
+        let item = {}
+        this.props.states.forEach(state => {
+            if(state.name === value){
+                return item = state
+            }else{} 
+        })
+        this.setState({
+            post: {
+                ...this.state.post,
+                [name]: item
+            }
+        })
+    }
     
     
     enableForm = (e) => {
@@ -56,7 +86,6 @@ class Post extends Component{
 
     patchForm = (e) => {
         let post = this.state.post
-        debugger
         e.preventDefault()
         let id = this.props.postId
         fetch(`http://localhost:3000/posts/${id}`, {
@@ -72,10 +101,11 @@ class Post extends Component{
                     startTime: post.startTime,
                     location: post.location,
                     zip: post.zip,
-                    state: post.state,
+                    state_id: post.state.id,
                     attending: post.attending, 
                     user_id: post.user_id,
                     comments: post.comments,
+                    category_id: post.category.id
                 }  
             })
     
@@ -86,10 +116,16 @@ class Post extends Component{
 
 
     render(){
-       //console.log(this.state.post)
-    //    console.log(this.props.postId)
+        let newCategories = this.props.categories ? this.props.categories.map(category => 
+            { return {key: category.id, text: category.name, value: category.name}}
+            ) : null
+
+        let newStates = this.props.states ? this.props.states.map(state => {
+            return {key: state.id, text: state.name, value: state.name}
+        }) : null 
+        //console.log(this.props.states)
         let post = this.state.post
-        let options = null
+       
     return(
         
     <div >
@@ -107,30 +143,29 @@ class Post extends Component{
         />
         <Form.Input fluid name='location' label='Location' placeholder='Location' value={post.location} onChange={this.changePost}/>
         <Form.Input fluid name='zip' label='Zip' placeholder='zipcode' value={post.zip} onChange={this.changePost}/>
-        <Form.Input fluid name='state' label='State' placeholder='state' value={post.state} onChange={this.changePost}/>
+        <Form.Select 
+            label='State' 
+            name='state' 
+            placeholder='States' 
+            //selected={} 
+            onChange={this.changeState}
+            options={newStates}
+        />
         <Form.Select 
             label='Category' 
             name='category' 
             placeholder='Categories' 
-            selected={post.category} 
-            onChange={this.changePost}
-            options={options}
+            //selected={post.category.name} 
+            onChange={this.changeSelect}
+            options={newCategories}
         />
        
-       {/* <Form.Group align='right'>
-        <Form.Button onClick={this.patchForm}>Submit</Form.Button>
-        <Form.Button onClick={this.props.falsifyPost}>Nevermind</Form.Button>
-        <Form.Button>Delete</Form.Button>
-        </Form.Group> */}
       </Form>
             
             <Segment>
                 
             {moment(this.state.post.startTime).format('MMM-D-YYYY hh:mm a')} 
                 <button onClick={this.enableForm}>edit</button>
-            {/* <input name='content' value={this.state.post.content || ''} onChange={this.changePost}/>    
-                <button onClick={this.props.falsifyPost}>nevermind</button>
-                <button onClick={this.patchForm}>submit</button> */}
             </Segment> 
            
                 {this.state.enabled ?
@@ -154,8 +189,7 @@ class Post extends Component{
                 <Form.Button>Delete</Form.Button>
                 </Form.Group>
             </Form>
-        </Segment>
-            <Link to="/PostForm"><button>Create New Post</button></Link>  
+        </Segment>  
         </div>
 
 

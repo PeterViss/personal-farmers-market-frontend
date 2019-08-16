@@ -1,5 +1,6 @@
 import React from 'react'
  const PostList = (props) => {
+     
     return(
         <div>
             <ul>
@@ -7,7 +8,7 @@ import React from 'react'
             props.posts.map(post => {
                return <div key={post.id}>
                    <li> 
-                       Title: My Market Today
+                       Title: {post.title}
                        <br></br>
                        Date: {new Date(post.startTime).toDateString()} 
                    </li> 

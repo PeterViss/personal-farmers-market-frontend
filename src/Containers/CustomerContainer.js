@@ -130,12 +130,11 @@ export default class CustomerContainer extends Component{
             <div>
             <Grid>
                 <Grid.Column width={16}>
-                <Grid.Row>
-             <Navbar clickHandler={this.navigating} active={this.state.activeItem} names={["Search For Farmers", "Search For Markets", "Home"]} username={this.props.customer.username} logout={this.props.logout}/> 
-             </Grid.Row>
-             </Grid.Column>
+                    <Grid.Row>
+                        <Navbar clickHandler={this.navigating} active={this.state.activeItem} names={["Search For Farmers", "Search For Markets", "Home"]} username={this.props.customer.username} logout={this.props.logout}/> 
+                    </Grid.Row>
+                </Grid.Column>
            <Grid.Row>
-            
             <Grid.Column width={16}>
             <Route exact path="/Home" render={() =>
               <CustomerHome customer={this.props.customer} chooseFarmer={this.chooseFarmer}/>
@@ -150,7 +149,7 @@ export default class CustomerContainer extends Component{
 
             <Grid.Column width={16}>
             <Route exact path="/Search For Farmers" render={() => 
-                <FarmerSearch chooseFarmer={this.chooseFarmer}/>
+                <FarmerSearch chooseFarmer={this.chooseFarmer} customer={this.props.customer}/>
             }/>
             </Grid.Column>
 

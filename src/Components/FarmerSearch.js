@@ -25,7 +25,8 @@ export default class FarmerSearch extends Component{
     componentDidMount(){
         fetch('http://localhost:3000/user/farmers')
         .then(resp => resp.json())
-        .then(data => this.setState({
+        .then(data => 
+            this.setState({
             farmers: data
         }))
     }

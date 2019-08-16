@@ -10,7 +10,8 @@ import Post from '../Components/Post'
 export default class FarmerContainer extends Component{
     state = {
         activeItem: 'Home',
-        
+        categories: [],
+        states: []
     }
 
     navigating = (e) => {
@@ -19,10 +20,25 @@ export default class FarmerContainer extends Component{
         })
     }
 
-
+    componentDidMount(){
+        fetch('http://localhost:3000/categories')
+        .then(resp => resp.json())
+        .then(data => 
+            this.setState({
+                categories: data
+            })
+            )
+            fetch('http://localhost:3000/states')
+            .then(resp => resp.json())
+            .then(data => 
+                this.setState({
+                    states: data
+                })
+                )    
+    }
 
     render(){
-      
+      console.log(this.state.states)
        let names = ["Posts", "Bio", "Home"]
         return(
             <div>
@@ -38,15 +54,15 @@ export default class FarmerContainer extends Component{
             }/>
 
             <Route exact path="/Posts" render={() => 
-                <PostContainer />
+                <PostContainer categories={this.state.categories} states={this.state.states} farmer={this.props.farmer}/>
             }/>
 
             <Route exact path="/PostForm" render={() => 
-                <PostForm />
+                <PostForm categories={this.state.categories} states={this.state.states}/>
             }/>
 
             <Route exact path="/Post" render={() =>
-                <Post/>
+                <Post />
             }/>
             </div>
         )

@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import PostList from '../Components/PostList'
 import Post from '../Components/Post'
+import {Link, Redirect, withRouter} from 'react-router-dom'
 import PostForm from '../Components/PostForm'
-export default class PostContainer extends Component{
+ class PostContainer extends Component{
     state = {
-        form: false,
         post: false,
         onePost: {}
     }
@@ -16,6 +16,14 @@ export default class PostContainer extends Component{
         })
     }
 
+  
+
+
+      renderRedirect = () => {
+     
+        this.props.history.push("/PostForm")
+        
+      }
 
    falsifyPost = () => {
        this.setState({
@@ -25,18 +33,23 @@ export default class PostContainer extends Component{
 
 
     componentDidMount(){
-        fetch('http://localhost:3000/user/posts/10')
+        //debugger
+        fetch(`http://localhost:3000/user/posts/${this.props.farmer.id}`)
         .then(resp => resp.json())
-        .then(data => this.setState({
+        .then(data => 
+            this.setState({
             posts: data 
             })
         )
     }
 
     render(){
-        console.log(this.state.onePost.id)
+        
+        //console.log(this.props.categories)
         return(
             <div className='center'> 
+                <button onClick={this.renderRedirect}>Create New Post</button>
+           
                 { this.state.posts ? 
                     <PostList 
                         posts={this.state.posts} 
@@ -55,20 +68,23 @@ export default class PostContainer extends Component{
                     changeDate={this.changeDate} 
                     handleChange={this.changePost} 
                     falsifyPost={this.falsifyPost}
+                    categories={this.props.categories}
+                    states = {this.props.states}
                 /> 
             : 
                 null
             }
-                {this.state.form ? 
-                    <PostForm/> 
+                {/* {this.state.form ? 
+                    <PostForm categories={this.props.categories}/> 
                 :  
                     null
-                }
+                } */}
             </div>
         )
     }
 }
 
+export default withRouter(PostContainer) 
 
 
 
