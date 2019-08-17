@@ -18,9 +18,7 @@ export default class MarketSearch extends Component{
 
     chosenCat = (e, {label}) => {
         let value = label.props.children
-     
-    
-     if(this.state.catNames.includes(value)){
+        if(this.state.catNames.includes(value)){
             let unchoose = this.state.catNames.filter(name => name !== value)
             let removed = this.state.chooseCat.filter(post => {return post.category.name !== value})
             this.setState({

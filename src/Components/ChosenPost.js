@@ -57,7 +57,8 @@ class ChosenPost extends Component {
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
     componentDidMount(){
-        fetch(`http://localhost:3000/posts/${this.props.post.id}`)
+        let id = this.props.post.id
+        fetch(`http://localhost:3000/posts/${id}`)
         .then(resp => resp.json())
         .then(data =>
              this.setState({
@@ -67,13 +68,15 @@ class ChosenPost extends Component {
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
     render(){
+        
+        console.log(this.state.post)
         let userId = this.props.user.id
         let post = this.state.post 
         if(post === undefined){return null}else{
             return(
                 <Segment>
-                        <button onClick={this.props.changeDisplay}>Nevermind</button> 
-                        Title: Farmer Market
+                      
+                        Title: {post.title}
                         <br></br>
                         Location: {post.location}
                         <br></br>
@@ -85,7 +88,7 @@ class ChosenPost extends Component {
                         <br></br>
                         Zipcode: {post.zip}
                         <br></br>
-                        State: {post.state}
+                        State: {post.state !== undefined ? post.state.name : null}
                         <br></br>
                         Comments: {<ul>
                                         { this.state.post.comments ? this.state.post.comments.length > 0 ? 
@@ -98,6 +101,7 @@ class ChosenPost extends Component {
                             <Form.Group>
                                 <Form.Input placeholder='Add A Comment' name='comment' value={this.state.value} onChange={this.handleChange} />
                                 <Form.Button content='Submit' />
+                                <Form.Button onClick={this.props.changeDisplay} content='Nevermind'/> 
                             </Form.Group>
                         </Form>
                         

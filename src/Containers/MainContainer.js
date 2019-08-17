@@ -57,7 +57,7 @@ export default class MainContainer extends Component {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////   
 
     render(){
-        
+        debugger
         return(
             <div>
                 { this.state.user.username ? 

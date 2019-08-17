@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import DatetimePicker from 'react-datetime-picker';
 import moment from 'moment'
 import { Form, TextArea, Segment} from 'semantic-ui-react'
-  
+import {withRouter} from 'react-router-dom'
 class Post extends Component{
    constructor(props){
        super(props);
@@ -12,11 +12,9 @@ class Post extends Component{
         post: {},
     } 
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    onChange = (date) => {
        let newDate = date.toISOString()
-    
-
     this.setState({ 
         post: {
             ...this.state.post,
@@ -24,7 +22,7 @@ class Post extends Component{
         } , 
         date: date
     })}
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     changePost = (e, {name, value}) => { 
         this.setState({
             post: {
@@ -33,7 +31,7 @@ class Post extends Component{
             }
         })
     }
-    
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
     changeSelect = (e, {name, value}) => {
         let item = {}
          this.props.categories.forEach(category => {
@@ -41,7 +39,6 @@ class Post extends Component{
                 return item = category
             }else{}
         })
-        debugger
         this.setState({
             post: {
                 ...this.state.post,
@@ -49,7 +46,7 @@ class Post extends Component{
             }
         })
     }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     changeState = (e, {name, value}) => {
         let item = {}
         this.props.states.forEach(state => {
@@ -65,7 +62,7 @@ class Post extends Component{
         })
     }
     
-    
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
     enableForm = (e) => {
         e.preventDefault()
         this.setState({
@@ -73,7 +70,7 @@ class Post extends Component{
         })
     }
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     componentDidMount(){
         let id = this.props.postId
     fetch( `http://localhost:3000/posts/${id}`)
@@ -83,7 +80,7 @@ class Post extends Component{
         post: data
         })
     )}
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     patchForm = (e) => {
         let post = this.state.post
         e.preventDefault()
@@ -97,6 +94,7 @@ class Post extends Component{
             body: JSON.stringify({
                 post: {
                     id: post.id,
+                    title: post.title,
                     content: post.content, 
                     startTime: post.startTime,
                     location: post.location,
@@ -112,42 +110,85 @@ class Post extends Component{
         })
         .then(resp => resp.json())
         .then(data => console.log(data))
+        this.props.falsifyPost()
+     
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    deletePost = () => { 
+        debugger
+        let id = this.props.postId
+        fetch(`http://localhost:3000/posts/${id}`, {
+            method: 'DELETE'})
+        .then(resp => resp.json())
+        .then(data => this.props.changePosts(data))
+      
     }
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     render(){
-        let newCategories = this.props.categories ? this.props.categories.map(category => 
-            { return {key: category.id, text: category.name, value: category.name}}
-            ) : null
+        let newCategories = this.props.categories ? 
+            this.props.categories.map(category => {
+                 return {
+                    key: category.id, 
+                    text: category.name, 
+                    value: category.name
+                }
+            }) 
+        : null
 
-        let newStates = this.props.states ? this.props.states.map(state => {
-            return {key: state.id, text: state.name, value: state.name}
-        }) : null 
+        let newStates = this.props.states ? 
+            this.props.states.map(state => {
+                return {
+                    key: state.id, 
+                    text: state.name, 
+                    value: state.name
+                }
+            }) 
+        : null 
         //console.log(this.props.states)
         let post = this.state.post
-       
+       //console.log(post)
     return(
         
     <div >
         <Segment>
         <Form> 
-        
+        <Form.Input
+          name="title"
+          label='Title'
+          value={post.title || ''}
+          onChange={this.changePost}
+          placeholder='Your Title Here...'
+        />
         <Form.Field
           id='form-textarea-control-opinion'
           control={TextArea}
           name="content"
           label='Content'
-          value={post.content}
+          value={post.content || ''}
           onChange={this.changePost}
           placeholder='Your Content Here...'
         />
-        <Form.Input fluid name='location' label='Location' placeholder='Location' value={post.location} onChange={this.changePost}/>
-        <Form.Input fluid name='zip' label='Zip' placeholder='zipcode' value={post.zip} onChange={this.changePost}/>
+        <Form.Input 
+            fluid name='location' 
+            label='Location' 
+            placeholder='Location' 
+            value={post.location || ''} 
+            onChange={this.changePost}
+        />
+        <Form.Input 
+            fluid name='zip' 
+            label='Zip' 
+            placeholder='zipcode' 
+            value={post.zip || ''} 
+            onChange={this.changePost}
+        />
         <Form.Select 
             label='State' 
             name='state' 
             placeholder='States' 
             //selected={} 
+            value={post.state !== undefined ? post.state.name : null}
             onChange={this.changeState}
             options={newStates}
         />
@@ -155,17 +196,18 @@ class Post extends Component{
             label='Category' 
             name='category' 
             placeholder='Categories' 
+            //value={this.state.category}
             //selected={post.category.name} 
             onChange={this.changeSelect}
+            value={ post.category !== undefined ? post.category.name : null}
             options={newCategories}
         />
        
       </Form>
             
             <Segment>
-                
-            {moment(this.state.post.startTime).format('MMM-D-YYYY hh:mm a')} 
-                <button onClick={this.enableForm}>edit</button>
+                {moment(this.state.post.startTime).format('MMM-D-YYYY hh:mm a')} 
+                    <button onClick={this.enableForm}>edit</button>
             </Segment> 
            
                 {this.state.enabled ?
@@ -186,7 +228,7 @@ class Post extends Component{
                 <Form.Group align='right'>
                 <Form.Button onClick={this.patchForm}>Submit</Form.Button>
                 <Form.Button onClick={this.props.falsifyPost}>Nevermind</Form.Button>
-                <Form.Button>Delete</Form.Button>
+                <Form.Button onClick={this.deletePost}>Delete</Form.Button>
                 </Form.Group>
             </Form>
         </Segment>  
@@ -196,4 +238,4 @@ class Post extends Component{
     )
 }
 }
-export default Post
+export default withRouter(Post)

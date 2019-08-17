@@ -11,12 +11,19 @@ export default class FarmerContainer extends Component{
     state = {
         activeItem: 'Home',
         categories: [],
-        states: []
+        states: [], 
+        newPost: {}
     }
 
     navigating = (e) => {
         this.setState({
             activeItem: e.target.innerText
+        })
+    }
+
+    createPost = (post) => {
+        this.setState({
+            newPost: post
         })
     }
 
@@ -38,7 +45,7 @@ export default class FarmerContainer extends Component{
     }
 
     render(){
-      console.log(this.state.states)
+      //console.log(this.state.states)
        let names = ["Posts", "Bio", "Home"]
         return(
             <div>
@@ -54,11 +61,11 @@ export default class FarmerContainer extends Component{
             }/>
 
             <Route exact path="/Posts" render={() => 
-                <PostContainer categories={this.state.categories} states={this.state.states} farmer={this.props.farmer}/>
+                <PostContainer categories={this.state.categories} states={this.state.states} farmer={this.props.farmer} newPost={this.state.newPost}/>
             }/>
 
             <Route exact path="/PostForm" render={() => 
-                <PostForm categories={this.state.categories} states={this.state.states}/>
+                <PostForm categories={this.state.categories} states={this.state.states} farmerId={this.props.farmer.id} createPost={this.createPost}/>
             }/>
 
             <Route exact path="/Post" render={() =>

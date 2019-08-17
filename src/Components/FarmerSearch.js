@@ -41,18 +41,6 @@ export default class FarmerSearch extends Component{
                 </div>
                 <div className="center">
                 {this.state.filtered.length === 0 ?  null
-                //   this.state.farmers.map(
-                //     farmer => {
-                //         return <Segment key={farmer.id} raised>
-                //          Title: {farmer.biography.name}
-                //          <br></br>
-                //          <br></br>
-                //          Categories: 
-                //          <ul>
-                //          {farmer.categories.map(category => 
-                //              <li key={category.id}>{category.name}</li>)}
-                //          </ul>
-                // </Segment> })
                 : this.state.filtered.map(farmer => {
                    return <Segment key={farmer.id} raised>
                     Title: {farmer.biography.name}

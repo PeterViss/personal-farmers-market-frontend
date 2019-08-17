@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 import PostList from '../Components/PostList'
 import Post from '../Components/Post'
-import {Link, Redirect, withRouter} from 'react-router-dom'
-import PostForm from '../Components/PostForm'
+import {withRouter} from 'react-router-dom'
+
  class PostContainer extends Component{
     state = {
         post: false,
-        onePost: {}
+        onePost: {},
+        posts: []
     }
 
     showPost = (post) => { 
@@ -17,12 +18,16 @@ import PostForm from '../Components/PostForm'
     }
 
   
-
+    // changePosts = (data) => {
+    //     let nuPosts = this.state.posts.filter(post => post.id !== data.id)
+    //     this.setState({
+    //         post: false, 
+    //         posts: nuPosts
+    //     })
+    // }
 
       renderRedirect = () => {
-     
         this.props.history.push("/PostForm")
-        
       }
 
    falsifyPost = () => {
@@ -38,7 +43,7 @@ import PostForm from '../Components/PostForm'
         .then(resp => resp.json())
         .then(data => 
             this.setState({
-            posts: data 
+            posts: data
             })
         )
     }
@@ -70,6 +75,7 @@ import PostForm from '../Components/PostForm'
                     falsifyPost={this.falsifyPost}
                     categories={this.props.categories}
                     states = {this.props.states}
+                    changePosts={this.changePosts}
                 /> 
             : 
                 null
