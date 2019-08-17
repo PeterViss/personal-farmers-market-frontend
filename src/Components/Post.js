@@ -109,8 +109,8 @@ class Post extends Component{
     
         })
         .then(resp => resp.json())
-        .then(data => console.log(data))
-        this.props.falsifyPost()
+        .then(data => 
+        this.props.falsifyPost(data))
      
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

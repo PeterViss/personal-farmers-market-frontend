@@ -1,8 +1,7 @@
 import React from 'react'
  const PostList = (props) => {
-    debugger
+   
     return(
-       
         <div>
             <ul>
             {props.posts ? 

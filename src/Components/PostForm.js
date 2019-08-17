@@ -87,7 +87,7 @@ class PostForm extends Component{
     })
     .then(resp => resp.json())
     .then(data => {this.props.createPost(data)})
-    
+    this.props.history.push("/Posts")
   }
 
 
@@ -169,25 +169,5 @@ class PostForm extends Component{
 
 export default withRouter(PostForm)
 
-{/* <DateInput
-          name="date"
-          placeholder="Date"
-          value={this.state.date}
-          iconPosition="left"
-          onChange={this.handleChange}
-        />
-        <TimeInput
-          name="time"
-          placeholder="Time"
-          value={this.state.time}
-          iconPosition="left"
-          onChange={this.handleChange}
-        />
-        <DateTimeInput
-          name="dateTime"
-          placeholder="Date Time"
-          value={this.state.dateTime}
-          iconPosition="left"
-          onChange={this.handleChange}
-        /> */}
+
        

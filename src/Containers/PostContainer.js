@@ -7,7 +7,7 @@ import {withRouter} from 'react-router-dom'
     state = {
         post: false,
         onePost: {},
-        posts: []
+        //posts: []
     }
 
     showPost = (post) => { 
@@ -18,46 +18,46 @@ import {withRouter} from 'react-router-dom'
     }
 
   
-    // changePosts = (data) => {
-    //     let nuPosts = this.state.posts.filter(post => post.id !== data.id)
-    //     this.setState({
-    //         post: false, 
-    //         posts: nuPosts
-    //     })
-    // }
+    resetPosts = (data) => {
+        this.setState({
+            post: false, 
+        })
+        this.props.changePosts(data)
+    }
 
       renderRedirect = () => {
         this.props.history.push("/PostForm")
       }
 
-   falsifyPost = () => {
+   falsifyPost = (data) => {
        this.setState({
            post: false
        })
+      return this.props.falsePost(data)
    }     
 
 
-    componentDidMount(){
-        //debugger
-        fetch(`http://localhost:3000/user/posts/${this.props.farmer.id}`)
-        .then(resp => resp.json())
-        .then(data => 
-            this.setState({
-            posts: data
-            })
-        )
-    }
+    // componentDidMount(){
+    //     //debugger
+    //     fetch(`http://localhost:3000/user/posts/${this.props.farmer.id}`)
+    //     .then(resp => resp.json())
+    //     .then(data => 
+    //         this.setState({
+    //         posts: data
+    //         })
+    //     )
+    // }
 
     render(){
-        
+        let posts = this.props.posts
         //console.log(this.props.categories)
         return(
             <div className='center'> 
                 <button onClick={this.renderRedirect}>Create New Post</button>
            
-                { this.state.posts ? 
+                { posts ? 
                     <PostList 
-                        posts={this.state.posts} 
+                        posts={posts} 
                         clickHandler={this.showPost} 
                         post={this.state.post} 
                         show={"edit"}
@@ -75,7 +75,7 @@ import {withRouter} from 'react-router-dom'
                     falsifyPost={this.falsifyPost}
                     categories={this.props.categories}
                     states = {this.props.states}
-                    changePosts={this.changePosts}
+                    changePosts={this.resetPosts}
                 /> 
             : 
                 null

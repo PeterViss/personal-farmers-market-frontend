@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react'
-import {Link, Route, Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import { Card } from 'semantic-ui-react'
 import { Segment, Grid, Dimmer} from 'semantic-ui-react'
 import PostList from './PostList'

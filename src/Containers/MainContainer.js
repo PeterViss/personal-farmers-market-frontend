@@ -33,31 +33,10 @@ export default class MainContainer extends Component {
             }
         })
     }
-////////////////////////////////////////////////////////////////////////////////////////////
-    sendBio = (event) => {
-        let bio = this.state.user.biography 
-        let num = parseInt(event.target.id)
-        fetch(`http://localhost:3000/biographies/${num}`, {
-            method: 'PATCH',
-            headers:{
-                "Content-Type": "application/json", 
-                Accept: "application/json"
-            },
-            body: JSON.stringify({
-                biography: bio
-            })
-    
-        })
-        .then(resp => resp.json())
-        .then(data => console.log(data))
-    
-    }
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////   
 
     render(){
-        debugger
+        
         return(
             <div>
                 { this.state.user.username ? 
