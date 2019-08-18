@@ -72,6 +72,7 @@ class Post extends Component{
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     componentDidMount(){
+        
         let id = this.props.postId
     fetch( `http://localhost:3000/posts/${id}`)
     .then(resp => resp.json())
@@ -110,7 +111,7 @@ class Post extends Component{
         })
         .then(resp => resp.json())
         .then(data => 
-        this.props.falsifyPost(data))
+        this.props.changePost(data))
      
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -145,14 +146,15 @@ class Post extends Component{
                 }
             }) 
         : null 
-        //console.log(this.props.states)
+    
         let post = this.state.post
-       //console.log(post)
+
     return(
         
     <div >
         <Segment>
         <Form> 
+        <Form.Button onClick={this.props.falsifyPost}>Nevermind</Form.Button>
         <Form.Input
           name="title"
           label='Title'
@@ -171,8 +173,8 @@ class Post extends Component{
         />
         <Form.Input 
             fluid name='location' 
-            label='Location' 
-            placeholder='Location' 
+            label='City' 
+            placeholder='City or Town Nearest to You' 
             value={post.location || ''} 
             onChange={this.changePost}
         />
@@ -187,7 +189,6 @@ class Post extends Component{
             label='State' 
             name='state' 
             placeholder='States' 
-            //selected={} 
             value={post.state !== undefined ? post.state.name : null}
             onChange={this.changeState}
             options={newStates}
@@ -195,9 +196,7 @@ class Post extends Component{
         <Form.Select 
             label='Category' 
             name='category' 
-            placeholder='Categories' 
-            //value={this.state.category}
-            //selected={post.category.name} 
+            placeholder='Categories'  
             onChange={this.changeSelect}
             value={ post.category !== undefined ? post.category.name : null}
             options={newCategories}
@@ -227,7 +226,6 @@ class Post extends Component{
             <Form>
                 <Form.Group align='right'>
                 <Form.Button onClick={this.patchForm}>Submit</Form.Button>
-                <Form.Button onClick={this.props.falsifyPost}>Nevermind</Form.Button>
                 <Form.Button onClick={this.deletePost}>Delete</Form.Button>
                 </Form.Group>
             </Form>

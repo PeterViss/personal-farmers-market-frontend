@@ -57,6 +57,7 @@ class ChosenPost extends Component {
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
     componentDidMount(){
+       
         let id = this.props.post.id
         fetch(`http://localhost:3000/posts/${id}`)
         .then(resp => resp.json())
@@ -69,13 +70,12 @@ class ChosenPost extends Component {
 ///////////////////////////////////////////////////////////////////////////////////////////////////
     render(){
         
-        console.log(this.state.post)
-        let userId = this.props.user.id
+        //console.log(this.state.post)
+        let userId = this.props.user ? this.props.user.id : null
         let post = this.state.post 
         if(post === undefined){return null}else{
             return(
                 <Segment>
-                      
                         Title: {post.title}
                         <br></br>
                         Location: {post.location}
@@ -97,13 +97,14 @@ class ChosenPost extends Component {
                                         : "No Comments Yet" : null}
                                     </ul>}
                         <br></br>
+                        {this.props.commenting ? 
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Group>
                                 <Form.Input placeholder='Add A Comment' name='comment' value={this.state.value} onChange={this.handleChange} />
                                 <Form.Button content='Submit' />
                                 <Form.Button onClick={this.props.changeDisplay} content='Nevermind'/> 
                             </Form.Group>
-                        </Form>
+                        </Form> : <Form.Button onClick={this.props.changeDisplay} content='Nevermind'/> }
                         
                 </Segment>
     )}}

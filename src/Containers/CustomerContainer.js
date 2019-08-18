@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Navbar from '../Components/Navbar'
 import CustomerHome from '../Components/CustomerHome'
-import {Route} from 'react-router-dom' 
+import {Route, withRouter} from 'react-router-dom' 
 import MarketSearch from '../Components/MarketSearch'
 import FarmerSearch from '../Components/FarmerSearch'
 import FarmerProfile from '../Components/FarmerProfile'
@@ -11,7 +11,7 @@ import { Grid } from 'semantic-ui-react'
 
 
 
-export default class CustomerContainer extends Component{
+ class CustomerContainer extends Component{
     state = {
         activeItem: 'Home',
         chosenFarmer: {},
@@ -122,6 +122,7 @@ export default class CustomerContainer extends Component{
                 length: 0
             })
         }
+        this.props.history.push("/FarmerProfile")
     } 
     
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -165,3 +166,5 @@ export default class CustomerContainer extends Component{
         )
     }
 }
+
+export default withRouter(CustomerContainer)

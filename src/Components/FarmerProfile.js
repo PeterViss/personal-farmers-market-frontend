@@ -19,7 +19,7 @@ export default class FarmerProfile extends Component {
         }))
       }
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////
       changeDisplay = () => {
         this.setState({
           displayPost: false
@@ -95,7 +95,7 @@ export default class FarmerProfile extends Component {
                 <Grid.Row>
                 <Grid.Column width={5}>
                { this.state.displayPost ? 
-               <ChosenPost post={post} user={customer} changeDisplay={this.changeDisplay}/>
+               <ChosenPost post={post} user={customer} changeDisplay={this.changeDisplay} commenting={true}/>
                : null 
              }
              </Grid.Column>

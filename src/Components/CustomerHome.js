@@ -48,7 +48,9 @@ export default class CustomerHome extends Component{
                   <ul>
                     {customer.followees.map(followee => <li key={followee.id}>
                             {followee.username} 
-                           <Link to={'/FarmerProfile'}> <button onClick={() => this.props.chooseFarmer(followee)}>View</button> </Link>
+                           {/* <Link to={'/FarmerProfile'}>  */}
+                           <button onClick={() => this.props.chooseFarmer(followee)}>View</button> 
+                           {/* </Link> */}
                       </li>)}
                   </ul>}
               />
@@ -56,7 +58,7 @@ export default class CustomerHome extends Component{
              <Grid.Column width={4}>
 
                <Dimmer.Dimmable as={Segment} dimmed={true}>
-               <h2>Posts:</h2>
+               <h2>Posts By:</h2>
               { customer.followees === undefined ? null :
                 customer.followees.map(farmer => {
                 return <Dimmer.Dimmable as={Segment} dimmed={true} key={farmer.id}>
@@ -76,7 +78,7 @@ export default class CustomerHome extends Component{
              </Grid.Column>
              <Grid.Column width={5}>
                {this.state.displayPost ?
-               <ChosenPost post={this.state.post} user={this.props.customer} changeDisplay={this.changeDisplay}/> : null}
+               <ChosenPost post={this.state.post} user={this.props.customer} changeDisplay={this.changeDisplay} commenting={true}/> : null}
              </Grid.Column>
               <Grid.Column width={1}></Grid.Column>
              </Grid>

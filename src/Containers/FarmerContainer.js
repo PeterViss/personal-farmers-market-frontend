@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import Navbar from '../Components/Navbar' 
-import {Route} from 'react-router-dom'
+import {Route, withRouter} from 'react-router-dom'
 import FarmerHome from '../Components/FarmerHome'
 import Biography from '../Components/BiographyEdit'
 import PostContainer from './PostContainer'
 import PostForm from '../Components/PostForm'
 import Post from '../Components/Post'
 
-export default class FarmerContainer extends Component{
+
+ class FarmerContainer extends Component{
     state = {
         // post: false,
         activeItem: 'Home',
@@ -27,6 +28,7 @@ export default class FarmerContainer extends Component{
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     navigating = (e) => {
+        
         this.setState({
             activeItem: e.target.innerText
         })
@@ -63,7 +65,10 @@ export default class FarmerContainer extends Component{
         })
         .then(resp => resp.json())
         .then(data => console.log(data))
-    
+        this.setState({
+            activeItem: 'Home'
+        })
+        this.props.history.push("/Home")
     }    
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     componentDidMount(){
@@ -94,7 +99,7 @@ export default class FarmerContainer extends Component{
     render(){
         //debugger
       console.log(this.state.posts)
-       let names = ["Posts", "Bio", "Home"]
+       let names = ["Bio", "Home"]
         return(
             <div>
               <Navbar 
@@ -105,9 +110,14 @@ export default class FarmerContainer extends Component{
                 logout={this.props.logout}
               /> 
              
-             
-             <Route exact path="/Home" render={() =>
-              <FarmerHome farmer={this.props.farmer}/>
+            <Route exact path="/Home" render={() => 
+                <PostContainer 
+                    categories={this.state.categories} 
+                    states={this.state.states} 
+                    farmer={this.props.farmer} 
+                    posts={this.state.posts}
+                    changePosts={this.changePosts}
+                    falsePost={this.falsePost}/>
             }/>
 
             <Route exact path="/Bio" render={() =>
@@ -117,15 +127,7 @@ export default class FarmerContainer extends Component{
                     sendBio={this.sendBio}/>     
                 }/>
 
-            <Route exact path="/Posts" render={() => 
-                <PostContainer 
-                    categories={this.state.categories} 
-                    states={this.state.states} 
-                    farmer={this.props.farmer} 
-                    posts={this.state.posts}
-                    changePosts={this.changePosts}
-                    falsePost={this.falsePost}/>
-            }/>
+            
 
             <Route exact path="/PostForm" render={() => 
                 <PostForm 
@@ -142,3 +144,5 @@ export default class FarmerContainer extends Component{
         )
     }
 }
+
+export default withRouter(FarmerContainer)

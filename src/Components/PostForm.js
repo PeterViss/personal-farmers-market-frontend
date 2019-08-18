@@ -87,7 +87,7 @@ class PostForm extends Component{
     })
     .then(resp => resp.json())
     .then(data => {this.props.createPost(data)})
-    this.props.history.push("/Posts")
+    this.props.history.push("/Home")
   }
 
 
@@ -157,7 +157,7 @@ class PostForm extends Component{
           onChange={this.changeSelect}
         />
        
-       <Link to='/Posts'><Form.Button>Go Back</Form.Button></Link> 
+       <Link to='/Home'><Form.Button>Go Back</Form.Button></Link> 
         <Form.Button>Submit</Form.Button>
       </Form>
      
