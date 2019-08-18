@@ -20,7 +20,7 @@ import { Grid } from 'semantic-ui-react'
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
     navigating = (e) => {
-        this.setState({
+       return this.setState({
             activeItem: e.target.innerText,
         })
     }
@@ -28,13 +28,13 @@ import { Grid } from 'semantic-ui-react'
     toggleUnFollow = (customer, farmer) => {
         let followers = farmer.followers.filter(follower => {
             if(follower.id !== customer.id){
-                              return follower
-                       }else{return}})
+                 return follower
+            }else{return null}})
 
         let followees = customer.followees.filter(followee => {
             if(followee.id !== farmer.id){
                 return followee
-            }else{return}
+            }else{return null}
         })
 
         let newCustomer = {...customer, followees: followees}          
@@ -67,7 +67,9 @@ import { Grid } from 'semantic-ui-react'
 /////////////////////////////////////////////////////////////////////////////////////////////////////
     toggleFollow = (customer, farmer) => {
         let thisCustomer = {customer: customer.id, username: customer.username, role: "customer"}
-        let newCustomer = {...customer, followees: [...customer.followees, farmer]}
+        let newFarmer = {...farmer, followers: [...farmer.followers, customer]}
+        let newCustomer = {...customer, followees: [...customer.followees, newFarmer  ]}
+ 
         fetch(`http://localhost:3000/follows`, {
             method: 'POST',
             headers: {
@@ -101,7 +103,7 @@ import { Grid } from 'semantic-ui-react'
          let followers = farmer.followers.filter(follower => {
             if(follower.id === this.props.customer.id){
 	            return follower
-            }else{return}})
+            }else{return null}})
         if(followers.length === 0){
             this.setState({
                 chosenFarmer: farmer,
@@ -122,6 +124,7 @@ import { Grid } from 'semantic-ui-react'
                 length: 0
             })
         }
+    
         this.props.history.push("/FarmerProfile")
     } 
     

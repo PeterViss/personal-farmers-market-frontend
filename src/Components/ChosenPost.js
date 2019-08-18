@@ -38,6 +38,10 @@ class ChosenPost extends Component {
     }
 //////////////////////////////////////////////////////////////////////////////////////////////
     deletePost = (e, comment) => {
+        let newComments = this.state.post.comments.filter(com => com.id !== comment.id)
+        debugger
+
+
     fetch(`http://localhost:3000/comments/${comment.id}`,{
         method: 'DELETE',
         headers: {
@@ -46,7 +50,14 @@ class ChosenPost extends Component {
         }
         })
     .then(resp => resp.json())
-    .then(data => console.log(data))
+    .then(data => 
+        this.setState({
+            post: {
+                ...this.state.post, 
+                comments: newComments
+            }
+        })
+        )
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

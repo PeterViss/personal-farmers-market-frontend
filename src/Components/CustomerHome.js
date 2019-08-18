@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react'
-import {Link} from 'react-router-dom'
+
 import { Card } from 'semantic-ui-react'
 import { Segment, Grid, Dimmer} from 'semantic-ui-react'
 import PostList from './PostList'
@@ -77,8 +77,16 @@ export default class CustomerHome extends Component{
 
              </Grid.Column>
              <Grid.Column width={5}>
-               {this.state.displayPost ?
-               <ChosenPost post={this.state.post} user={this.props.customer} changeDisplay={this.changeDisplay} commenting={true}/> : null}
+              {this.state.displayPost ?
+                <ChosenPost 
+                  post={this.state.post} 
+                  user={this.props.customer} 
+                  changeDisplay={this.changeDisplay} 
+                  commenting={true}
+                  /> 
+                : 
+                null
+              }
              </Grid.Column>
               <Grid.Column width={1}></Grid.Column>
              </Grid>

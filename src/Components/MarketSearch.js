@@ -1,6 +1,8 @@
 import React, {Component, Fragment} from 'react'
-import {Input,  Checkbox, Grid, Segment} from 'semantic-ui-react'
+import {Input,  Checkbox, Grid, Segment, Button} from 'semantic-ui-react'
 import moment from 'moment'
+
+import ChosenPost from './ChosenPost'
 
 
 export default class MarketSearch extends Component{
@@ -12,10 +14,16 @@ export default class MarketSearch extends Component{
         categories: [],
         chooseCat: [],
         catNames: [],
-        chooseZip: []
+        chooseZip: [],
+        chosenPost: {},
+        displayPost: null
+    }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+    changeDisplay = () => {
+        this.setState({displayPost: false})
     }
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
     chosenCat = (e, {label}) => {
         let value = label.props.children
         if(this.state.catNames.includes(value)){
@@ -36,39 +44,34 @@ export default class MarketSearch extends Component{
                 filtered: !this.state.filtered
             })
              
-         }else{ return
-            //  debugger
-            // this.setState({
-            //     chooseCat:[...this.state.chooseCat, {message: `${post.category.name} does not exist within this area.`}]
-            // })
+         }else{ return null
          }
           
         })
     }
         
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
        
     }
 
     handleSearchChange = (e, {value}) => {
+        //debugger
         const re = /^[0-9\b]+$/
         if(value === '' || re.test(value)){
         let zips = this.state.posts.filter(post => { 
-            if(value === ''){this.setState({disabled: true})}
+            if(value === ''){return this.setState({disabled: true})}
             else{
                 if(post.zip.toString().includes(value)){
                     return post 
-                }else{return}
+                }else{return null}
         }})
         this.setState({
             value: value, 
-            chooseZip: zips,
-            disabled: false,
-        })}else{}
+        })}else{ return null}
 
     }
 
- 
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     componentDidMount(){
         fetch('http://localhost:3000/categories')
         .then(resp => resp.json())
@@ -85,27 +88,51 @@ export default class MarketSearch extends Component{
             }))
     }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    choosePost = (post) => {
+        this.setState(
+            {chosenPost: post,
+             displayPost: true
+            }
+        )
+    }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     searchZips = () => {
+         let t = this
+        let zipcodes = require('zipcodes')
+        let rad = zipcodes.radius(this.state.value, 50)
+        let zips = this.state.posts.filter(post => {if(rad.includes(post.zip.toString())){return post}else{return null}})
+        debugger
+        this.setState({
+            chooseZip: zips, 
+            disabled: false
+        })
+     }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
     render(){
-         console.log(this.state.filtered)
+    
+         //console.log(this.state.filtered)
         // console.log(this.state.chooseZip)
-        console.log()
+        //console.log()
         return(
             <Fragment>
             <Grid>
             <Grid.Row >
                 <Grid.Column width={1}></Grid.Column>
-            <Grid.Column width={4}>
-              <Input placeholder='Search By Zipcode...' value={this.state.value} onChange={this.handleSearchChange}/>
-        
-            <h3>Filter By Categories:</h3>
-           
-              {this.state.categories.map((category, i )=> 
-              <Grid.Column disabled={this.state.disabled} key={category.id}>
-                <Checkbox label={<label>{category.name}</label>} onClick={this.chosenCat} disabled={this.state.disabled}/>
-                </Grid.Column> 
-                )}
-                
-             
+                <Grid.Column width={4}>
+                    <Input placeholder='Search By Zipcode...' 
+                        value={this.state.value} 
+                        onChange={this.handleSearchChange}
+                    />
+                     <Button onClick={this.searchZips}>Find</Button> 
+                    <h3>Filter By Categories:</h3>
+                    {this.state.categories.map((category, i )=> 
+                    <Grid.Column disabled={this.state.disabled} key={category.id}>
+                        <Checkbox label={<label>{category.name}</label>} onClick={this.chosenCat} disabled={this.state.disabled}/>
+                    </Grid.Column> 
+                )}  
                 </Grid.Column> 
             
 
@@ -119,7 +146,8 @@ export default class MarketSearch extends Component{
                             Market Date: {moment(post.startTime).format('MMM-D-YYYY hh:mm a')}
                             <br></br>
                             Category: {post.category.name}
-                            
+                            <br></br>
+                            <Button size='small' onClick={() => this.choosePost(post)}>View</Button>
                    </Segment> })
 
                 :
@@ -130,12 +158,21 @@ export default class MarketSearch extends Component{
                        Market Date: {moment(post.startTime).format('MMM-D-YYYY hh:mm a')}
                        <br></br>
                         Category: {post.category.name}
+                        <br></br>
+                        <Button size='small' onClick={() => this.choosePost(post)}>View</Button>
                     </Segment>
                 })}
             </Grid.Column>
-
-            <Grid.Column width={6} align="center">
-                <h1>Post</h1>
+                <Grid.Column width={1}></Grid.Column>
+            <Grid.Column width={5}>
+                <h1 position='centered'>Post</h1>
+                {this.state.displayPost ?
+                <ChosenPost 
+                post={this.state.chosenPost} 
+                user={this.props.customer} 
+                changeDisplay={this.changeDisplay} 
+                commenting={true}
+                /> : null}
             </Grid.Column>
             </Grid.Row>
             

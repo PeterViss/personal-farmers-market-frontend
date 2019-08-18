@@ -1,11 +1,13 @@
 import React from 'react'
  const PostList = (props) => {
-
+    let sortedPosts = props.posts.sort(function(a, b) { 
+        return a.id - b.id;
+      })
     return( 
         <div>
             <ul>
             {props.posts ? 
-            props.posts.map(post => {
+            sortedPosts.map(post => {
                return <div key={post.id}>
                    <li key={post.id}> 
                        Title: {post.title}

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {Input, Grid, Segment} from 'semantic-ui-react'
-import {Link} from 'react-router-dom'
+import {Input, Segment} from 'semantic-ui-react'
+
 export default class FarmerSearch extends Component{
     state = {
         value: '',
@@ -14,7 +14,7 @@ export default class FarmerSearch extends Component{
              let filtered = this.state.farmers.filter(farmer => {
            if(farmer.biography.name.toLowerCase().includes(value.toLowerCase())){
                 return farmer
-            }else{return }
+            }else{return null}
         })
         this.setState({
             value: value,
@@ -33,7 +33,7 @@ export default class FarmerSearch extends Component{
 
     
     render(){
-       
+
         return(
             <div>
                 <div className="center">
@@ -45,12 +45,16 @@ export default class FarmerSearch extends Component{
                    return <Segment key={farmer.id} raised>
                     Title: {farmer.biography.name}
                     <br></br>
-                    <Link to={'/FarmerProfile'}> <button onClick={() => this.props.chooseFarmer(farmer)}>View</button> </Link>
+                    {/* <Link to={'/FarmerProfile'}>  */}
+                    <button onClick={() => this.props.chooseFarmer(farmer)}>View</button> 
+                    {/* </Link> */}
                     <br></br>
                     Categories: 
                     <ul>
-                    {farmer.categories.map(category => 
-                        <li key={category.id}>{category.name}</li>)}
+                    {Array.from(new Set(
+                        farmer.categories.map(category => category.name)
+                        )).map((category, i )=> 
+                            <li key={i}>{category}</li>)}
                     </ul>
            </Segment> })
                 }

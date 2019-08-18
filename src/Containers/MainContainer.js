@@ -15,9 +15,11 @@ export default class MainContainer extends Component {
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-    updateLoggedInUser = (user) => {
+    updateLoggedInUser = (newUser) => {
+        
+       
         this.setState({
-            user: user
+            user: newUser 
         })
     }
 

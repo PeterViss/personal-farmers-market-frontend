@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Navbar from '../Components/Navbar' 
 import {Route, withRouter} from 'react-router-dom'
-import FarmerHome from '../Components/FarmerHome'
+
 import Biography from '../Components/BiographyEdit'
 import PostContainer from './PostContainer'
 import PostForm from '../Components/PostForm'
@@ -20,9 +20,14 @@ import Post from '../Components/Post'
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     falsePost = (data) => {
         let newPosts = this.state.posts.filter(post => post.id !== data.id)
+        let newerPosts = [...newPosts, data]
+        let sortedPosts = newerPosts.sort(function(a, b) { 
+            return a.id - b.id;
+          })
+          debugger
         this.setState({
             //post: !this.state.post,
-            posts: [...newPosts, data]
+            posts: [...sortedPosts]
         })
     } 
 
