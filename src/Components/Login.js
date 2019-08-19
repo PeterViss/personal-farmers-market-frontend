@@ -27,7 +27,7 @@ export default class Login extends Component{
         })
         .then(res => res.json())
         .then(info => {
-            
+            console.log(info)
             if (info.authenticated === "true"){
                 this.setState({
                     loggedIn : true

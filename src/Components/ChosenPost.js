@@ -1,125 +1,177 @@
-import React, {Component} from 'react'
-import {Segment, Form} from 'semantic-ui-react'
+import React, { Component } from 'react'
+import { Segment, Form, Card, Button } from 'semantic-ui-react'
+const classes = {
+  categoryPill: {
+    margin: '8px 0px',
+    padding: '4px',
+    borderRadius: '4px',
+    backgroundColor: 'lightblue',
+    display: 'inline-block'
+  },
+  commentsTitle: {
+    fontSize: '24px',
+    fontWeight: '400'
+  }
+}
 class ChosenPost extends Component {
-    state = {
-        value: '',
-        post: {}
-    }
-/////////////////////////////////////////////////////////////////////////////////////////
-    handleSubmit = (e) => {
-      let value = this.state.value
-      let postId = this.props.post.id
-      let userId = this.props.user.id 
-        fetch('http://localhost:3000/comments', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
-            },
-            body: JSON.stringify({
-                content: value,
-                user_id: userId,
-                post_id: postId
-            })
-        })
-        .then(resp => resp.json())
-        .then(data => 
-            this.setState({
-                value: '',
-                post: {
-                    ...this.state.post, 
-                    comments: [
-                        ...this.state.post.comments, 
-                        data
-                    ]
-                }
-            })
-        )
-    }
-//////////////////////////////////////////////////////////////////////////////////////////////
-    deletePost = (e, comment) => {
-        let newComments = this.state.post.comments.filter(com => com.id !== comment.id)
-        debugger
-
-
-    fetch(`http://localhost:3000/comments/${comment.id}`,{
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json'
-        }
-        })
-    .then(resp => resp.json())
-    .then(data => 
+  state = {
+    value: '',
+    post: {}
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////
+  handleSubmit = e => {
+    let value = this.state.value
+    let postId = this.props.post.id
+    let userId = this.props.user.id
+    fetch('http://localhost:3000/comments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        content: value,
+        user_id: userId,
+        post_id: postId
+      })
+    })
+      .then(resp => resp.json())
+      .then(data =>
         this.setState({
-            post: {
-                ...this.state.post, 
-                comments: newComments
-            }
+          value: '',
+          post: {
+            ...this.state.post,
+            comments: [...this.state.post.comments, data]
+          }
         })
-        )
-    }
+      )
+  }
+  //////////////////////////////////////////////////////////////////////////////////////////////
+  deletePost = (e, comment) => {
+    let newComments = this.state.post.comments.filter(
+      com => com.id !== comment.id
+    )
+    debugger
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-    handleChange = (e, {value}) => {
+    fetch(`http://localhost:3000/comments/${comment.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      }
+    })
+      .then(resp => resp.json())
+      .then(data =>
         this.setState({
-            value: value,
+          post: {
+            ...this.state.post,
+            comments: newComments
+          }
         })
-    }
-///////////////////////////////////////////////////////////////////////////////////////////////////
-    componentDidMount(){
-       
-        let id = this.props.post.id
-        fetch(`http://localhost:3000/posts/${id}`)
-        .then(resp => resp.json())
-        .then(data =>
-             this.setState({
-            post: data
-        })
-        )
-    }
-///////////////////////////////////////////////////////////////////////////////////////////////////
-    render(){
-        
-        //console.log(this.state.post)
-        let userId = this.props.user ? this.props.user.id : null
-        let post = this.state.post 
-        if(post === undefined){return null}else{
-            return(
-                <Segment>
-                        Title: {post.title}
-                        <br></br>
-                        Location: {post.location}
-                        <br></br>
-                        Category: {post.category !== undefined ? post.category.name : null}
-                        <br></br>
-                        Content: {post.content !== undefined ? post.content.split(" ").slice(0,7).join(" ") : null}
-                        <br></br>
-                        Start Time: {new Date(post.startTime).toDateString()}
-                        <br></br>
-                        Zipcode: {post.zip}
-                        <br></br>
-                        State: {post.state !== undefined ? post.state.name : null}
-                        <br></br>
-                        Comments: {<ul>
-                                        { this.state.post.comments ? this.state.post.comments.length > 0 ? 
-                                            this.state.post.comments.map(comment => 
-                                            <Segment key={comment.id}>{comment.content} { comment.user_id === userId ? <button align="right" onClick={(event) => this.deletePost(event, comment)}>Delete</button> : null}</Segment>)
-                                        : "No Comments Yet" : null}
-                                    </ul>}
-                        <br></br>
-                        {this.props.commenting ? 
-                        <Form onSubmit={this.handleSubmit}>
-                            <Form.Group>
-                                <Form.Input placeholder='Add A Comment' name='comment' value={this.state.value} onChange={this.handleChange} />
-                                <Form.Button content='Submit' />
-                                <Form.Button onClick={this.props.changeDisplay} content='Nevermind'/> 
-                            </Form.Group>
-                        </Form> : <Form.Button onClick={this.props.changeDisplay} content='Nevermind'/> }
-                        
-                </Segment>
-    )}}
+      )
+  }
 
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+  handleChange = (e, { value }) => {
+    this.setState({
+      value: value
+    })
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+  componentDidMount() {
+    let id = this.props.post.id
+    fetch(`http://localhost:3000/posts/${id}`)
+      .then(resp => resp.json())
+      .then(data =>
+        this.setState({
+          post: data
+        })
+      )
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+  render() {
+    //console.log(this.state.post)
+    let userId = this.props.user ? this.props.user.id : null
+    let post = this.state.post
+    if (post === undefined) {
+      return null
+    } else {
+      return (
+        <Card>
+          <Card.Content>
+            <Card.Header>{post.title}</Card.Header>
+            <Card.Meta>{new Date(post.startTime).toDateString()}</Card.Meta>
+
+            {post.content !== undefined
+              ? post.content
+                  .split(' ')
+                  .slice(0, 7)
+                  .join(' ')
+              : null}
+          </Card.Content>
+          <Card.Content>
+            Location: {post.location}
+            <br />
+            {post.category !== undefined ? (
+              <p style={classes.categoryPill}> {post.category.name}</p>
+            ) : null}
+            <br />
+            {post.city}, {post.state !== undefined ? post.state.name : null}{' '}
+            {post.zip}
+            <br />
+          </Card.Content>
+          <hr />
+          <Card.Content>
+            <p style={classes.commentsTitle}>Comments </p>
+            {this.state.post.comments
+              ? this.state.post.comments.length > 0
+                ? this.state.post.comments.map(comment => (
+                    <Segment key={comment.id}>
+                      <p>{comment.content}</p>
+                      {comment.user_id === userId ? (
+                        <Button
+                          color="red"
+                          align="right"
+                          onClick={event => this.deletePost(event, comment)}
+                        >
+                          Delete
+                        </Button>
+                      ) : null}
+                    </Segment>
+                  ))
+                : 'No Comments Yet'
+              : null}
+            <br />
+          </Card.Content>
+          <Card.Content>
+            {this.props.commenting ? (
+              <Form onSubmit={this.handleSubmit}>
+                <Form.Group>
+                  <Form.Input
+                    width={16}
+                    placeholder="Add A Comment"
+                    name="comment"
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                  />
+                  <Form.Button content="Submit" />
+                  <Form.Button
+                    onClick={this.props.changeDisplay}
+                    content="Nevermind"
+                  />
+                </Form.Group>
+              </Form>
+            ) : (
+              <Form.Button
+                onClick={this.props.changeDisplay}
+                content="Nevermind"
+              />
+            )}
+          </Card.Content>
+        </Card>
+      )
+    }
+  }
 }
 
 export default ChosenPost

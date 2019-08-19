@@ -24,7 +24,6 @@ import Post from '../Components/Post'
         let sortedPosts = newerPosts.sort(function(a, b) { 
             return a.id - b.id;
           })
-          debugger
         this.setState({
             //post: !this.state.post,
             posts: [...sortedPosts]

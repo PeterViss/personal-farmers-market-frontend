@@ -56,15 +56,8 @@ export default class MarketSearch extends Component{
 
     handleSearchChange = (e, {value}) => {
         //debugger
-        const re = /^[0-9\b]+$/
+        const re = /^[0-9\b]{1,5}$/
         if(value === '' || re.test(value)){
-        let zips = this.state.posts.filter(post => { 
-            if(value === ''){return this.setState({disabled: true})}
-            else{
-                if(post.zip.toString().includes(value)){
-                    return post 
-                }else{return null}
-        }})
         this.setState({
             value: value, 
         })}else{ return null}
@@ -122,6 +115,8 @@ export default class MarketSearch extends Component{
             <Grid.Row >
                 <Grid.Column width={1}></Grid.Column>
                 <Grid.Column width={4}>
+                    <h3>50 Mile Radius:</h3>
+                   
                     <Input placeholder='Search By Zipcode...' 
                         value={this.state.value} 
                         onChange={this.handleSearchChange}

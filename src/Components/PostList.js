@@ -1,29 +1,39 @@
 import React from 'react'
- const PostList = (props) => {
-    let sortedPosts = props.posts.sort(function(a, b) { 
-        return a.id - b.id;
-      })
-    return( 
-        <div>
-            <ul>
-            {props.posts ? 
-            sortedPosts.map(post => {
-               return <div key={post.id}>
-                   <li key={post.id}> 
-                       Title: {post.title}
-                       <br></br>
-                       Date: {new Date(post.startTime).toDateString()} 
-                   </li> 
-                      <button onClick={() => props.clickHandler(post)}>{props.show}</button>
-                      {props.pick ? <button onClick={() => props.changeDisplay(post)}>{props.pick}</button>
-                      : null
-                    }
-                    </div>
+import { Card, Button } from 'semantic-ui-react'
+const PostList = props => {
+  let sortedPosts = props.posts.sort(function(a, b) {
+    return a.id - b.id
+  })
+  return (
+    <div>
+      <Card.Group>
+        {props.posts
+          ? sortedPosts.map(post => {
+              return (
+                <Card key={post.id} fluid>
+                  <Card.Content>
+                    <Card.Header>Title: {post.title}</Card.Header>
+                    <Card.Meta>
+                      {new Date(post.startTime).toDateString()}
+                    </Card.Meta>
+                  </Card.Content>
+
+                  <Card.Content extra>
+                    <Button onClick={() => props.clickHandler(post)}>
+                      {props.show}
+                    </Button>
+                    {props.pick ? (
+                      <Button onClick={() => props.changeDisplay(post)}>
+                        {props.pick}
+                      </Button>
+                    ) : null}
+                  </Card.Content>
+                </Card>
+              )
             })
-        : "No Posts To See Here"
-        }
-            </ul>
-        </div>
-    )
+          : 'No Posts To See Here'}
+      </Card.Group>
+    </div>
+  )
 }
 export default PostList

@@ -100,6 +100,7 @@ class Post extends Component{
                     startTime: post.startTime,
                     location: post.location,
                     zip: post.zip,
+                    city: post.city,
                     state_id: post.state.id,
                     attending: post.attending, 
                     user_id: post.user_id,
@@ -173,7 +174,7 @@ class Post extends Component{
         />
         <Form.Input 
             fluid name='location' 
-            label='City' 
+            label='Location' 
             placeholder='City or Town Nearest to You' 
             value={post.location || ''} 
             onChange={this.changePost}
@@ -185,6 +186,14 @@ class Post extends Component{
             value={post.zip || ''} 
             onChange={this.changePost}
         />
+         <Form.Input 
+            fluid name='city' 
+            label='City' 
+            placeholder='City' 
+            value={post.city || ''} 
+            onChange={this.changePost}
+        />  
+
         <Form.Select 
             label='State' 
             name='state' 

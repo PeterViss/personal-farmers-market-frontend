@@ -26,7 +26,7 @@ class PostForm extends Component{
 
 /////////////////////////////////////////////////////////////////////////////////////////////
   changeZip = (e, {name, value}) => {
-    const re = /^[0-9\b]+$/
+    const re = /^[0-9\b]{1,5}$/
     
         if(value === '' || re.test(value)){
           this.setState({
