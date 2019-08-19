@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PostList from '../Components/PostList'
 import Post from '../Components/Post'
 import ChosenPost from '../Components/ChosenPost'
+import PostForm from '../Components/PostForm'
+import BiographyEdit from '../Components/BiographyEdit'
 import { withRouter } from 'react-router-dom'
 import { Segment, Grid, Card, Button } from 'semantic-ui-react'
 const classes = {
@@ -14,10 +16,11 @@ const classes = {
 }
 class PostContainer extends Component {
   state = {
+    create: false,
     display: false,
     chosenPost: {},
-    post: false
-    //posts: []
+    post: false,
+    bio: false
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -55,11 +58,20 @@ class PostContainer extends Component {
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   renderRedirect = () => {
-    this.props.history.push('/PostForm')
+    this.setState({
+      create: true
+    })
+  }
+
+  noCreate = () => {
+    this.setState({
+      create: false
+    })
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   falsifyPost = data => {
+    console.log('hitting')
     this.setState({
       post: false
     })
@@ -77,6 +89,19 @@ class PostContainer extends Component {
   choosePost = post => {
     this.setState({
       chosenPost: post
+    })
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+  editBio = () => {
+    this.setState({
+      bio: true
+    })
+  }
+
+  falseBio = () => {
+    this.setState({
+      bio: false
     })
   }
 
@@ -105,9 +130,34 @@ class PostContainer extends Component {
                 <Card
                   centered
                   header="Biography:"
-                  meta={this.props.farmer.biography.name}
-                  description={this.props.farmer.biography.description}
+                  meta={
+                    this.props.farmer.biography
+                      ? this.props.farmer.biography.name
+                      : null
+                  }
+                  description={
+                    this.props.farmer.biography
+                      ? this.props.farmer.biography.description
+                      : 'Please Create Biography'
+                  }
+                  extra={
+                    this.props.farmer.biography ? (
+                      <Button onClick={this.editBio}>edit</Button>
+                    ) : (
+                      <Button>create</Button>
+                    )
+                  }
                 />
+                {this.state.bio ? (
+                  <Segment>
+                    <BiographyEdit
+                      bio={this.props.farmer.biography}
+                      bioHandler={this.props.bioHandler}
+                      falseBio={this.falseBio}
+                    />
+                  </Segment>
+                ) : null}
+
                 <Card
                   centered
                   header="Followers:"
@@ -116,13 +166,17 @@ class PostContainer extends Component {
                 />
                 <Card
                   header="Categories"
-                  meta="Categories you have used in the past"
+                  meta={'Categories you have used in the past'}
                   description={
-                    <ul>
-                      {cats.map((category, i) => (
-                        <li key={i}>{category}</li>
-                      ))}
-                    </ul>
+                    cats.length === 0 ? (
+                      'Create a post to show categories'
+                    ) : (
+                      <ul>
+                        {cats.map((category, i) => (
+                          <li key={i}>{category}</li>
+                        ))}
+                      </ul>
+                    )
                   }
                 />
                 <Card
@@ -130,17 +184,20 @@ class PostContainer extends Component {
                   header="States"
                   meta="States you have sold you products in."
                   description={
-                    <ul>
-                      {states.map((state, i) => (
-                        <li key={i}>{state}</li>
-                      ))}
-                    </ul>
+                    states.length === 0 ? (
+                      'Create a post to show states'
+                    ) : (
+                      <ul>
+                        {states.map((state, i) => (
+                          <li key={i}>{state}</li>
+                        ))}
+                      </ul>
+                    )
                   }
                 />
               </Card.Group>
             </Segment>
           </Grid.Column>
-
           <Grid.Column width={5}>
             <Segment>
               <Button
@@ -178,7 +235,6 @@ class PostContainer extends Component {
               />
             </Grid.Column>
           ) : null}
-
           {this.state.display ? (
             <Grid.Column width={5}>
               <ChosenPost
@@ -188,6 +244,16 @@ class PostContainer extends Component {
               />
             </Grid.Column>
           ) : null}
+          {this.state.create ? (
+            <Grid.Column width={5}>
+              <PostForm
+                noCreate={this.noCreate}
+                categories={this.props.categories}
+                states={this.props.states}
+              />
+            </Grid.Column>
+          ) : null}
+          }
         </Grid.Row>
       </Grid>
     )

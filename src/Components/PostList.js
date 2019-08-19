@@ -12,7 +12,7 @@ const PostList = props => {
               return (
                 <Card key={post.id} fluid>
                   <Card.Content>
-                    <Card.Header>Title: {post.title}</Card.Header>
+                    <Card.Header>{post.title}</Card.Header>
                     <Card.Meta>
                       {new Date(post.startTime).toDateString()}
                     </Card.Meta>
