@@ -134,9 +134,9 @@ class PostForm extends Component {
           />
           <Form.Input
             fluid
-            label="Location"
+            label="City"
             name="location"
-            placeholder="Location"
+            placeholder="city or town nearest to you"
             value={this.state.location || ''}
             onChange={this.changeValue}
           />

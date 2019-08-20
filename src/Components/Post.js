@@ -49,6 +49,21 @@ class Post extends Component {
     })
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  changeZip = (e, { name, value }) => {
+    const re = /^[0-9\b]{1,5}$/
+    if (value === '' || re.test(value)) {
+      this.setState({
+        post: {
+          ...this.state.post,
+          [name]: value
+        }
+      })
+    } else {
+      return null
+    }
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   changeState = (e, { name, value }) => {
     let item = {}
     this.props.states.forEach(state => {
@@ -176,7 +191,7 @@ class Post extends Component {
             <Form.Input
               fluid
               name="location"
-              label="Location"
+              label="City"
               placeholder="City or Town Nearest to You"
               value={post.location || ''}
               onChange={this.changePost}
@@ -187,7 +202,7 @@ class Post extends Component {
               label="Zip"
               placeholder="zipcode"
               value={post.zip || ''}
-              onChange={this.changePost}
+              onChange={this.changeZip}
             />
             <Form.Input
               fluid

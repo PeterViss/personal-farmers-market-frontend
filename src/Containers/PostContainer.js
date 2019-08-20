@@ -29,6 +29,7 @@ class PostContainer extends Component {
     this.setState({
       display: true,
       post: false,
+      create: true,
       chosenPost: post
     })
   }
@@ -45,6 +46,7 @@ class PostContainer extends Component {
     this.setState({
       post: true,
       display: false,
+      create: false,
       onePost: post
     })
   }
@@ -60,7 +62,9 @@ class PostContainer extends Component {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   renderRedirect = () => {
     this.setState({
-      create: true
+      create: true,
+      display: false,
+      post: false
     })
   }
 
@@ -72,7 +76,6 @@ class PostContainer extends Component {
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   falsifyPost = data => {
-    console.log('hitting')
     this.setState({
       post: false
     })
