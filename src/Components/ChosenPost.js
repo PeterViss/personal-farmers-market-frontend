@@ -48,8 +48,6 @@ class ChosenPost extends Component {
   }
   //////////////////////////////////////////////////////////////////////////////////////////////
   addAttendee = user => {
-    let t = this
-    let nuUser = user
     fetch('http://localhost:3000/attends', {
       method: 'POST',
       headers: {
@@ -131,10 +129,10 @@ class ChosenPost extends Component {
 
             {post.content !== undefined
               ? post.content
-                  .split(' ')
-                  .slice(0, 7)
-                  .join(' ')
-              : null}
+              : // .split(' ')
+                // .slice(0, 7)
+                // .join(' ')
+                null}
           </Card.Content>
           <Card.Content>
             Location: {post.location}
@@ -147,17 +145,23 @@ class ChosenPost extends Component {
             {post.zip}
             <br />
           </Card.Content>
-          {user.role === 'customer' ? (
-            post.attends ? (
+          {post.attends ? (
+            user.role === 'customer' ? (
               <Card.Content>
                 <h5>Attending: {post.attends.length}</h5>
-                {user_ids.includes(userId) ? null : (
+                {user_ids.includes(userId) ? (
+                  'you are attending!!'
+                ) : (
                   <Button onClick={() => this.addAttendee(this.props.user)}>
                     attend
                   </Button>
                 )}
               </Card.Content>
-            ) : null
+            ) : (
+              <Card.Content>
+                <h5>Attending: {post.attends.length}</h5>
+              </Card.Content>
+            )
           ) : null}
           <hr />
           <Card.Content>

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Navbar from '../Components/Navbar'
 import { Route, withRouter } from 'react-router-dom'
 
-import BiographyEdit from '../Components/BiographyEdit'
 import PostContainer from './PostContainer'
 import PostForm from '../Components/PostForm'
 import Post from '../Components/Post'

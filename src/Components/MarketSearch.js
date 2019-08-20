@@ -89,7 +89,6 @@ export default class MarketSearch extends Component {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   searchZips = () => {
-    let t = this
     let zipcodes = require('zipcodes')
     let rad = zipcodes.radius(this.state.value, 50)
     let zips = this.state.posts.filter(post => {

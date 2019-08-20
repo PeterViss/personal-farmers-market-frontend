@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Segment } from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react'
 export default class Biography extends Component {
   sendBio = event => {
     let bio = this.props.bio

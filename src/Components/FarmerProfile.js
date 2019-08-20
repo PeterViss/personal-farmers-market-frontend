@@ -36,7 +36,8 @@ export default class FarmerProfile extends Component {
     let cats = farmer.categories
       ? farmer.categories.map(category => category.name)
       : null
-    let catNames = Array.from(new Set(cats))
+    let newCats = cats.sort()
+    let catNames = Array.from(new Set(newCats))
     //debugger
     // console.log(farmer)
     // console.log(customer)
