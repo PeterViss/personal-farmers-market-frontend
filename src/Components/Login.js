@@ -10,13 +10,21 @@ export default class Login extends Component {
     newUsername: '',
     newPassword: '',
     loggedIn: false,
-    signUp: false
+    signUp: false,
+    bioName: '',
+    bioDescription: ''
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   handleChange = (event, { value, name }) => {
     let newValue = value.trim()
     this.setState({
       [name]: newValue
+    })
+  }
+
+  settingBio = (event, { value, name }) => {
+    this.setState({
+      [name]: value
     })
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,10 +75,33 @@ export default class Login extends Component {
       })
     }
   }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  createBio = data => {
+    fetch('http://localhost:3000/biographies', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        biography: {
+          name: this.state.bioName,
+          description: this.state.bioDescription,
+          user_id: data.userinfo.id
+        }
+      })
+    })
+      .then(resp => resp.json())
+      .then(data => {
+        // console.log(data)
+      })
+    return this.handleSubmit()
+  }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   createUser = () => {
+    //debugger
     fetch('http://localhost:3000/signup', {
       method: 'POST',
       headers: {
@@ -87,6 +118,7 @@ export default class Login extends Component {
     })
       .then(resp => resp.json())
       .then(data => {
+        let nudata = data
         if (data.authenticated === 'false') {
           alert('Username Already Created')
         } else {
@@ -94,10 +126,11 @@ export default class Login extends Component {
             username: this.state.newUsername,
             password: this.state.newPassword
           })
-          return this.handleSubmit()
         }
+        return this.createBio(nudata)
       })
   }
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   render() {
@@ -173,6 +206,24 @@ export default class Login extends Component {
                       onClick={this.handleModal}
                     />
                   </Form.Field>
+                  {this.state.modal === 'farmer' ? (
+                    <Form.Field>
+                      <Form.Input
+                        label="Company Name for Clientel"
+                        placeholder="My Farm Name"
+                        name="bioName"
+                        value={this.state.bioName}
+                        onChange={this.settingBio}
+                      />
+                      <Form.Input
+                        label="Tell Your Customers About You!"
+                        placeholder="My Biography"
+                        name="bioDescription"
+                        value={this.state.bioDescription}
+                        onChange={this.settingBio}
+                      />
+                    </Form.Field>
+                  ) : null}
                   <Form.Button onClick={this.signingUp}>Nevermind</Form.Button>
                   <Form.Button>Submit</Form.Button>
                 </Form>

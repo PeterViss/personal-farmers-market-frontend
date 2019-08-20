@@ -44,6 +44,7 @@ class FarmerContainer extends Component {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   changePosts = data => {
+    debugger
     let nuPosts = this.state.posts.filter(post => post.id !== data.id)
     this.setState({
       posts: nuPosts
@@ -105,6 +106,8 @@ class FarmerContainer extends Component {
               bio={this.props.farmer.biography}
               bioHandler={this.props.bioHandler}
               sendBio={this.sendBio}
+              createPost={this.createPost}
+              farmerId={this.props.farmer.id}
             />
           )}
         />

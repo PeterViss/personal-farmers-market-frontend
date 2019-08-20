@@ -47,12 +47,35 @@ class ChosenPost extends Component {
       )
   }
   //////////////////////////////////////////////////////////////////////////////////////////////
+  addAttendee = user => {
+    let t = this
+    let nuUser = user
+    fetch('http://localhost:3000/attends', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        post_id: this.state.post.id
+      })
+    })
+      .then(resp => resp.json())
+      .then(data => {
+        this.setState({
+          post: {
+            ...this.state.post,
+            attends: [...this.state.post.attends, data]
+          }
+        })
+      })
+  }
+  //////////////////////////////////////////////////////////////////////////////////////////////
   deletePost = (e, comment) => {
     let newComments = this.state.post.comments.filter(
       com => com.id !== comment.id
     )
-    debugger
-
     fetch(`http://localhost:3000/comments/${comment.id}`, {
       method: 'DELETE',
       headers: {
@@ -91,8 +114,12 @@ class ChosenPost extends Component {
   ///////////////////////////////////////////////////////////////////////////////////////////////////
   render() {
     //console.log(this.state.post)
+    let user = this.props.user ? this.props.user : null
     let userId = this.props.user ? this.props.user.id : null
     let post = this.state.post
+    let user_ids = post.attends
+      ? post.attends.map(attend => attend.user_id)
+      : null
     if (post === undefined) {
       return null
     } else {
@@ -120,6 +147,18 @@ class ChosenPost extends Component {
             {post.zip}
             <br />
           </Card.Content>
+          {user.role === 'customer' ? (
+            post.attends ? (
+              <Card.Content>
+                <h5>Attending: {post.attends.length}</h5>
+                {user_ids.includes(userId) ? null : (
+                  <Button onClick={() => this.addAttendee(this.props.user)}>
+                    attend
+                  </Button>
+                )}
+              </Card.Content>
+            ) : null
+          ) : null}
           <hr />
           <Card.Content>
             <p style={classes.commentsTitle}>Comments </p>

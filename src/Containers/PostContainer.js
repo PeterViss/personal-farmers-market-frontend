@@ -20,7 +20,8 @@ class PostContainer extends Component {
     display: false,
     chosenPost: {},
     post: false,
-    bio: false
+    bio: false,
+    newBio: false
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -105,15 +106,18 @@ class PostContainer extends Component {
     })
   }
 
+  createBio = () => {
+    this.setState({
+      newBio: true
+    })
+  }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   render() {
     let posts = this.props.posts
-
-    let newCategories = this.props.farmer.categories
-      ? this.props.farmer.categories.map(category => category.name)
-      : null
-    let cats = Array.from(new Set(newCategories))
+    let newCategories = posts ? posts.map(post => post.category.name) : null
+    let newerCats = newCategories.sort()
+    let cats = Array.from(new Set(newerCats))
     //debugger
     let places = this.props.posts.map(post => post.state.name)
     let states = Array.from(new Set(places))
@@ -144,7 +148,7 @@ class PostContainer extends Component {
                     this.props.farmer.biography ? (
                       <Button onClick={this.editBio}>edit</Button>
                     ) : (
-                      <Button>create</Button>
+                      <Button onClick={this.createBio}>create</Button>
                     )
                   }
                 />
@@ -241,6 +245,7 @@ class PostContainer extends Component {
                 post={this.state.chosenPost}
                 changeDisplay={this.falsifyDisplay}
                 commenting={false}
+                user={this.props.farmer}
               />
             </Grid.Column>
           ) : null}
@@ -250,6 +255,8 @@ class PostContainer extends Component {
                 noCreate={this.noCreate}
                 categories={this.props.categories}
                 states={this.props.states}
+                createPost={this.props.createPost}
+                farmerId={this.props.farmerId}
               />
             </Grid.Column>
           ) : null}

@@ -88,9 +88,10 @@ class PostForm extends Component {
     })
       .then(resp => resp.json())
       .then(data => {
+        debugger
         this.props.createPost(data)
       })
-    this.props.history.push('/Home')
+    this.props.noCreate()
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -105,10 +106,6 @@ class PostForm extends Component {
           return { key: state.id, text: state.name, value: state.name }
         })
       : null
-    //debugger
-    //console.log(newCategories)
-    //What a post needs:
-    //content, startTime, location, zip, state_id, attending, user_id, category_id
     return (
       <Segment>
         <div />

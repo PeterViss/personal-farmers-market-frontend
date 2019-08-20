@@ -118,25 +118,26 @@ class CustomerContainer extends Component {
         this.setState({
           chosenFarmer: farmer,
           following: false,
-          length: 0
+          length: farmer.followers.length
         })
       } else {
         this.setState({
           chosenFarmer: farmer,
           following: true,
-          length: followers.length
+          length: farmer.followers.length
         })
       }
     } else {
       this.setState({
         chosenFarmer: farmer,
         following: false,
-        length: 0
+        length: farmer.follwers.length
       })
     }
 
     this.props.history.push('/FarmerProfile')
   }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////
   render() {

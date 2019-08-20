@@ -9,7 +9,6 @@ export default class FarmerSearch extends Component {
   }
 
   handleSearchChange = (e, { value }) => {
-    debugger
     if (value === '') {
       this.setState({ value: value, filtered: [] })
     } else {
