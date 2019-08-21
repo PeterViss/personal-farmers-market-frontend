@@ -5,7 +5,9 @@ import ChosenPost from '../Components/ChosenPost'
 import PostForm from '../Components/PostForm'
 import BiographyEdit from '../Components/BiographyEdit'
 import { withRouter } from 'react-router-dom'
-import { Segment, Grid, Card, Button } from 'semantic-ui-react'
+import { Segment, Grid, Card, Button, Form } from 'semantic-ui-react'
+import MyAvatar from '../Components/myAvatar'
+import FormSelect from '../Components/FormSelect'
 const classes = {
   followersNumber: {
     fontSize: '24px'
@@ -29,7 +31,7 @@ class PostContainer extends Component {
     this.setState({
       display: true,
       post: false,
-      create: true,
+      create: false,
       chosenPost: post
     })
   }
@@ -95,7 +97,13 @@ class PostContainer extends Component {
       chosenPost: post
     })
   }
-
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+  changeSelect = (e, { name, value }) => {
+    debugger
+    this.setState({
+      topType: value
+    })
+  }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   editBio = () => {
     this.setState({
@@ -116,6 +124,7 @@ class PostContainer extends Component {
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
   render() {
     let posts = this.props.posts
     let newCategories = posts ? posts.map(post => post.category.name) : null
@@ -124,6 +133,7 @@ class PostContainer extends Component {
     //debugger
     let places = this.props.posts.map(post => post.state.name)
     let states = Array.from(new Set(places))
+    console.log(this.props.farmer.avatar)
 
     //console.log(this.props.categories)
     return (
@@ -134,6 +144,26 @@ class PostContainer extends Component {
           <Grid.Column width={4}>
             <Segment>
               <Card.Group itemsPerRow={1}>
+                <Card>
+                  <Card.Content align="center">
+                    <MyAvatar avatar={this.props.farmer.avatar} />
+                  </Card.Content>
+                  <Button onClick={this.props.enableSelect}>edit</Button>
+                </Card>
+
+                {this.props.selectForm ? (
+                  <Card>
+                    <Card.Content>
+                      <FormSelect
+                        avatar={this.props.farmer.avatar}
+                        changeAvatar={this.props.changeAvatar}
+                        submitAvatar={this.props.submitAvatar}
+                        disableForm={this.props.disableForm}
+                        selectForm={this.props.selectForm}
+                      />
+                    </Card.Content>
+                  </Card>
+                ) : null}
                 <Card
                   centered
                   header="Biography:"
@@ -214,7 +244,6 @@ class PostContainer extends Component {
               >
                 Create New Post
               </Button>
-
               {posts ? (
                 <PostList
                   posts={posts}

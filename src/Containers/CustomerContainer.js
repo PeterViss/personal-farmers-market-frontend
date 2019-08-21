@@ -164,6 +164,11 @@ class CustomerContainer extends Component {
                   <CustomerHome
                     customer={this.props.customer}
                     chooseFarmer={this.chooseFarmer}
+                    enableSelect={this.props.enableSelect}
+                    selectForm={this.props.selectForm}
+                    disableForm={this.props.disableForm}
+                    submitAvatar={this.props.submitAvatar}
+                    changeAvatar={this.props.changeAvatar}
                   />
                 )}
               />

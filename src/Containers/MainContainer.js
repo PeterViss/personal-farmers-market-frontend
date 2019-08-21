@@ -5,6 +5,7 @@ import { Route, Redirect, withRouter } from 'react-router-dom'
 import Login from '../Components/Login'
 class MainContainer extends Component {
   state = {
+    selectForm: false,
     user: {}
   }
 
@@ -17,9 +18,47 @@ class MainContainer extends Component {
     this.props.history.push('/Login')
   }
   ////////////////////////////////////////////////////////////////////////////////////////////
+  enableSelect = () => {
+    this.setState({ selectForm: true })
+  }
 
+  disableForm = () => {
+    this.setState({ selectForm: false })
+  }
+
+  changeAvatar = (e, { name, value }) => {
+    this.setState({
+      user: {
+        ...this.state.user,
+        avatar: {
+          ...this.state.user.avatar,
+          [name]: value
+        }
+      }
+    })
+  }
+
+  submitAvatar = avatar => {
+    let nuAvatar = this.state.user.avatar
+    fetch(`http://localhost:3000/avatars/${avatar.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        avatar: nuAvatar
+      })
+    })
+      .then(resp => resp.json())
+      .then(data => console.log(data))
+    this.setState({
+      selectForm: false
+    })
+  }
   ////////////////////////////////////////////////////////////////////////////////////////////
   updateLoggedInUser = newUser => {
+    debugger
     this.setState({
       user: newUser
     })
@@ -66,12 +105,22 @@ class MainContainer extends Component {
               bioHandler={this.setBio}
               sendBio={this.sendBio}
               logout={this.logout}
+              changeAvatar={this.changeAvatar}
+              submitAvatar={this.submitAvatar}
+              enableSelect={this.enableSelect}
+              selectForm={this.state.selectForm}
+              disableForm={this.disableForm}
             />
           ) : (
             <CustomerContainer
               customer={this.state.user}
               logout={this.logout}
               updateUser={this.updateLoggedInUser}
+              changeAvatar={this.changeAvatar}
+              submitAvatar={this.submitAvatar}
+              enableSelect={this.enableSelect}
+              selectForm={this.state.selectForm}
+              disableForm={this.disableForm}
             />
           )
         ) : (

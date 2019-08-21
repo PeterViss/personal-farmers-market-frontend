@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Grid, Segment, Card } from 'semantic-ui-react'
 import PostList from './PostList'
 import ChosenPost from './ChosenPost'
+import MyAvatar from './myAvatar'
 
 export default class FarmerProfile extends Component {
   state = {
@@ -39,10 +40,10 @@ export default class FarmerProfile extends Component {
     let newCats = cats.sort()
     let catNames = Array.from(new Set(newCats))
     //debugger
-    // console.log(farmer)
+    console.log(farmer)
     // console.log(customer)
     return farmer ? (
-      <Grid celled>
+      <Grid>
         <Grid.Row>
           <Grid.Column align="center">
             <h2>
@@ -51,8 +52,14 @@ export default class FarmerProfile extends Component {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          <Grid.Column align="center" className="center">
+          <Grid.Column width={4} />
+          <Grid.Column align="center" className="center" width={7}>
             <Card.Group className="center" itemsPerRow={2} width={2}>
+              <Card fluid={false}>
+                <Card.Content>
+                  <MyAvatar avatar={farmer.avatar} />
+                </Card.Content>
+              </Card>
               <Card fluid={false}>
                 <Card.Content>
                   <Card.Header>Biography</Card.Header>

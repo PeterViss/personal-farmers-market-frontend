@@ -27,7 +27,6 @@ export default class Biography extends Component {
         <Form id={this.props.bio.id} onSubmit={this.sendBio}>
           <Form.Group>
             <Form.Input
-              fluid
               label="Co. Name"
               name="name"
               placeholder="Name you would like your customers to see"
@@ -36,7 +35,6 @@ export default class Biography extends Component {
             />
 
             <Form.TextArea
-              fluid
               label="About"
               name="description"
               placeholder="What your customer will see about you"

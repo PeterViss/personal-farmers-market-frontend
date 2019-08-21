@@ -79,7 +79,7 @@ class FarmerContainer extends Component {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   render() {
     //debugger
-    console.log(this.state.posts)
+    //console.log(this.state.posts)
     let names = ['Home']
     return (
       <div>
@@ -107,6 +107,11 @@ class FarmerContainer extends Component {
               sendBio={this.sendBio}
               createPost={this.createPost}
               farmerId={this.props.farmer.id}
+              enableSelect={this.props.enableSelect}
+              selectForm={this.props.selectForm}
+              disableForm={this.props.disableForm}
+              submitAvatar={this.props.submitAvatar}
+              changeAvatar={this.props.changeAvatar}
             />
           )}
         />
