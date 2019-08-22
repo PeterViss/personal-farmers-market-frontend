@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Navbar = props => {
   return (
     <div>
-      <Grid.Row width={16}>
+      <Grid.Row>
         {props.names ? (
           <Fragment>
             <Menu pointing secondary width={16}>

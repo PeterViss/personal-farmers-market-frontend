@@ -24,7 +24,6 @@ export default class Login extends Component {
       facial_hair_color: '',
       clothes: 'ShirtVNeck',
       color_fabric: 'Black',
-      graphic: '',
       eyes: 'Default',
       eyebrow: 'Default',
       mouth: 'Default',
@@ -129,38 +128,47 @@ export default class Login extends Component {
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   createUser = () => {
-    //debugger
-    fetch('http://localhost:3000/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body: JSON.stringify({
-        user: {
-          username: this.state.newUsername,
-          password: this.state.newPassword,
-          role: this.state.role
-        }
-      })
-    })
-      .then(resp => resp.json())
-      .then(data => {
-        let nudata = data
-        if (data.authenticated === 'false') {
-          alert('Username Already Created')
-        } else {
-          this.setState({
+    let state = this.state
+    debugger
+    if (
+      state.newUsername === '' ||
+      state.newPassword === '' ||
+      state.role === null
+    ) {
+      alert('Please Complete The Form')
+    } else {
+      fetch('http://localhost:3000/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          user: {
             username: this.state.newUsername,
-            password: this.state.newPassword
-          })
-        }
-        return this.createBio(nudata)
+            password: this.state.newPassword,
+            role: this.state.role
+          }
+        })
       })
+        .then(resp => resp.json())
+        .then(data => {
+          let nudata = data
+          if (data.authenticated === 'false') {
+            alert('Username Already Created')
+          } else {
+            this.setState({
+              username: this.state.newUsername,
+              password: this.state.newPassword
+            })
+          }
+          return this.createBio(nudata)
+        })
+    }
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   createAvatar = data => {
-    debugger
+    //debugger
     let nuId = data.userinfo.id
     let theAvatar = this.state.avatar
     fetch('http://localhost:3000/avatars', {
@@ -184,146 +192,153 @@ export default class Login extends Component {
       <Redirect to="/Home" />
     ) : (
       <Fragment>
-        <Grid columns={12}>
-          <Grid.Row columns={5} />
-          <Grid.Row columns={5}>
-            <Grid.Column width={4} />
-            <Grid.Column width={9} postion="right">
-              <h1>Welcome to My Farmer's Market Application!</h1>
-            </Grid.Column>
-          </Grid.Row>
+        <Segment basic>
+          <Grid columns={12}>
+            <Grid.Row columns={5} />
+            <Grid.Row columns={5}>
+              <Grid.Column width={4} />
+              <Grid.Column width={7} postion="center">
+                <Segment.Group>
+                  <Segment align="center">
+                    <h1>Welcome To The Personal Farmer's Market Generator!</h1>
+                  </Segment>
+                </Segment.Group>
+              </Grid.Column>
+            </Grid.Row>
 
-          <Grid.Row columns={5} />
-          <Grid.Row columns={5} />
-          <Grid.Row columns={5} position="center">
-            <Grid.Column width={4} />
-            <Grid.Column width={7}>
-              <Segment placeholder position="left">
-                <Grid columns={2} relaxed="very" stackable>
-                  <Grid.Column>
-                    {this.state.signUp ? (
-                      <div>
-                        <MyAvatar avatar={this.state.avatar} />
-                        <Segment>
-                          <FormSelect
-                            avatar={this.state.avatar}
-                            changeAvatar={this.changeAvatar}
-                          />
-                        </Segment>
-                      </div>
-                    ) : (
-                      <Form onSubmit={this.handleSubmit}>
-                        <Form.Input
-                          icon="user"
-                          iconPosition="left"
-                          label="Username"
-                          placeholder="Username"
-                          name="username"
-                          value={this.state.username}
-                          onChange={this.handleChange}
-                        />
-                        <Form.Input
-                          icon="lock"
-                          iconPosition="left"
-                          label="Password"
-                          type="password"
-                          name="password"
-                          value={this.state.password}
-                          onChange={this.handleChange}
-                        />
-
-                        <Button content="Login" primary />
-                      </Form>
-                    )}
-                  </Grid.Column>
-                  {this.state.signUp ? (
+            <Grid.Row columns={5} />
+            <Grid.Row columns={5} />
+            <Grid.Row columns={4} position="center">
+              <Grid.Column width={4} />
+              <Grid.Column width={7}>
+                <Segment placeholder position="left">
+                  <Grid columns={2} relaxed="very" stackable>
                     <Grid.Column>
-                      <Form onSubmit={this.createUser}>
-                        <Form.Input
-                          icon="user"
-                          iconPosition="left"
-                          label="Create Username"
-                          placeholder="Username"
-                          name="newUsername"
-                          value={this.state.newUsername}
-                          onChange={this.handleChange}
-                        />
-                        <Form.Input
-                          icon="lock"
-                          iconPosition="left"
-                          label="Create Password"
-                          type="password"
-                          name="newPassword"
-                          value={this.state.newPassword}
-                          onChange={this.handleChange}
-                        />
-                        <Form.Field>
-                          <h4>You are a {this.state.modal}</h4>
-                        </Form.Field>
-                        <Form.Field>
-                          <Radio
-                            label="Customer"
-                            name="radioGroup"
-                            value="customer"
-                            checked={this.state.modal === 'customer'}
-                            onClick={this.handleModal}
-                          />
-                        </Form.Field>
-                        <Form.Field>
-                          <Radio
-                            label="Farmer"
-                            name="radioGroup"
-                            value="farmer"
-                            checked={this.state.modal === 'farmer'}
-                            onClick={this.handleModal}
-                          />
-                        </Form.Field>
-                        {this.state.modal === 'farmer' ? (
-                          <Form.Field>
-                            <Form.Input
-                              label="Company Name for Clientel"
-                              placeholder="My Farm Name"
-                              name="bioName"
-                              value={this.state.bioName}
-                              onChange={this.settingBio}
+                      {this.state.signUp ? (
+                        <div>
+                          <MyAvatar avatar={this.state.avatar} />
+                          <Segment>
+                            <FormSelect
+                              avatar={this.state.avatar}
+                              changeAvatar={this.changeAvatar}
                             />
-                            <Form.TextArea
-                              label="Tell Your Customers About You!"
-                              placeholder="My Biography"
-                              name="bioDescription"
-                              value={this.state.bioDescription}
-                              onChange={this.settingBio}
+                          </Segment>
+                        </div>
+                      ) : (
+                        <Form onSubmit={this.handleSubmit}>
+                          <Form.Input
+                            icon="user"
+                            iconPosition="left"
+                            label="Username"
+                            placeholder="Username"
+                            name="username"
+                            value={this.state.username}
+                            onChange={this.handleChange}
+                          />
+                          <Form.Input
+                            icon="lock"
+                            iconPosition="left"
+                            label="Password"
+                            type="password"
+                            name="password"
+                            value={this.state.password}
+                            onChange={this.handleChange}
+                          />
+
+                          <Button content="Login" primary />
+                        </Form>
+                      )}
+                    </Grid.Column>
+                    {this.state.signUp ? (
+                      <Grid.Column>
+                        <Form onSubmit={this.createUser}>
+                          <Form.Input
+                            icon="user"
+                            iconPosition="left"
+                            label="Create Username"
+                            placeholder="Username"
+                            name="newUsername"
+                            value={this.state.newUsername}
+                            onChange={this.handleChange}
+                          />
+                          <Form.Input
+                            icon="lock"
+                            iconPosition="left"
+                            label="Create Password"
+                            type="password"
+                            name="newPassword"
+                            value={this.state.newPassword}
+                            onChange={this.handleChange}
+                          />
+                          <Form.Field>
+                            <h4>You are a {this.state.modal}</h4>
+                          </Form.Field>
+                          <Form.Field>
+                            <Radio
+                              label="Customer"
+                              name="radioGroup"
+                              value="customer"
+                              checked={this.state.modal === 'customer'}
+                              onClick={this.handleModal}
                             />
                           </Form.Field>
-                        ) : null}
-                        <Form.Button onClick={this.signingUp}>
-                          Nevermind
-                        </Form.Button>
-                        <Form.Button>Submit</Form.Button>
-                      </Form>
-                    </Grid.Column>
-                  ) : (
-                    <Grid.Column verticalAlign="middle">
-                      <Button
-                        content="Sign up"
-                        icon="signup"
-                        size="big"
-                        onClick={this.signingUp}
-                      />
-                    </Grid.Column>
-                  )}
-                </Grid>
-                <Divider vertical>{this.state.signUp ? '&' : 'Or'}</Divider>
-              </Segment>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-        {/* <Button
+                          <Form.Field>
+                            <Radio
+                              label="Farmer"
+                              name="radioGroup"
+                              value="farmer"
+                              checked={this.state.modal === 'farmer'}
+                              onClick={this.handleModal}
+                            />
+                          </Form.Field>
+                          {this.state.modal === 'farmer' ? (
+                            <Form.Field>
+                              <Form.Input
+                                label="Company Name for Clientel"
+                                placeholder="My Farm Name"
+                                name="bioName"
+                                value={this.state.bioName}
+                                onChange={this.settingBio}
+                              />
+                              <Form.TextArea
+                                label="Tell Your Customers About You!"
+                                placeholder="My Biography"
+                                name="bioDescription"
+                                value={this.state.bioDescription}
+                                onChange={this.settingBio}
+                              />
+                            </Form.Field>
+                          ) : null}
+                          <Form.Button onClick={this.signingUp} color="black">
+                            Nevermind
+                          </Form.Button>
+                          <Form.Button color="teal">Submit</Form.Button>
+                        </Form>
+                      </Grid.Column>
+                    ) : (
+                      <Grid.Column textAlign="center">
+                        <Segment basic />
+                        <Button
+                          content="Sign up"
+                          icon="signup"
+                          size="big"
+                          onClick={this.signingUp}
+                        />
+                      </Grid.Column>
+                    )}
+                  </Grid>
+                  <Divider vertical>{this.state.signUp ? '&' : 'Or'}</Divider>
+                </Segment>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+          {/* <Button
                 content="Sign up"
                 icon="signup"
                 size="big"
                 onClick={this.signUP}
               /> */}
+        </Segment>
       </Fragment>
     )
   }

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import MyAvatar from './myAvatar'
 import { Card } from 'semantic-ui-react'
-import { Segment, Grid, Dimmer, Button } from 'semantic-ui-react'
+import { Segment, Grid, Button } from 'semantic-ui-react'
 import PostList from './PostList'
 import ChosenPost from './ChosenPost'
 import FormSelect from '../Components/FormSelect'
@@ -34,20 +34,23 @@ export default class CustomerHome extends Component {
     // let post = this.state.post
     let customer = this.props.customer
     // let farmers = this.props.customer.followees.map(farmer => {return farmer})}
-    console.log(this.props.customer)
+    //console.log(this.props.customer)
     // console.log(this.state.post)
     return (
       <Fragment>
         <Grid>
-          <Grid.Column width={1} />
-          <Grid.Column width={4}>
+          <Grid.Column width={3} />
+          <Grid.Column width={3}>
             <Segment>
               <Card>
-                <Card.Content align="center">
+                <Card.Content textAlign="center">
                   <MyAvatar avatar={this.props.customer.avatar} />
                 </Card.Content>
-                <Button onClick={this.props.enableSelect}>edit</Button>
+                <Button onClick={this.props.enableSelect} color="vk">
+                  edit
+                </Button>
               </Card>
+
               {this.props.selectForm ? (
                 <FormSelect
                   avatar={this.props.customer.avatar}
@@ -57,48 +60,54 @@ export default class CustomerHome extends Component {
                   selectForm={this.props.selectForm}
                 />
               ) : null}
-              <Card
-                fluid
-                header="Who You Are Following"
-                description={
-                  customer.followees === undefined ? null : (
-                    <ul>
-                      {customer.followees.map(followee => (
-                        <li key={followee.id}>
-                          {followee.username}
-                          <button
+              <Segment basic>
+                <h3>Who You Are Following:</h3>
+                {customer.followees === undefined
+                  ? null
+                  : customer.followees.map(followee => (
+                      <Segment key={followee.id}>
+                        <h5>
+                          {followee.biography.name}
+                          <Button
+                            style={{ color: 'black' }}
+                            floated="right"
+                            size="mini"
+                            color="yellow"
                             onClick={() => this.props.chooseFarmer(followee)}
                           >
                             View
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  )
-                }
-              />
+                          </Button>
+                        </h5>
+                      </Segment>
+                    ))}
+              </Segment>
             </Segment>
           </Grid.Column>
-          <Grid.Column width={6}>
+          <Grid.Column width={4}>
             <Segment>
               <h2>Posts By:</h2>
               {customer.followees === undefined
                 ? null
                 : customer.followees.map(farmer => {
                     return (
-                      <Segment key={farmer.id}>
-                        <h3>{farmer.biography.name}</h3>
+                      <Fragment key={farmer.id}>
+                        <Segment basic>
+                          <Segment textAlign="center">
+                            <h3 key={farmer.id}>{farmer.biography.name}</h3>
+                          </Segment>
+                        </Segment>
                         <PostList
                           posts={farmer.posts}
                           clickHandler={this.showPost}
                           show={'show'}
                         />
-                      </Segment>
+                      </Fragment>
                     )
                   })}
             </Segment>
           </Grid.Column>
-          <Grid.Column width={4}>
+          {/* <Grid.Column width={1} /> */}
+          <Grid.Column width={5}>
             {this.state.displayPost ? (
               <ChosenPost
                 post={this.state.post}

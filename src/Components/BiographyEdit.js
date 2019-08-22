@@ -42,8 +42,12 @@ export default class Biography extends Component {
               onChange={this.props.bioHandler}
             />
 
-            <Form.Button onClick={this.sendBio}>Submit</Form.Button>
-            <Form.Button onClick={this.props.falseBio}>Nevermind</Form.Button>
+            <Form.Button onClick={this.sendBio} color="teal">
+              Submit
+            </Form.Button>
+            <Form.Button onClick={this.props.falseBio} color="black">
+              Nevermind
+            </Form.Button>
           </Form.Group>
         </Form>
       </div>

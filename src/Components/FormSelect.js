@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Segment } from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react'
 class FormSelect extends Component {
   translateArr = arr => {
     return arr.map((string, i) => {
@@ -179,13 +179,15 @@ class FormSelect extends Component {
       'WinterHat4'
     ]
     let noFacialHairCol = ['Hijab']
-    let nohatColor = ['Hat']
+    let nohatColor = ['Hat', 'NoHair']
     //debugger
 
     return (
       <Form>
         {this.props.disableForm ? (
-          <Form.Button onClick={this.props.disableForm}>Nevermind</Form.Button>
+          <Form.Button onClick={this.props.disableForm} color="black">
+            Nevermind
+          </Form.Button>
         ) : null}
 
         <Form.Select

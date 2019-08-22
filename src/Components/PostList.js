@@ -19,11 +19,14 @@ const PostList = props => {
                   </Card.Content>
 
                   <Card.Content extra>
-                    <Button onClick={() => props.clickHandler(post)}>
+                    <Button onClick={() => props.clickHandler(post)} color="vk">
                       {props.show}
                     </Button>
                     {props.pick ? (
-                      <Button onClick={() => props.changeDisplay(post)}>
+                      <Button
+                        onClick={() => props.changeDisplay(post)}
+                        color="yellow"
+                      >
                         {props.pick}
                       </Button>
                     ) : null}

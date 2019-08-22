@@ -10,6 +10,7 @@ class PostForm extends Component {
     post: {},
     content: '',
     location: '',
+    city: '',
     zipcode: '',
     state: '',
     category: '',
@@ -79,6 +80,7 @@ class PostForm extends Component {
         content: this.state.content,
         startTime: this.state.date,
         location: this.state.location,
+        city: this.state.city,
         zip: this.state.zipcode,
         state_id: this.state.state.id,
         attending: 0,
@@ -134,10 +136,18 @@ class PostForm extends Component {
           />
           <Form.Input
             fluid
-            label="City"
+            label="Location"
             name="location"
-            placeholder="city or town nearest to you"
+            placeholder="specific location"
             value={this.state.location || ''}
+            onChange={this.changeValue}
+          />
+          <Form.Input
+            fluid
+            label="City"
+            name="city"
+            placeholder="city or town nearest you"
+            value={this.state.city || ''}
             onChange={this.changeValue}
           />
           <Form.Input

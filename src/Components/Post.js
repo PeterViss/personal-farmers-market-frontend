@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import DatetimePicker from 'react-datetime-picker'
 import moment from 'moment'
-import { Form, TextArea, Segment } from 'semantic-ui-react'
+import { Form, TextArea, Segment, Button } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 class Post extends Component {
   constructor(props) {
@@ -169,9 +169,6 @@ class Post extends Component {
       <div>
         <Segment>
           <Form>
-            <Form.Button onClick={this.props.falsifyPost}>
-              Nevermind
-            </Form.Button>
             <Form.Input
               name="title"
               label="Title"
@@ -191,8 +188,8 @@ class Post extends Component {
             <Form.Input
               fluid
               name="location"
-              label="City"
-              placeholder="City or Town Nearest to You"
+              label="Location"
+              placeholder="specific location"
               value={post.location || ''}
               onChange={this.changePost}
             />
@@ -231,13 +228,8 @@ class Post extends Component {
             />
           </Form>
 
-          <Segment>
-            {moment(this.state.post.startTime).format('MMM-D-YYYY hh:mm a')}
-            <button onClick={this.enableForm}>edit</button>
-          </Segment>
-
           {this.state.enabled ? (
-            <Segment>
+            <Segment align="center">
               <DatetimePicker
                 value={this.state.date}
                 onChange={this.onChange}
@@ -248,10 +240,31 @@ class Post extends Component {
             </Segment>
           ) : null}
 
-          <Form>
-            <Form.Group align="right">
-              <Form.Button onClick={this.patchForm}>Submit</Form.Button>
-              <Form.Button onClick={this.deletePost}>Delete</Form.Button>
+          <Segment align="center">
+            <Button
+              animated="fade"
+              size="medium"
+              onClick={this.enableForm}
+              color="linkedin"
+            >
+              <Button.Content visible>
+                {moment(this.state.post.startTime).format('MMM-D-YYYY hh:mm a')}
+              </Button.Content>
+              <Button.Content hidden>Click to Edit</Button.Content>
+            </Button>
+          </Segment>
+
+          <Form align="center">
+            <Form.Group align="center">
+              <Form.Button onClick={this.patchForm} color="teal">
+                Submit
+              </Form.Button>
+              <Form.Button onClick={this.deletePost} color="red">
+                Delete
+              </Form.Button>
+              <Form.Button onClick={this.props.falsifyPost} color="black">
+                Nevermind
+              </Form.Button>
             </Form.Group>
           </Form>
         </Segment>

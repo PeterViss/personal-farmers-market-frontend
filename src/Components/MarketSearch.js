@@ -91,18 +91,21 @@ export default class MarketSearch extends Component {
   searchZips = () => {
     let zipcodes = require('zipcodes')
     let rad = zipcodes.radius(this.state.value, 50)
-    let zips = this.state.posts.filter(post => {
-      if (rad.includes(post.zip.toString())) {
-        return post
-      } else {
-        return null
-      }
-    })
-    debugger
-    this.setState({
-      chooseZip: zips,
-      disabled: false
-    })
+    if (this.state.value === '') {
+      return alert('Please enter a zipcode!')
+    } else {
+      let zips = this.state.posts.filter(post => {
+        if (rad.includes(post.zip.toString())) {
+          return post
+        } else {
+          return null
+        }
+      })
+      this.setState({
+        chooseZip: zips,
+        disabled: false
+      })
+    }
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -123,7 +126,9 @@ export default class MarketSearch extends Component {
                 value={this.state.value}
                 onChange={this.handleSearchChange}
               />
-              <Button onClick={this.searchZips}>Find</Button>
+              <Button onClick={this.searchZips} color="green">
+                Find
+              </Button>
               <h3>Filter By Categories:</h3>
               {this.state.categories.map((category, i) => (
                 <Grid.Column disabled={this.state.disabled} key={category.id}>

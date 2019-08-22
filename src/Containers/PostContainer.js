@@ -5,7 +5,7 @@ import ChosenPost from '../Components/ChosenPost'
 import PostForm from '../Components/PostForm'
 import BiographyEdit from '../Components/BiographyEdit'
 import { withRouter } from 'react-router-dom'
-import { Segment, Grid, Card, Button, Form } from 'semantic-ui-react'
+import { Segment, Grid, Card, Button } from 'semantic-ui-react'
 import MyAvatar from '../Components/myAvatar'
 import FormSelect from '../Components/FormSelect'
 const classes = {
@@ -148,9 +148,10 @@ class PostContainer extends Component {
                   <Card.Content align="center">
                     <MyAvatar avatar={this.props.farmer.avatar} />
                   </Card.Content>
-                  <Button onClick={this.props.enableSelect}>edit</Button>
+                  <Button onClick={this.props.enableSelect} color="vk">
+                    edit
+                  </Button>
                 </Card>
-
                 {this.props.selectForm ? (
                   <Card>
                     <Card.Content>
@@ -164,27 +165,34 @@ class PostContainer extends Component {
                     </Card.Content>
                   </Card>
                 ) : null}
-                <Card
-                  centered
-                  header="Biography:"
-                  meta={
-                    this.props.farmer.biography
-                      ? this.props.farmer.biography.name
-                      : null
-                  }
-                  description={
-                    this.props.farmer.biography
-                      ? this.props.farmer.biography.description
-                      : 'Please Create Biography'
-                  }
-                  extra={
-                    this.props.farmer.biography ? (
-                      <Button onClick={this.editBio}>edit</Button>
+                <Card>
+                  {' '}
+                  <Card.Content>
+                    <Card.Header>Biography</Card.Header>
+                    <Card.Meta>
+                      {' '}
+                      {this.props.farmer.biography
+                        ? this.props.farmer.biography.name
+                        : null}
+                    </Card.Meta>
+                    <Card.Description style={{ color: 'black' }}>
+                      {this.props.farmer.biography
+                        ? this.props.farmer.biography.description
+                        : 'Please Create Biography'}
+                    </Card.Description>
+                  </Card.Content>
+                  <Card.Content extra>
+                    {' '}
+                    {this.props.farmer.biography ? (
+                      <Button onClick={this.editBio} color="vk">
+                        edit
+                      </Button>
                     ) : (
                       <Button onClick={this.createBio}>create</Button>
-                    )
-                  }
-                />
+                    )}
+                  </Card.Content>
+                </Card>
+
                 {this.state.bio ? (
                   <Segment>
                     <BiographyEdit
@@ -194,13 +202,16 @@ class PostContainer extends Component {
                     />
                   </Segment>
                 ) : null}
+                <Card>
+                  <Card.Content>
+                    <Card.Header>Followers</Card.Header>
+                    <Card.Meta>How many people follow you</Card.Meta>
 
-                <Card
-                  centered
-                  header="Followers:"
-                  meta="How many people follow you"
-                  description={this.props.farmer.followers.length}
-                />
+                    <Card.Description style={{ color: 'black' }}>
+                      {<h5>{this.props.farmer.followers.length}</h5>}
+                    </Card.Description>
+                  </Card.Content>
+                </Card>
                 <Card
                   header="Categories"
                   meta={'Categories you have used in the past'}
@@ -272,7 +283,7 @@ class PostContainer extends Component {
             </Grid.Column>
           ) : null}
           {this.state.display ? (
-            <Grid.Column width={5}>
+            <Grid.Column width={5} align="center">
               <ChosenPost
                 post={this.state.chosenPost}
                 changeDisplay={this.falsifyDisplay}

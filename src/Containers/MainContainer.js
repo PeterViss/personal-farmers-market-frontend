@@ -58,7 +58,7 @@ class MainContainer extends Component {
   }
   ////////////////////////////////////////////////////////////////////////////////////////////
   updateLoggedInUser = newUser => {
-    debugger
+    //debugger
     this.setState({
       user: newUser
     })

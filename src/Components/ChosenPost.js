@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Segment, Form, Card, Button } from 'semantic-ui-react'
+import { Segment, Form, Card, Button, Divider } from 'semantic-ui-react'
 const classes = {
   categoryPill: {
     margin: '8px 0px',
@@ -122,29 +122,38 @@ class ChosenPost extends Component {
       return null
     } else {
       return (
-        <Card>
+        <Card align="left">
           <Card.Content>
-            <Card.Header>{post.title}</Card.Header>
-            <Card.Meta>{new Date(post.startTime).toDateString()}</Card.Meta>
-
-            {post.content !== undefined
-              ? post.content
-              : // .split(' ')
-                // .slice(0, 7)
-                // .join(' ')
-                null}
+            <Card.Header>
+              <h3>{post.title}</h3>
+            </Card.Header>
+            <Card.Meta style={{ color: 'navy' }}>
+              <h5>{new Date(post.startTime).toDateString()}</h5>
+            </Card.Meta>
+            {/* <Card.Description /> */}
+            <Card.Description style={{ color: 'black' }}>
+              {post.content !== undefined
+                ? post.content
+                : // .split(' ')
+                  // .slice(0, 7)
+                  // .join(' ')
+                  null}
+            </Card.Description>
           </Card.Content>
-          <Card.Content>
-            Location: {post.location}
+          <Divider />
+          <Card.Content style={{ color: 'black' }}>
+            <h5>Location:</h5>
+            {post.location}
             <br />
+            {post.city}, {post.state !== undefined ? post.state.name : null}{' '}
+            {post.zip}
+            <Divider />
             {post.category !== undefined ? (
               <p style={classes.categoryPill}> {post.category.name}</p>
             ) : null}
             <br />
-            {post.city}, {post.state !== undefined ? post.state.name : null}{' '}
-            {post.zip}
-            <br />
           </Card.Content>
+          <Divider />
           {post.attends ? (
             user.role === 'customer' ? (
               <Card.Content>
@@ -164,23 +173,30 @@ class ChosenPost extends Component {
             )
           ) : null}
           <hr />
-          <Card.Content>
+          <Card.Content extra>
             <p style={classes.commentsTitle}>Comments </p>
             {this.state.post.comments
               ? this.state.post.comments.length > 0
                 ? this.state.post.comments.map(comment => (
-                    <Segment key={comment.id}>
-                      <p>{comment.content}</p>
-                      {comment.user_id === userId ? (
-                        <Button
-                          color="red"
-                          align="right"
-                          onClick={event => this.deletePost(event, comment)}
-                        >
-                          Delete
-                        </Button>
-                      ) : null}
-                    </Segment>
+                    <Card key={comment.id} style={{ color: 'black' }}>
+                      <Card.Description>
+                        <Segment basic textAlign="left">
+                          {comment.content}
+                          <br />
+                          <br />
+                          {comment.user_id === userId ? (
+                            <Button
+                              size="mini"
+                              color="red"
+                              floated="right"
+                              onClick={event => this.deletePost(event, comment)}
+                            >
+                              delete
+                            </Button>
+                          ) : null}
+                        </Segment>
+                      </Card.Description>
+                    </Card>
                   ))
                 : 'No Comments Yet'
               : null}
@@ -197,18 +213,18 @@ class ChosenPost extends Component {
                     value={this.state.value}
                     onChange={this.handleChange}
                   />
-                  <Form.Button content="Submit" />
+                  <Form.Button color="teal" content="Submit" />
                   <Form.Button
+                    color="black"
                     onClick={this.props.changeDisplay}
                     content="Nevermind"
                   />
                 </Form.Group>
               </Form>
             ) : (
-              <Form.Button
-                onClick={this.props.changeDisplay}
-                content="Nevermind"
-              />
+              <Button onClick={this.props.changeDisplay} color="vk">
+                hide
+              </Button>
             )}
           </Card.Content>
         </Card>
