@@ -173,8 +173,10 @@ class PostForm extends Component {
             onChange={this.changeSelect}
           />
 
-          <Form.Button onClick={this.props.noCreate}>Nevermind</Form.Button>
-          <Form.Button>Submit</Form.Button>
+          <Form.Button onClick={this.props.noCreate} color="black">
+            Nevermind
+          </Form.Button>
+          <Form.Button color="teal">Submit</Form.Button>
         </Form>
       </Segment>
     )

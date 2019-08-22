@@ -161,7 +161,10 @@ class ChosenPost extends Component {
                 {user_ids.includes(userId) ? (
                   'you are attending!!'
                 ) : (
-                  <Button onClick={() => this.addAttendee(this.props.user)}>
+                  <Button
+                    color="vk"
+                    onClick={() => this.addAttendee(this.props.user)}
+                  >
                     attend
                   </Button>
                 )}

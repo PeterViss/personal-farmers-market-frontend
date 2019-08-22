@@ -36,16 +36,21 @@ export default class MarketSearch extends Component {
         filtered: !this.state.filtered
       })
     } else {
-      return this.state.chooseZip.filter(post => {
+      let newZips = this.state.chooseZip.filter(post => {
         if (post.category.name.toLowerCase().includes(value.toLowerCase())) {
-          return this.setState({
-            catNames: [...this.state.catNames, post.category.name],
-            chooseCat: [...this.state.chooseCat, post],
-            filtered: !this.state.filtered
-          })
+          return post
         } else {
           return null
         }
+      })
+      let catNames = newZips.map(post => {
+        return post.category.name
+      })
+      // debugger
+      return this.setState({
+        catNames: catNames,
+        chooseCat: newZips,
+        filtered: !this.state.filtered
       })
     }
 
@@ -155,6 +160,7 @@ export default class MarketSearch extends Component {
                         Category: {post.category.name}
                         <br />
                         <Button
+                          color="blue"
                           size="small"
                           onClick={() => this.choosePost(post)}
                         >
@@ -168,12 +174,13 @@ export default class MarketSearch extends Component {
                       <Segment key={post.id} raised>
                         Market Name: Farmer Market
                         <br />
-                        Market Date:{' '}
+                        Date:{' '}
                         {moment(post.startTime).format('MMM-D-YYYY hh:mm a')}
                         <br />
                         Category: {post.category.name}
                         <br />
                         <Button
+                          color="vk"
                           size="small"
                           onClick={() => this.choosePost(post)}
                         >
