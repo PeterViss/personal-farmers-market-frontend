@@ -200,7 +200,9 @@ export default class Login extends Component {
               <Grid.Column width={7} postion="center">
                 <Segment.Group>
                   <Segment align="center">
-                    <h1>Welcome To The Personal Farmer's Market Generator!</h1>
+                    <h1>
+                      The Personal Farmer's Market Generator And Locator App!
+                    </h1>
                   </Segment>
                 </Segment.Group>
               </Grid.Column>

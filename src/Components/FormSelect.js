@@ -296,7 +296,7 @@ class FormSelect extends Component {
         />
         <Form.Select
           label="Skin"
-          name="Skin"
+          name="skin"
           value={this.props.avatar.skin}
           options={this.translateArr(options11)}
           placeholder="Skin"
@@ -304,6 +304,7 @@ class FormSelect extends Component {
         />
         {this.props.submitAvatar ? (
           <Form.Button
+            color="teal"
             onClick={() => this.props.submitAvatar(this.props.avatar)}
           >
             Submit

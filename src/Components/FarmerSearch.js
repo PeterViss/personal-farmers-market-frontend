@@ -37,7 +37,7 @@ export default class FarmerSearch extends Component {
   }
 
   render() {
-    debugger
+    // debugger
     return (
       <Grid>
         <Grid.Row columns={3}>

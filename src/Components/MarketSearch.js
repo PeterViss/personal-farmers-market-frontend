@@ -152,7 +152,7 @@ export default class MarketSearch extends Component {
                 ? this.state.chooseCat.map(post => {
                     return (
                       <Segment key={post.id} raised>
-                        Title: Farmer Market
+                        Title: {post.title}
                         <br />
                         Market Date:{' '}
                         {moment(post.startTime).format('MMM-D-YYYY hh:mm a')}
@@ -160,7 +160,7 @@ export default class MarketSearch extends Component {
                         Category: {post.category.name}
                         <br />
                         <Button
-                          color="blue"
+                          color="vk"
                           size="small"
                           onClick={() => this.choosePost(post)}
                         >
@@ -172,7 +172,7 @@ export default class MarketSearch extends Component {
                 : this.state.chooseZip.map(post => {
                     return (
                       <Segment key={post.id} raised>
-                        Market Name: Farmer Market
+                        Market Name: {post.title}
                         <br />
                         Date:{' '}
                         {moment(post.startTime).format('MMM-D-YYYY hh:mm a')}

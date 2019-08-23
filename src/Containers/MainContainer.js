@@ -27,6 +27,7 @@ class MainContainer extends Component {
   }
 
   changeAvatar = (e, { name, value }) => {
+    //debugger
     this.setState({
       user: {
         ...this.state.user,
@@ -51,7 +52,7 @@ class MainContainer extends Component {
       })
     })
       .then(resp => resp.json())
-      .then(data => console.log(data))
+      .then(data => data)
     this.setState({
       selectForm: false
     })
