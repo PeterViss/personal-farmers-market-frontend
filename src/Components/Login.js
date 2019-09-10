@@ -334,12 +334,6 @@ export default class Login extends Component {
               </Grid.Column>
             </Grid.Row>
           </Grid>
-          {/* <Button
-                content="Sign up"
-                icon="signup"
-                size="big"
-                onClick={this.signUP}
-              /> */}
         </Segment>
       </Fragment>
     )
