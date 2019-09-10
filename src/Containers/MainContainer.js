@@ -86,7 +86,7 @@ class MainContainer extends Component {
     //check to see if token, if exist, get user/userstate
     let token = localStorage.getItem('token')
     if (token) {
-      fetch(`https://personal-farmers-market.herokuapp.com/users/`, {
+      fetch(`https://personal-farmers-market.herokuapp.com/users`, {
         headers: {
           Authentication: `Bearer ${token}`
         }
