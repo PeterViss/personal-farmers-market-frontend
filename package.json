@@ -2,9 +2,6 @@
   "name": "personal-farmers-market-frontend",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "10.3.0"
-  },
   "dependencies": {
     "avataaars": "^1.2.1",
     "input-moment": "^0.4.0",
