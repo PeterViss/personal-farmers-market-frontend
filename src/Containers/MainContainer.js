@@ -128,12 +128,12 @@ class MainContainer extends Component {
             />
           )
         ) : (
-          <Redirect to="/login" />
+          <Redirect to="/" />
         )}
 
         <Route
           exact
-          path="/login"
+          path="/"
           render={() => (
             <Login
               user={this.state.user}
