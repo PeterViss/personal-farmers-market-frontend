@@ -71,14 +71,14 @@ export default class MarketSearch extends Component {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   componentDidMount() {
-    fetch('http://localhost:3000/categories')
+    fetch('https://personal-farmers-market.herokuapp.com/categories')
       .then(resp => resp.json())
       .then(data =>
         this.setState({
           categories: data
         })
       )
-    fetch('http://localhost:3000/posts')
+    fetch('https://personal-farmers-market.herokuapp.com/posts')
       .then(resp => resp.json())
       .then(data =>
         this.setState({

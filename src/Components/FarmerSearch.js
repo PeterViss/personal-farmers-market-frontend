@@ -27,7 +27,7 @@ export default class FarmerSearch extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/user/farmers')
+    fetch('https://personal-farmers-market.herokuapp.com/user/farmers')
       .then(resp => resp.json())
       .then(data =>
         this.setState({

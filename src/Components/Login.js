@@ -57,7 +57,7 @@ export default class Login extends Component {
     // e.preventDefault()
     // e.persist()
     const data = this.state
-    fetch('http://localhost:3000/login', {
+    fetch('https://personal-farmers-market.herokuapp.com/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -104,7 +104,7 @@ export default class Login extends Component {
   createBio = data => {
     let nuData = data
     //debugger
-    fetch('http://localhost:3000/biographies', {
+    fetch('https://personal-farmers-market.herokuapp.com/biographies', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -137,7 +137,7 @@ export default class Login extends Component {
     ) {
       alert('Please Complete The Form')
     } else {
-      fetch('http://localhost:3000/signup', {
+      fetch('https://personal-farmers-market.herokuapp.com/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -171,7 +171,7 @@ export default class Login extends Component {
     //debugger
     let nuId = data.userinfo.id
     let theAvatar = this.state.avatar
-    fetch('http://localhost:3000/avatars', {
+    fetch('https://personal-farmers-market.herokuapp.com/avatars', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

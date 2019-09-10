@@ -5,7 +5,7 @@ export default class Biography extends Component {
     let bio = this.props.bio
     debugger
     let num = bio.id
-    fetch(`http://localhost:3000/biographies/${num}`, {
+    fetch(`https://personal-farmers-market.herokuapp.com/biographies/${num}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

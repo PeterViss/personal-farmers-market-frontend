@@ -23,7 +23,7 @@ class ChosenPost extends Component {
     let value = this.state.value
     let postId = this.props.post.id
     let userId = this.props.user.id
-    fetch('http://localhost:3000/comments', {
+    fetch('https://personal-farmers-market.herokuapp.com/comments', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ class ChosenPost extends Component {
   }
   //////////////////////////////////////////////////////////////////////////////////////////////
   addAttendee = user => {
-    fetch('http://localhost:3000/attends', {
+    fetch('https://personal-farmers-market.herokuapp.com/attends', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -74,13 +74,16 @@ class ChosenPost extends Component {
     let newComments = this.state.post.comments.filter(
       com => com.id !== comment.id
     )
-    fetch(`http://localhost:3000/comments/${comment.id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
+    fetch(
+      `https://personal-farmers-market.herokuapp.com/comments/${comment.id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        }
       }
-    })
+    )
       .then(resp => resp.json())
       .then(data =>
         this.setState({
@@ -101,7 +104,7 @@ class ChosenPost extends Component {
   ///////////////////////////////////////////////////////////////////////////////////////////////////
   componentDidMount() {
     let id = this.props.post.id
-    fetch(`http://localhost:3000/posts/${id}`)
+    fetch(`https://personal-farmers-market.herokuapp.com/posts/${id}`)
       .then(resp => resp.json())
       .then(data =>
         this.setState({

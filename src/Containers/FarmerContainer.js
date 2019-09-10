@@ -54,21 +54,23 @@ class FarmerContainer extends Component {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   componentDidMount() {
-    fetch('http://localhost:3000/categories')
+    fetch('https://personal-farmers-market.herokuapp.com/categories')
       .then(resp => resp.json())
       .then(data =>
         this.setState({
           categories: data
         })
       )
-    fetch('http://localhost:3000/states')
+    fetch('https://personal-farmers-market.herokuapp.com/states')
       .then(resp => resp.json())
       .then(data =>
         this.setState({
           states: data
         })
       )
-    fetch(`http://localhost:3000/user/posts/${this.props.farmer.id}`)
+    fetch(
+      `https://personal-farmers-market.herokuapp.com/user/posts/${this.props.farmer.id}`
+    )
       .then(resp => resp.json())
       .then(data =>
         this.setState({

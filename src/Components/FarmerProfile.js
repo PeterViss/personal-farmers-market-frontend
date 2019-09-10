@@ -12,7 +12,7 @@ export default class FarmerProfile extends Component {
     farmer: {}
   }
   showPost = post => {
-    fetch(`http://localhost:3000/posts/${post.id}`)
+    fetch(`https://personal-farmers-market.herokuapp.com/posts/${post.id}`)
       .then(resp => resp.json())
       .then(data =>
         this.setState({

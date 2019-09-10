@@ -12,7 +12,7 @@ export default class CustomerHome extends Component {
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   showPost = post => {
-    fetch(`http://localhost:3000/posts/${post.id}`)
+    fetch(`https://personal-farmers-market.herokuapp.com/posts/${post.id}`)
       .then(resp => resp.json())
       .then(data =>
         this.setState({
@@ -39,8 +39,8 @@ export default class CustomerHome extends Component {
     return (
       <Fragment>
         <Grid>
-          <Grid.Column width={3} />
-          <Grid.Column width={3}>
+          <Grid.Column width={2} />
+          <Grid.Column width={4}>
             <Segment>
               <Card>
                 <Card.Content textAlign="center">

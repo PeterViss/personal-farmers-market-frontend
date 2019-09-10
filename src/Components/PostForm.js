@@ -69,7 +69,7 @@ class PostForm extends Component {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   submitPost = () => {
-    fetch('http://localhost:3000/posts', {
+    fetch('https://personal-farmers-market.herokuapp.com/posts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

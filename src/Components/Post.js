@@ -91,7 +91,7 @@ class Post extends Component {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   componentDidMount() {
     let id = this.props.postId
-    fetch(`http://localhost:3000/posts/${id}`)
+    fetch(`https://personal-farmers-market.herokuapp.com/posts/${id}`)
       .then(resp => resp.json())
       .then(data =>
         this.setState({
@@ -104,7 +104,7 @@ class Post extends Component {
     let post = this.state.post
     e.preventDefault()
     let id = this.props.postId
-    fetch(`http://localhost:3000/posts/${id}`, {
+    fetch(`https://personal-farmers-market.herokuapp.com/posts/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ class Post extends Component {
   deletePost = () => {
     debugger
     let id = this.props.postId
-    fetch(`http://localhost:3000/posts/${id}`, {
+    fetch(`https://personal-farmers-market.herokuapp.com/posts/${id}`, {
       method: 'DELETE'
     })
       .then(resp => resp.json())

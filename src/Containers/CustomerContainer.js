@@ -40,7 +40,7 @@ class CustomerContainer extends Component {
 
     let newCustomer = { ...customer, followees: followees }
 
-    fetch(`http://localhost:3000/follows`, {
+    fetch(`https://personal-farmers-market.herokuapp.com/follows`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ class CustomerContainer extends Component {
       followees: [...customer.followees, newFarmer]
     }
 
-    fetch(`http://localhost:3000/follows`, {
+    fetch(`https://personal-farmers-market.herokuapp.com/follows`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

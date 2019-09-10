@@ -41,16 +41,19 @@ class MainContainer extends Component {
 
   submitAvatar = avatar => {
     let nuAvatar = this.state.user.avatar
-    fetch(`http://localhost:3000/avatars/${avatar.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body: JSON.stringify({
-        avatar: nuAvatar
-      })
-    })
+    fetch(
+      `https://personal-farmers-market.herokuapp.com/avatars/${avatar.id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          avatar: nuAvatar
+        })
+      }
+    )
       .then(resp => resp.json())
       .then(data => data)
     this.setState({
@@ -83,7 +86,7 @@ class MainContainer extends Component {
     //check to see if token, if exist, get user/userstate
     let token = localStorage.getItem('token')
     if (token) {
-      fetch(`http://localhost:3000/users/`, {
+      fetch(`https://personal-farmers-market.herokuapp.com/users/`, {
         headers: {
           Authentication: `Bearer ${token}`
         }
