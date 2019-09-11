@@ -348,25 +348,19 @@ export default class Login extends Component {
                 <Segment textAlign="center">
                   <h3>About</h3>
                   <p>
-                    This application is built to meet the needs of people who
-                    want to buy or sell farmers market products. There are two
-                    different types of users, a farmer and a customer. Users
-                    have their own avatars that they will create when signing
-                    up. Don't worry you can edit it later.
-                    <tr></tr>
-                    <h4>Customers :</h4>
-                    Customers are able to search for a farmers market within a
-                    50 mile radius by just entering a zipcode!. They are also
-                    able to search and follow the farmers of their choice to see
-                    if they have posted anything recent in their area.
-                    <h4>Farmers :</h4>
-                    <tr></tr>
-                    Farmers are now able to post where they will be selling
-                    their products and what they will be selling. They do not
-                    have to travel any longer to farmers markets just to sell
-                    their products. This application farmers to have a following
-                    and also see how many people are coming to their events.
-                    <tr></tr>
+                    This application helps small farmers who sell at farmers
+                    markets build a following base. It gives them direct
+                    communication with their customers by letting them know
+                    where they will be selling their products. It also empowers
+                    them to no have to rely on farmers markets to sell their
+                    products as well. Customers also no longer have to look for
+                    farmers markets and hope that they sell what they desire in
+                    a product. They can simply look for markets that are posted,
+                    given an zipcode, and see what that farmer is specifically
+                    selling. If the customer has questions, they have the
+                    ability to comment on the post. Also, if they enjoy the
+                    farmer, they have the ability to locate and follow them to
+                    see their future posts.
                   </p>
                 </Segment>
               </Grid.Column>
