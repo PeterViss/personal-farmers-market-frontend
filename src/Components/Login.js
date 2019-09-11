@@ -345,8 +345,8 @@ export default class Login extends Component {
             <Grid.Row columns={5}>
               <Grid.Column width={4} />
               <Grid.Column width={7}>
-                <Segment textAlign="center">
-                  <h3>About</h3>
+                <Segment>
+                  <h3 textAlign="center">About</h3>
                   <p>
                     This application helps small farmers who sell at farmers
                     markets build a following base. It gives them direct
