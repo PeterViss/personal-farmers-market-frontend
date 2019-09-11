@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import MyAvatar from './myAvatar'
 import FormSelect from './FormSelect'
 import { Form, Grid, Segment, Divider, Button, Radio } from 'semantic-ui-react'
@@ -246,7 +246,6 @@ export default class Login extends Component {
                             value={this.state.password}
                             onChange={this.handleChange}
                           />
-
                           <Button content="Login" primary />
                         </Form>
                       )}
@@ -326,10 +325,49 @@ export default class Login extends Component {
                           size="big"
                           onClick={this.signingUp}
                         />
+                        <Divider horizontal></Divider>
+                        <a href="https://drive.google.com/file/d/15-FAdLCoDaCr8vNPkaQ-ANlBtRu8QPVp/view?usp=sharing">
+                          <Button
+                            color="google plus"
+                            content="See Demo"
+                            size="medium"
+                          />
+                        </a>
                       </Grid.Column>
                     )}
                   </Grid>
                   <Divider vertical>{this.state.signUp ? '&' : 'Or'}</Divider>
+                </Segment>
+              </Grid.Column>
+            </Grid.Row>
+
+            <Grid.Row columns={5}></Grid.Row>
+            <Grid.Row columns={5}>
+              <Grid.Column width={4} />
+              <Grid.Column width={7}>
+                <Segment textAlign="center">
+                  <h3>About</h3>
+                  <p>
+                    This application is built to meet the needs of people who
+                    want to buy or sell farmers market products. There are two
+                    different types of users, a farmer and a customer. Users
+                    have their own avatars that they will create when signing
+                    up. Don't worry you can edit it later.
+                    <tr></tr>
+                    <h4>Customers :</h4>
+                    Customers are able to search for a farmers market within a
+                    50 mile radius by just entering a zipcode!. They are also
+                    able to search and follow the farmers of their choice to see
+                    if they have posted anything recent in their area.
+                    <h4>Farmers :</h4>
+                    <tr></tr>
+                    Farmers are now able to post where they will be selling
+                    their products and what they will be selling. They do not
+                    have to travel any longer to farmers markets just to sell
+                    their products. This application farmers to have a following
+                    and also see how many people are coming to their events.
+                    <tr></tr>
+                  </p>
                 </Segment>
               </Grid.Column>
             </Grid.Row>
