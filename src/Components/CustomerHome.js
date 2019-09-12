@@ -65,7 +65,7 @@ export default class CustomerHome extends Component {
                 {customer.followees === undefined
                   ? null
                   : customer.followees.map(followee => (
-                      <Segment key={followee.id}>
+                      <Segment key={followee.id} compact>
                         <h5>
                           {followee.biography.name}
                           <Button
