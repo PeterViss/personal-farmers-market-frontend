@@ -41,9 +41,9 @@ export default class CustomerHome extends Component {
         <Grid>
           <Grid.Column width={2} />
           <Grid.Column width={4}>
-            <Segment textAlign="center">
-              <Card textAlign="center">
-                <Card.Content textAlign="center">
+            <Segment>
+              <Card>
+                <Card.Content>
                   <MyAvatar avatar={this.props.customer.avatar} />
                 </Card.Content>
                 <Button onClick={this.props.enableSelect} color="vk">
@@ -65,7 +65,7 @@ export default class CustomerHome extends Component {
                 {customer.followees === undefined
                   ? null
                   : customer.followees.map(followee => (
-                      <Segment key={followee.id} compact>
+                      <Segment key={followee.id}>
                         <h5>
                           {followee.biography.name}
                           <Button
