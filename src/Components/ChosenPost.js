@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Segment, Form, Card, Button, Divider } from 'semantic-ui-react'
+
+import { Message, Form, Card, Button, Divider } from 'semantic-ui-react'
 const classes = {
   categoryPill: {
     margin: '8px 0px',
@@ -114,7 +115,8 @@ class ChosenPost extends Component {
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////
   render() {
-    //console.log(this.state.post)
+    // console.log(this.state.post.comments)
+
     let user = this.props.user ? this.props.user : null
     let userId = this.props.user ? this.props.user.id : null
     let post = this.state.post
@@ -133,14 +135,9 @@ class ChosenPost extends Component {
             <Card.Meta style={{ color: 'navy' }}>
               <h5>{new Date(post.startTime).toDateString()}</h5>
             </Card.Meta>
-            {/* <Card.Description /> */}
+
             <Card.Description style={{ color: 'black' }}>
-              {post.content !== undefined
-                ? post.content
-                : // .split(' ')
-                  // .slice(0, 7)
-                  // .join(' ')
-                  null}
+              {post.content !== undefined ? post.content : null}
             </Card.Description>
           </Card.Content>
           <Divider />
@@ -184,25 +181,23 @@ class ChosenPost extends Component {
             {this.state.post.comments
               ? this.state.post.comments.length > 0
                 ? this.state.post.comments.map(comment => (
-                    <Card key={comment.id} style={{ color: 'black' }}>
-                      <Card.Description>
-                        <Segment basic textAlign="left">
-                          {comment.content}
-                          <br />
-                          <br />
-                          {comment.user_id === userId ? (
-                            <Button
-                              size="mini"
-                              color="red"
-                              floated="right"
-                              onClick={event => this.deletePost(event, comment)}
-                            >
-                              delete
-                            </Button>
-                          ) : null}
-                        </Segment>
-                      </Card.Description>
-                    </Card>
+                    <Message floating key={comment.id}>
+                      {' '}
+                      <Message.Header>
+                        From {comment.user.username}
+                        {comment.user_id === userId ? (
+                          <Button
+                            size="mini"
+                            color="red"
+                            floated="right"
+                            onClick={event => this.deletePost(event, comment)}
+                          >
+                            delete
+                          </Button>
+                        ) : null}
+                      </Message.Header>
+                      <Message.Content>{comment.content}</Message.Content>
+                    </Message>
                   ))
                 : 'No Comments Yet'
               : null}
@@ -223,7 +218,7 @@ class ChosenPost extends Component {
                   <Form.Button
                     color="black"
                     onClick={this.props.changeDisplay}
-                    content="Nevermind"
+                    content="Done"
                   />
                 </Form.Group>
               </Form>

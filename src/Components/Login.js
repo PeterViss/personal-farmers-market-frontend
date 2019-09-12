@@ -1,8 +1,16 @@
 import React, { Component, Fragment } from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import MyAvatar from './myAvatar'
 import FormSelect from './FormSelect'
-import { Form, Grid, Segment, Divider, Button, Radio } from 'semantic-ui-react'
+import {
+  Form,
+  Grid,
+  Segment,
+  Divider,
+  Button,
+  Radio,
+  Responsive
+} from 'semantic-ui-react'
 export default class Login extends Component {
   state = {
     role: null,
@@ -213,19 +221,19 @@ export default class Login extends Component {
             <Grid.Row columns={4} position="center">
               <Grid.Column width={4} />
               <Grid.Column width={7}>
-                <Segment placeholder position="left">
+                <Responsive as={Segment} placeholder position="left">
                   <Grid columns={2} relaxed="very" stackable>
                     <Grid.Column>
                       {this.state.signUp ? (
-                        <div>
+                        <Fragment>
                           <MyAvatar avatar={this.state.avatar} />
-                          <Segment>
+                          <Responsive as={Segment}>
                             <FormSelect
                               avatar={this.state.avatar}
                               changeAvatar={this.changeAvatar}
                             />
-                          </Segment>
-                        </div>
+                          </Responsive>
+                        </Fragment>
                       ) : (
                         <Form onSubmit={this.handleSubmit}>
                           <Form.Input
@@ -336,8 +344,11 @@ export default class Login extends Component {
                       </Grid.Column>
                     )}
                   </Grid>
-                  <Divider vertical>{this.state.signUp ? '&' : 'Or'}</Divider>
-                </Segment>
+                  <Responsive as={Divider} vertical minWidth={778}>
+                    {this.state.signUp ? '&' : 'Or'}
+                  </Responsive>
+                  {/* <Divider vertical>{this.state.signUp ? '&' : 'Or'}</Divider> */}
+                </Responsive>
               </Grid.Column>
             </Grid.Row>
 
@@ -345,8 +356,8 @@ export default class Login extends Component {
             <Grid.Row columns={5}>
               <Grid.Column width={4} />
               <Grid.Column width={7}>
-                <Segment>
-                  <h3 textAlign="center">About</h3>
+                <Responsive as={Segment}>
+                  <h3>About</h3>
                   <p>
                     This application helps small farmers who sell at farmers
                     markets build a following base. It gives them direct
@@ -362,7 +373,7 @@ export default class Login extends Component {
                     farmer, they have the ability to locate and follow them to
                     see their future posts.
                   </p>
-                </Segment>
+                </Responsive>
               </Grid.Column>
             </Grid.Row>
           </Grid>

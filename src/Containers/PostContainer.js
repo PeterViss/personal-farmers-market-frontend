@@ -133,7 +133,7 @@ class PostContainer extends Component {
     //debugger
     let places = this.props.posts.map(post => post.state.name)
     let states = Array.from(new Set(places))
-    console.log(this.props.farmer.avatar)
+    // console.log(this.props.farmer.avatar)
 
     //console.log(this.props.categories)
     return (

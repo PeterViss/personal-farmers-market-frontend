@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form } from 'semantic-ui-react'
+import { Form, Responsive, Select } from 'semantic-ui-react'
 class FormSelect extends Component {
   translateArr = arr => {
     return arr.map((string, i) => {
@@ -183,15 +183,16 @@ class FormSelect extends Component {
     //debugger
 
     return (
-      <Form>
+      <Responsive as={Form} minWidth={90}>
         {this.props.disableForm ? (
           <Form.Button onClick={this.props.disableForm} color="black">
             Nevermind
           </Form.Button>
         ) : null}
 
-        <Form.Select
-          postition="relative"
+        <Responsive
+          as={Form.Select}
+          minWidth={300}
           label="Hair"
           name="top"
           value={this.props.avatar.top}
@@ -199,7 +200,9 @@ class FormSelect extends Component {
           placeholder="Hair"
           onChange={this.props.changeAvatar}
         />
-        <Form.Select
+        <Responsive
+          as={Form.Select}
+          minWidth={300}
           label="Accessories"
           name="accessories"
           value={this.props.avatar.accessories}
@@ -209,7 +212,9 @@ class FormSelect extends Component {
         />
         {hats.includes(this.props.avatar.top) ? (
           nohatColor.includes(this.props.avatar.top) ? null : (
-            <Form.Select
+            <Responsive
+              as={Form.Select}
+              minWidth={300}
               label="Hat Color"
               name="hat_color"
               value={this.props.avatar.hat_color}
@@ -219,7 +224,9 @@ class FormSelect extends Component {
             />
           )
         ) : (
-          <Form.Select
+          <Responsive
+            as={Form.Select}
+            minWidth={300}
             label="Hair Color"
             name="hair_color"
             value={this.props.avatar.hair_color}
@@ -229,7 +236,9 @@ class FormSelect extends Component {
           />
         )}
         {noFacialHairCol.includes(this.props.avatar.top) ? null : (
-          <Form.Select
+          <Responsive
+            as={Form.Select}
+            minWidth={300}
             label="Facial Hair"
             name="facial_hair"
             value={this.props.avatar.facial_hair}
@@ -242,7 +251,9 @@ class FormSelect extends Component {
         'Blank' ? null : noFacialHairCol.includes(
             this.props.avatar.top
           ) ? null : (
-          <Form.Select
+          <Responsive
+            as={Form.Select}
+            minWidth={300}
             label="Facial Hair Color"
             name="facial_hair_color"
             value={this.props.avatar.facial_hair_color}
@@ -251,7 +262,9 @@ class FormSelect extends Component {
             onChange={this.props.changeAvatar}
           />
         )}
-        <Form.Select
+        <Responsive
+          as={Form.Select}
+          minWidth={300}
           label="Clothes"
           name="clothes"
           value={this.props.avatar.clothes}
@@ -260,7 +273,9 @@ class FormSelect extends Component {
           onChange={this.props.changeAvatar}
         />
         {noClothesColor.includes(this.props.avatar.clothes) ? null : (
-          <Form.Select
+          <Responsive
+            as={Form.Select}
+            minWidth={300}
             label="Clothes Color"
             name="color_fabric"
             value={this.props.avatar.color_fabric}
@@ -270,7 +285,9 @@ class FormSelect extends Component {
           />
         )}
 
-        <Form.Select
+        <Responsive
+          as={Form.Select}
+          minWidth={300}
           label="Eyes"
           name="eyes"
           value={this.props.avatar.eyes}
@@ -278,7 +295,9 @@ class FormSelect extends Component {
           placeholder="Clothes Color"
           onChange={this.props.changeAvatar}
         />
-        <Form.Select
+        <Responsive
+          as={Form.Select}
+          minWidth={540}
           label="Eyebrows"
           name="eyebrow"
           value={this.props.avatar.eyebrow}
@@ -286,7 +305,9 @@ class FormSelect extends Component {
           placeholder="Eyebrows"
           onChange={this.props.changeAvatar}
         />
-        <Form.Select
+        <Responsive
+          as={Form.Select}
+          minWidth={300}
           label="Mouth"
           name="mouth"
           value={this.props.avatar.mouth}
@@ -294,7 +315,9 @@ class FormSelect extends Component {
           placeholder="Mouth"
           onChange={this.props.changeAvatar}
         />
-        <Form.Select
+        <Responsive
+          as={Form.Select}
+          minWidth={300}
           label="Skin"
           name="skin"
           value={this.props.avatar.skin}
@@ -310,7 +333,7 @@ class FormSelect extends Component {
             Submit
           </Form.Button>
         ) : null}
-      </Form>
+      </Responsive>
     )
   }
 }

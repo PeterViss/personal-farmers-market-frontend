@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import MyAvatar from './myAvatar'
 import { Card } from 'semantic-ui-react'
-import { Segment, Grid, Button } from 'semantic-ui-react'
+import { Segment, Grid, Button, Responsive } from 'semantic-ui-react'
 import PostList from './PostList'
 import ChosenPost from './ChosenPost'
 import FormSelect from '../Components/FormSelect'
@@ -41,7 +41,7 @@ export default class CustomerHome extends Component {
         <Grid>
           <Grid.Column width={2} />
           <Grid.Column width={4}>
-            <Segment>
+            <Responsive as={Segment}>
               <Card>
                 <Card.Content textAlign="center">
                   <MyAvatar avatar={this.props.customer.avatar} />
@@ -60,12 +60,12 @@ export default class CustomerHome extends Component {
                   selectForm={this.props.selectForm}
                 />
               ) : null}
-              <Segment basic>
-                <h3>Who You Are Following:</h3>
+              <Responsive as={Segment} basic>
+                <Responsive>Who You Are Following:</Responsive>
                 {customer.followees === undefined
                   ? null
                   : customer.followees.map(followee => (
-                      <Segment key={followee.id}>
+                      <Responsive as={Segment} key={followee.id}>
                         <h5>
                           {followee.biography.name}
                           <Button
@@ -78,24 +78,24 @@ export default class CustomerHome extends Component {
                             View
                           </Button>
                         </h5>
-                      </Segment>
+                      </Responsive>
                     ))}
-              </Segment>
-            </Segment>
+              </Responsive>
+            </Responsive>
           </Grid.Column>
           <Grid.Column width={4}>
-            <Segment>
+            <Responsive as={Segment}>
               <h2>Posts By:</h2>
               {customer.followees === undefined
                 ? null
                 : customer.followees.map(farmer => {
                     return (
                       <Fragment key={farmer.id}>
-                        <Segment basic>
-                          <Segment textAlign="center">
+                        <Responsive as={Segment} basic>
+                          <Responsive as={Segment} textAlign="center">
                             <h3 key={farmer.id}>{farmer.biography.name}</h3>
-                          </Segment>
-                        </Segment>
+                          </Responsive>
+                        </Responsive>
                         <PostList
                           posts={farmer.posts}
                           clickHandler={this.showPost}
@@ -104,7 +104,7 @@ export default class CustomerHome extends Component {
                       </Fragment>
                     )
                   })}
-            </Segment>
+            </Responsive>
           </Grid.Column>
           {/* <Grid.Column width={1} /> */}
           <Grid.Column width={5}>
