@@ -42,7 +42,7 @@ export default class CustomerHome extends Component {
           <Grid.Column width={2} />
           <Grid.Column width={4}>
             <Responsive as={Segment}>
-              <Card>
+              <Card textAlign="center">
                 <Card.Content textAlign="center">
                   <MyAvatar avatar={this.props.customer.avatar} />
                 </Card.Content>
