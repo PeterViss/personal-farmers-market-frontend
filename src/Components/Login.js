@@ -352,7 +352,7 @@ export default class Login extends Component {
                     markets build a following base. It gives them direct
                     communication with their customers by letting them know
                     where they will be selling their products. It also empowers
-                    them to no have to rely on farmers markets to sell their
+                    them to not have to rely on farmers markets to sell their
                     products as well. Customers also no longer have to look for
                     farmers markets and hope that they sell what they desire in
                     a product. They can simply look for markets that are posted,
