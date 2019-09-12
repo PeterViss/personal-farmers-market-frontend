@@ -115,7 +115,7 @@ class ChosenPost extends Component {
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////
   render() {
-    // console.log(this.state.post.comments)
+    console.log(this.state.post.comments)
 
     let user = this.props.user ? this.props.user : null
     let userId = this.props.user ? this.props.user.id : null
@@ -184,7 +184,6 @@ class ChosenPost extends Component {
                     <Message floating key={comment.id}>
                       {' '}
                       <Message.Header>
-                        From {comment.user.username}
                         {comment.user_id === userId ? (
                           <Button
                             size="mini"
@@ -194,7 +193,9 @@ class ChosenPost extends Component {
                           >
                             delete
                           </Button>
-                        ) : null}
+                        ) : (
+                          `From ${comment.user.username}`
+                        )}
                       </Message.Header>
                       <Message.Content>{comment.content}</Message.Content>
                     </Message>
