@@ -86,6 +86,16 @@ export default class CustomerHome extends Component {
               </Segment>
             </Segment>
           </Grid.Column>
+          <Grid.Column width={5}>
+            {this.state.displayPost ? (
+              <ChosenPost
+                post={this.state.post}
+                user={this.props.customer}
+                changeDisplay={this.changeDisplay}
+                commenting={true}
+              />
+            ) : null}
+          </Grid.Column>
           <Grid.Column width={4}>
             <Segment>
               <h2 textAlign="center">
@@ -110,16 +120,7 @@ export default class CustomerHome extends Component {
             </Segment>
           </Grid.Column>
           {/* <Grid.Column width={1} /> */}
-          <Grid.Column width={5}>
-            {this.state.displayPost ? (
-              <ChosenPost
-                post={this.state.post}
-                user={this.props.customer}
-                changeDisplay={this.changeDisplay}
-                commenting={true}
-              />
-            ) : null}
-          </Grid.Column>
+
           <Grid.Column width={1} />
         </Grid>
       </Fragment>
