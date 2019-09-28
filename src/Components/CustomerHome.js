@@ -60,18 +60,18 @@ export default class CustomerHome extends Component {
                   selectForm={this.props.selectForm}
                 />
               ) : null}
-              <Segment basic>
+              <Segment basic textAlign="centered">
                 <h3>
                   {customer.followees === undefined
-                    ? 'Who You Are Following'
-                    : 'Follow Someone!'}
+                    ? 'Follow Someone!'
+                    : 'Who You Are Following'}
                 </h3>
                 {customer.followees === undefined
                   ? null
                   : customer.followees.map(followee => (
-                      <Segment key={followee.id}>
-                        <h5>
-                          {followee.biography.name}
+                      <Card key={followee.id}>
+                        <Card.Content>{followee.biography.name}</Card.Content>
+                        <Card.Content extra>
                           <Button
                             style={{ color: 'black' }}
                             floated="right"
@@ -81,8 +81,8 @@ export default class CustomerHome extends Component {
                           >
                             View
                           </Button>
-                        </h5>
-                      </Segment>
+                        </Card.Content>
+                      </Card>
                     ))}
               </Segment>
             </Segment>
@@ -99,11 +99,6 @@ export default class CustomerHome extends Component {
                 : customer.followees.map(farmer => {
                     return (
                       <Fragment key={farmer.id}>
-                        {/* <Segment basic>
-                          <Segment textAlign="center">
-                            <h3 key={farmer.id}>{farmer.biography.name}</h3>
-                          </Segment>
-                        </Segment> */}
                         <PostList
                           farmer={farmer.biography.name}
                           posts={farmer.posts}
