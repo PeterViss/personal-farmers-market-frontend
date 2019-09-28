@@ -89,7 +89,7 @@ export default class CustomerHome extends Component {
           </Grid.Column>
           <Grid.Column width={4}>
             <Segment>
-              <h2>
+              <h2 textAlign="center">
                 {customer.followees === undefined
                   ? 'Follow a Farmer To See Their Posts!'
                   : 'Posts'}
@@ -105,6 +105,7 @@ export default class CustomerHome extends Component {
                           </Segment>
                         </Segment>
                         <PostList
+                          farmer={farmer.biography.name}
                           posts={farmer.posts}
                           clickHandler={this.showPost}
                           show={'show'}

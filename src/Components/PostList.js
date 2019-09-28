@@ -16,6 +16,7 @@ const PostList = props => {
                     <Card.Meta>
                       {new Date(post.startTime).toDateString()}
                     </Card.Meta>
+                    <Card.Meta>{props.farmer}</Card.Meta>
                   </Card.Content>
 
                   <Card.Content extra>
