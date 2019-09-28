@@ -41,7 +41,7 @@ export default class CustomerHome extends Component {
         <Grid>
           <Grid.Column width={2} />
           <Grid.Column width={4}>
-            <Segment textAlign="center">
+            <Segment textAlign="centered">
               <Card centered>
                 <Card.Content centered>
                   <MyAvatar avatar={this.props.customer.avatar} />
@@ -89,27 +89,29 @@ export default class CustomerHome extends Component {
           </Grid.Column>
           <Grid.Column width={4}>
             <Segment>
-              <h2>Posts</h2>
-              {customer.followees === undefined ? (
-                <h2>Follow a Farmer To See Their Posts!</h2>
-              ) : (
-                customer.followees.map(farmer => {
-                  return (
-                    <Fragment key={farmer.id}>
-                      <Segment basic>
-                        <Segment textAlign="center">
-                          <h3 key={farmer.id}>{farmer.biography.name}</h3>
+              <h2>
+                {customer.followees === undefined
+                  ? 'Follow a Farmer To See Their Posts!'
+                  : 'Posts'}
+              </h2>
+              {customer.followees === undefined
+                ? null
+                : customer.followees.map(farmer => {
+                    return (
+                      <Fragment key={farmer.id}>
+                        <Segment basic>
+                          <Segment textAlign="center">
+                            <h3 key={farmer.id}>{farmer.biography.name}</h3>
+                          </Segment>
                         </Segment>
-                      </Segment>
-                      <PostList
-                        posts={farmer.posts}
-                        clickHandler={this.showPost}
-                        show={'show'}
-                      />
-                    </Fragment>
-                  )
-                })
-              )}
+                        <PostList
+                          posts={farmer.posts}
+                          clickHandler={this.showPost}
+                          show={'show'}
+                        />
+                      </Fragment>
+                    )
+                  })}
             </Segment>
           </Grid.Column>
           {/* <Grid.Column width={1} /> */}
