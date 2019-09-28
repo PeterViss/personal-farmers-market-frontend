@@ -25,10 +25,11 @@ export default class MarketSearch extends Component {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   chosenCat = (e, { label, checked }) => {
-    console.log(checked)
+    //console.log(checked)
     this.setState({
       nameCheck: label
     })
+
     // console.log('updated')
     // let value = label.props.children
     // if (this.state.catNames.includes(value)) {
@@ -129,7 +130,7 @@ export default class MarketSearch extends Component {
   // }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   render() {
-    //console.log(this.state.filtered)
+    console.log(this.state.nameCheck)
     // console.log(this.state.chooseZip)
     //console.log()
     return (
