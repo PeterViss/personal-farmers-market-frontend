@@ -97,10 +97,16 @@ export default class MarketSearch extends Component {
           return null
         }
       })
-      this.setState({
-        chooseZip: zips,
-        disabled: false
-      })
+      if (zips.length > 0) {
+        return this.setState({
+          chooseZip: zips,
+          disabled: false
+        })
+      } else {
+        alert(
+          'There Are No Farmers Markets Within A 50 Mile Radius Of This Zipcode, Please Enter Another One.'
+        )
+      }
     }
   }
   ///////////////////////////////////////////////////////////////////////////////////
