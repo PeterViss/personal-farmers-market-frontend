@@ -25,6 +25,7 @@ export default class MarketSearch extends Component {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   chosenCat = (e, { label, checked }) => {
     console.log(checked)
+    console.log('updated')
     let value = label.props.children
     if (this.state.catNames.includes(value)) {
       let unchoose = this.state.catNames.filter(name => name !== value)
