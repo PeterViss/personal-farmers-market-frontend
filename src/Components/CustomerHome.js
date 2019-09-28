@@ -41,9 +41,9 @@ export default class CustomerHome extends Component {
         <Grid>
           <Grid.Column width={2} />
           <Grid.Column width={4}>
-            <Segment textAlign="centered">
-              <Card>
-                <Card.Content centered>
+            <Segment textAlign="center">
+              <Card centered>
+                <Card.Content>
                   <MyAvatar avatar={this.props.customer.avatar} />
                 </Card.Content>
                 <Button onClick={this.props.enableSelect} color="vk">
