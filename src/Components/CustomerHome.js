@@ -39,7 +39,7 @@ export default class CustomerHome extends Component {
     return (
       <Fragment>
         <Grid>
-          <Grid.Column width={this.state.displayPost ? 2 : 5} />
+          <Grid.Column width={this.state.displayPost ? 2 : 4} />
           <Grid.Column width={3}>
             <Segment>
               <Card fluid>
@@ -86,7 +86,7 @@ export default class CustomerHome extends Component {
               </Segment>
             </Segment>
           </Grid.Column>
-          <Grid.Column width={this.state.displayPost ? 4 : 6}>
+          <Grid.Column width={4}>
             <Segment>
               <h2 textAlign="center">
                 {customer.followees === undefined
