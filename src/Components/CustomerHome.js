@@ -31,11 +31,8 @@ export default class CustomerHome extends Component {
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   render() {
-    // let post = this.state.post
     let customer = this.props.customer
-    // let farmers = this.props.customer.followees.map(farmer => {return farmer})}
-    //console.log(this.props.customer)
-    // console.log(this.state.post)
+
     return (
       <Fragment>
         <Grid>

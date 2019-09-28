@@ -6,7 +6,7 @@ import ChosenPost from './ChosenPost'
 
 export default class MarketSearch extends Component {
   state = {
-    disabled: true,
+    disabled: false,
     value: '',
     filtered: false,
     posts: [],
@@ -108,11 +108,17 @@ export default class MarketSearch extends Component {
       })
       this.setState({
         chooseZip: zips,
-        disabled: false
+        disabled: true
       })
     }
   }
-
+  ///////////////////////////////////////////////////////////////////////////////////
+  revert = () => {
+    this.setState({
+      chooseZip: [],
+      disabled: false
+    })
+  }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   render() {
     //console.log(this.state.filtered)
@@ -133,6 +139,9 @@ export default class MarketSearch extends Component {
               />
               <Button onClick={this.searchZips} color="green">
                 Find
+              </Button>
+              <Button onClick={this.revert} color="red">
+                Clear
               </Button>
               <h3>Filter By Categories:</h3>
               {this.state.categories.map((category, i) => (
