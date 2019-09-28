@@ -99,11 +99,11 @@ export default class CustomerHome extends Component {
                 : customer.followees.map(farmer => {
                     return (
                       <Fragment key={farmer.id}>
-                        <Segment basic>
-                          {/* <Segment textAlign="center">
+                        {/* <Segment basic>
+                          <Segment textAlign="center">
                             <h3 key={farmer.id}>{farmer.biography.name}</h3>
-                          </Segment> */}
-                        </Segment>
+                          </Segment>
+                        </Segment> */}
                         <PostList
                           farmer={farmer.biography.name}
                           posts={farmer.posts}
