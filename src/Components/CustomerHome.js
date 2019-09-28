@@ -39,7 +39,7 @@ export default class CustomerHome extends Component {
     return (
       <Fragment>
         <Grid>
-          <Grid.Column width={2} />
+          <Grid.Column width={this.state.displayPost ? 2 : 5} />
           <Grid.Column width={3}>
             <Segment>
               <Card fluid>
@@ -86,17 +86,7 @@ export default class CustomerHome extends Component {
               </Segment>
             </Segment>
           </Grid.Column>
-          <Grid.Column width={5}>
-            {this.state.displayPost ? (
-              <ChosenPost
-                post={this.state.post}
-                user={this.props.customer}
-                changeDisplay={this.changeDisplay}
-                commenting={true}
-              />
-            ) : null}
-          </Grid.Column>
-          <Grid.Column width={4}>
+          <Grid.Column width={this.state.displayPost ? 4 : 6}>
             <Segment>
               <h2 textAlign="center">
                 {customer.followees === undefined
@@ -120,7 +110,16 @@ export default class CustomerHome extends Component {
             </Segment>
           </Grid.Column>
           {/* <Grid.Column width={1} /> */}
-
+          <Grid.Column width={5}>
+            {this.state.displayPost ? (
+              <ChosenPost
+                post={this.state.post}
+                user={this.props.customer}
+                changeDisplay={this.changeDisplay}
+                commenting={true}
+              />
+            ) : null}
+          </Grid.Column>
           <Grid.Column width={1} />
         </Grid>
       </Fragment>
