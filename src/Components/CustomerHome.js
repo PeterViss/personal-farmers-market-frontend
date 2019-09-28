@@ -106,7 +106,6 @@ export default class CustomerHome extends Component {
                   })}
             </Segment>
           </Grid.Column>
-          {/* <Grid.Column width={1} /> */}
           <Grid.Column width={5}>
             {this.state.displayPost ? (
               <ChosenPost

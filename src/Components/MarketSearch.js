@@ -6,6 +6,7 @@ import ChosenPost from './ChosenPost'
 
 export default class MarketSearch extends Component {
   state = {
+    check: false,
     nameCheck: '',
     disabled: true,
     value: '',
@@ -25,44 +26,25 @@ export default class MarketSearch extends Component {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   chosenCat = (e, { label, checked }) => {
-    //console.log(checked)
-    this.setState({
-      nameCheck: label
-    })
-
-    // console.log('updated')
-    // let value = label.props.children
-    // if (this.state.catNames.includes(value)) {
-    //   let unchoose = this.state.catNames.filter(name => name !== value)
-
-    //   let removed = this.state.chooseCat.filter(post => {
-    //     return post.category.name !== value
-    //   })
-    //   this.setState({
-    //     catNames: unchoose,
-    //     chooseCat: removed,
-    //     filtered: true
-    //   })
-    // } else {
-    //   let newZips = this.state.chooseZip.filter(post => {
-    //     if (post.category.name.toLowerCase().includes(value.toLowerCase())) {
-    //       return post
-    //     } else {
-    //       return null
-    //     }
-    //   })
-    //   let catNames = newZips.map(post => {
-    //     return post.category.name
-    //   })
-    //   let newerZips = newZips.length > 0 ? newZips : this.state.chooseZip
-
-    //   return this.setState({
-    //     catNames: catNames,
-    //     chooseCat: newerZips,
-    //     filtered: true
-    //   })
-    // }
-
+    if (checked === true) {
+      const newCats = this.state.chooseZip.filter(post => {
+        if (post.category.name === label.props.children) {
+          return post
+        } else {
+          return null
+        }
+      })
+      return this.setState({
+        chooseCat: newCats,
+        nameCheck: label.props.children,
+        filtered: true
+      })
+    } else {
+      this.setState({
+        nameCheck: '',
+        filtered: false
+      })
+    }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
 
@@ -122,17 +104,11 @@ export default class MarketSearch extends Component {
     }
   }
   ///////////////////////////////////////////////////////////////////////////////////
-  // revert = () => {
-  //   this.setState({
-  //     chooseZip: [],
-  //     disabled: false
-  //   })
-  // }
+
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   render() {
     console.log(this.state.nameCheck)
-    // console.log(this.state.chooseZip)
-    //console.log()
+
     return (
       <Fragment>
         <Grid>
@@ -149,72 +125,76 @@ export default class MarketSearch extends Component {
               <Button onClick={this.searchZips} color="green">
                 Find
               </Button>
-              {/* <Button onClick={this.revert} color="red">
-                Clear
-              </Button> */}
+
               <h3>Filter By Categories:</h3>
               {this.state.categories.map((category, i) => (
                 <Grid.Column disabled={this.state.disabled} key={category.id}>
                   <Checkbox
-                    label={<label>{category.name}</label>}
-                    onClick={this.chosenCat}
-                    disabled={
-                      this.state.nameCheck === label
-                        ? false
+                    checked={
+                      this.state.nameCheck === category.name
+                        ? true
                         : this.state.nameCheck === ''
                         ? false
-                        : true
+                        : false
                     }
+                    label={<label>{category.name}</label>}
+                    onClick={this.chosenCat}
                   />
                 </Grid.Column>
               ))}
             </Grid.Column>
 
             <Grid.Column width={4}>
+              {this.state.filtered === true &&
+              this.state.chooseCat.length === 0 ? (
+                <h2>There are no posts with that category in this area.</h2>
+              ) : this.state.chooseZip.length === 0 ? (
+                <h3>
+                  Please type in a zipcode to find markets within your area.
+                </h3>
+              ) : null}
               <h2>Farmers Markets Available:</h2>
               {this.state.filtered
-                ? this.state.chooseCat.length > 0
-                  ? this.state.chooseCat.map(post => {
-                      return (
-                        <Segment key={post.id} raised>
-                          Title: {post.title}
-                          <br />
-                          Market Date:{' '}
-                          {moment(post.startTime).format('MMM-D-YYYY hh:mm a')}
-                          <br />
-                          Category: {post.category.name}
-                          <br />
-                          <Button
-                            color="vk"
-                            size="small"
-                            onClick={() => this.choosePost(post)}
-                          >
-                            View
-                          </Button>
-                        </Segment>
-                      )
-                    })
-                  : this.state.chooseZip.map(post => {
-                      return (
-                        <Segment key={post.id} raised>
-                          Market Name: {post.title}
-                          <br />
-                          Date:{' '}
-                          {moment(post.startTime).format('MMM-D-YYYY hh:mm a')}
-                          <br />
-                          Category: {post.category.name}
-                          <br />
-                          <Button
-                            color="vk"
-                            size="small"
-                            onClick={() => this.choosePost(post)}
-                          >
-                            View
-                          </Button>
-                        </Segment>
-                      )
-                    })
-                : null}
+                ? this.state.chooseCat.map(post => {
+                    return (
+                      <Segment key={post.id} raised>
+                        Title: {post.title}
+                        <br />
+                        Market Date:{' '}
+                        {moment(post.startTime).format('MMM-D-YYYY hh:mm a')}
+                        <br />
+                        Category: {post.category.name}
+                        <br />
+                        <Button
+                          color="vk"
+                          size="small"
+                          onClick={() => this.choosePost(post)}
+                        >
+                          View
+                        </Button>
+                      </Segment>
+                    )
+                  })
+                : this.state.chooseZip.map(post => {
+                    return (
+                      <Segment key={post.id} raised>
+                        Market Name: {post.title}
+                        <br />
+                        Date:{' '}
+                        {moment(post.startTime).format('MMM-D-YYYY hh:mm a')}
+                        <br />
+                        Category: {post.category.name}
+                        <br />
+                        <Button
+                          color="vk"
+                          size="small"
+                          onClick={() => this.choosePost(post)}
+                        >
+                          View
+                        </Button>
+                      </Segment>
+                    )
+                  })}
             </Grid.Column>
             <Grid.Column width={1} />
             <Grid.Column width={5}>
