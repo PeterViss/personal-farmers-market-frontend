@@ -6,6 +6,7 @@ import ChosenPost from './ChosenPost'
 
 export default class MarketSearch extends Component {
   state = {
+    checked: '',
     disabled: true,
     value: '',
     filtered: false,
@@ -29,7 +30,7 @@ export default class MarketSearch extends Component {
     let value = label.props.children
     if (this.state.catNames.includes(value)) {
       let unchoose = this.state.catNames.filter(name => name !== value)
-       
+
       let removed = this.state.chooseCat.filter(post => {
         return post.category.name !== value
       })
@@ -163,46 +164,48 @@ export default class MarketSearch extends Component {
             <Grid.Column width={4}>
               <h2>Farmers Markets Available:</h2>
               {this.state.filtered
-                ? this.state.chooseCat.length > 0 ? this.state.chooseCat.map(post => {
-                    return (
-                      <Segment key={post.id} raised>
-                        Title: {post.title}
-                        <br />
-                        Market Date:{' '}
-                        {moment(post.startTime).format('MMM-D-YYYY hh:mm a')}
-                        <br />
-                        Category: {post.category.name}
-                        <br />
-                        <Button
-                          color="vk"
-                          size="small"
-                          onClick={() => this.choosePost(post)}
-                        >
-                          View
-                        </Button>
-                      </Segment>
-                    )
-                  })
-                : this.state.chooseZip.map(post => {
-                    return (
-                      <Segment key={post.id} raised>
-                        Market Name: {post.title}
-                        <br />
-                        Date:{' '}
-                        {moment(post.startTime).format('MMM-D-YYYY hh:mm a')}
-                        <br />
-                        Category: {post.category.name}
-                        <br />
-                        <Button
-                          color="vk"
-                          size="small"
-                          onClick={() => this.choosePost(post)}
-                        >
-                          View
-                        </Button>
-                      </Segment>
-                    )
-                  })}
+                ? this.state.chooseCat.length > 0
+                  ? this.state.chooseCat.map(post => {
+                      return (
+                        <Segment key={post.id} raised>
+                          Title: {post.title}
+                          <br />
+                          Market Date:{' '}
+                          {moment(post.startTime).format('MMM-D-YYYY hh:mm a')}
+                          <br />
+                          Category: {post.category.name}
+                          <br />
+                          <Button
+                            color="vk"
+                            size="small"
+                            onClick={() => this.choosePost(post)}
+                          >
+                            View
+                          </Button>
+                        </Segment>
+                      )
+                    })
+                  : this.state.chooseZip.map(post => {
+                      return (
+                        <Segment key={post.id} raised>
+                          Market Name: {post.title}
+                          <br />
+                          Date:{' '}
+                          {moment(post.startTime).format('MMM-D-YYYY hh:mm a')}
+                          <br />
+                          Category: {post.category.name}
+                          <br />
+                          <Button
+                            color="vk"
+                            size="small"
+                            onClick={() => this.choosePost(post)}
+                          >
+                            View
+                          </Button>
+                        </Segment>
+                      )
+                    })
+                : null}
             </Grid.Column>
             <Grid.Column width={1} />
             <Grid.Column width={5}>
