@@ -8,7 +8,7 @@ export default class MarketSearch extends Component {
   state = {
     disabled: false,
     value: '',
-    filtered: false,
+    filtered: true,
     posts: [],
     categories: [],
     chooseCat: [],
@@ -32,8 +32,8 @@ export default class MarketSearch extends Component {
       })
       this.setState({
         catNames: unchoose,
-        chooseCat: removed,
-        filtered: !this.state.filtered
+        chooseCat: removed
+        // filtered: !this.state.filtered
       })
     } else {
       let newZips = this.state.chooseZip.filter(post => {
@@ -49,8 +49,8 @@ export default class MarketSearch extends Component {
       // debugger
       return this.setState({
         catNames: catNames,
-        chooseCat: newZips,
-        filtered: !this.state.filtered
+        chooseCat: newZips
+        // filtered: !this.state.filtered
       })
     }
 
