@@ -71,17 +71,16 @@ export default class CustomerHome extends Component {
                   : customer.followees.map(followee => (
                       <Card key={followee.id}>
                         <Card.Content>{followee.biography.name}</Card.Content>
-                        <Card.Content extra>
-                          <Button
-                            style={{ color: 'black' }}
-                            floated="right"
-                            size="mini"
-                            color="yellow"
-                            onClick={() => this.props.chooseFarmer(followee)}
-                          >
-                            View
-                          </Button>
-                        </Card.Content>
+
+                        <Button
+                          style={{ color: 'black' }}
+                          floated="right"
+                          size="mini"
+                          color="yellow"
+                          onClick={() => this.props.chooseFarmer(followee)}
+                        >
+                          View
+                        </Button>
                       </Card>
                     ))}
               </Segment>
