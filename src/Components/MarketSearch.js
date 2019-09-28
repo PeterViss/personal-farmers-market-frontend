@@ -25,10 +25,11 @@ export default class MarketSearch extends Component {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   chosenCat = (e, { label, checked }) => {
     console.log(checked)
-    console.log('updated')
+    // console.log('updated')
     let value = label.props.children
     if (this.state.catNames.includes(value)) {
       let unchoose = this.state.catNames.filter(name => name !== value)
+       
       let removed = this.state.chooseCat.filter(post => {
         return post.category.name !== value
       })
@@ -161,7 +162,7 @@ export default class MarketSearch extends Component {
             <Grid.Column width={4}>
               <h2>Farmers Markets Available:</h2>
               {this.state.filtered
-                ? this.state.chooseCat.map(post => {
+                ? this.state.chooseCat.length > 0 ? this.state.chooseCat.map(post => {
                     return (
                       <Segment key={post.id} raised>
                         Title: {post.title}
