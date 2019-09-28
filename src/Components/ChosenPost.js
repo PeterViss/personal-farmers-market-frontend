@@ -115,8 +115,6 @@ class ChosenPost extends Component {
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////
   render() {
-    console.log(this.state.post.comments)
-
     let user = this.props.user ? this.props.user : null
     let userId = this.props.user ? this.props.user.id : null
     let post = this.state.post

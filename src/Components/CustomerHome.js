@@ -39,7 +39,7 @@ export default class CustomerHome extends Component {
     return (
       <Fragment>
         <Grid>
-          <Grid.Column width={this.state.displayPost ? 2 : 4} />
+          <Grid.Column width={2} />
           <Grid.Column width={3}>
             <Segment>
               <Card fluid>
