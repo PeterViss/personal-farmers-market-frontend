@@ -6,7 +6,7 @@ import ChosenPost from './ChosenPost'
 
 export default class MarketSearch extends Component {
   state = {
-    checked: '',
+    nameCheck: '',
     disabled: true,
     value: '',
     filtered: false,
@@ -26,39 +26,41 @@ export default class MarketSearch extends Component {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   chosenCat = (e, { label, checked }) => {
     console.log(checked)
+    this.setState({
+      nameCheck: label
+    })
     // console.log('updated')
-    let value = label.props.children
-    if (this.state.catNames.includes(value)) {
-      let unchoose = this.state.catNames.filter(name => name !== value)
+    // let value = label.props.children
+    // if (this.state.catNames.includes(value)) {
+    //   let unchoose = this.state.catNames.filter(name => name !== value)
 
-      let removed = this.state.chooseCat.filter(post => {
-        return post.category.name !== value
-      })
-      this.setState({
-        catNames: unchoose,
-        chooseCat: removed,
-        filtered: true
-      })
-    } else {
-      let newZips = this.state.chooseZip.filter(post => {
-        if (post.category.name.toLowerCase().includes(value.toLowerCase())) {
-          return post
-        } else {
-          return null
-        }
-      })
-      let catNames = newZips.map(post => {
-        return post.category.name
-      })
-      let newerZips = newZips.length > 0 ? newZips : this.state.chooseZip
-      console.log(this.state.chooseNames)
-      console.log(this.state.chooseCat)
-      return this.setState({
-        catNames: catNames,
-        chooseCat: newerZips,
-        filtered: true
-      })
-    }
+    //   let removed = this.state.chooseCat.filter(post => {
+    //     return post.category.name !== value
+    //   })
+    //   this.setState({
+    //     catNames: unchoose,
+    //     chooseCat: removed,
+    //     filtered: true
+    //   })
+    // } else {
+    //   let newZips = this.state.chooseZip.filter(post => {
+    //     if (post.category.name.toLowerCase().includes(value.toLowerCase())) {
+    //       return post
+    //     } else {
+    //       return null
+    //     }
+    //   })
+    //   let catNames = newZips.map(post => {
+    //     return post.category.name
+    //   })
+    //   let newerZips = newZips.length > 0 ? newZips : this.state.chooseZip
+
+    //   return this.setState({
+    //     catNames: catNames,
+    //     chooseCat: newerZips,
+    //     filtered: true
+    //   })
+    // }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
@@ -155,7 +157,13 @@ export default class MarketSearch extends Component {
                   <Checkbox
                     label={<label>{category.name}</label>}
                     onClick={this.chosenCat}
-                    disabled={this.state.disabled}
+                    disabled={
+                      this.state.nameCheck === label
+                        ? false
+                        : this.state.nameCheck === ''
+                        ? false
+                        : true
+                    }
                   />
                 </Grid.Column>
               ))}
