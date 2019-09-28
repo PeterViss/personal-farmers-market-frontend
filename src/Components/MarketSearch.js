@@ -6,9 +6,9 @@ import ChosenPost from './ChosenPost'
 
 export default class MarketSearch extends Component {
   state = {
-    disabled: false,
+    disabled: true,
     value: '',
-    filtered: true,
+    filtered: false,
     posts: [],
     categories: [],
     chooseCat: [],
@@ -32,8 +32,8 @@ export default class MarketSearch extends Component {
       })
       this.setState({
         catNames: unchoose,
-        chooseCat: removed
-        // filtered: !this.state.filtered
+        chooseCat: removed,
+        filtered: !this.state.filtered
       })
     } else {
       let newZips = this.state.chooseZip.filter(post => {
@@ -49,8 +49,8 @@ export default class MarketSearch extends Component {
       // debugger
       return this.setState({
         catNames: catNames,
-        chooseCat: newZips
-        // filtered: !this.state.filtered
+        chooseCat: newZips,
+        filtered: !this.state.filtered
       })
     }
 
@@ -108,17 +108,17 @@ export default class MarketSearch extends Component {
       })
       this.setState({
         chooseZip: zips,
-        disabled: true
+        disabled: false
       })
     }
   }
   ///////////////////////////////////////////////////////////////////////////////////
-  revert = () => {
-    this.setState({
-      chooseZip: [],
-      disabled: false
-    })
-  }
+  // revert = () => {
+  //   this.setState({
+  //     chooseZip: [],
+  //     disabled: false
+  //   })
+  // }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   render() {
     //console.log(this.state.filtered)
@@ -140,9 +140,9 @@ export default class MarketSearch extends Component {
               <Button onClick={this.searchZips} color="green">
                 Find
               </Button>
-              <Button onClick={this.revert} color="red">
+              {/* <Button onClick={this.revert} color="red">
                 Clear
-              </Button>
+              </Button> */}
               <h3>Filter By Categories:</h3>
               {this.state.categories.map((category, i) => (
                 <Grid.Column disabled={this.state.disabled} key={category.id}>
