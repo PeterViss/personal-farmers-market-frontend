@@ -42,8 +42,8 @@ export default class CustomerHome extends Component {
           <Grid.Column width={2} />
           <Grid.Column width={4}>
             <Segment textAlign="centered">
-              <Card fluid>
-                <Card.Content centered>
+              <Card>
+                <Card.Content>
                   <MyAvatar avatar={this.props.customer.avatar} />
                 </Card.Content>
                 <Button onClick={this.props.enableSelect} color="vk">
@@ -100,9 +100,9 @@ export default class CustomerHome extends Component {
                     return (
                       <Fragment key={farmer.id}>
                         <Segment basic>
-                          <Segment textAlign="center">
+                          {/* <Segment textAlign="center">
                             <h3 key={farmer.id}>{farmer.biography.name}</h3>
-                          </Segment>
+                          </Segment> */}
                         </Segment>
                         <PostList
                           farmer={farmer.biography.name}
