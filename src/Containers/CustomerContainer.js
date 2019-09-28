@@ -106,6 +106,7 @@ class CustomerContainer extends Component {
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////
   chooseFarmer = farmer => {
+    console.log(farmer)
     if (farmer.followers.length !== 0) {
       let followers = farmer.followers.filter(follower => {
         if (follower.id === this.props.customer.id) {
