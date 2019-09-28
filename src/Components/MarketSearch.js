@@ -49,6 +49,7 @@ export default class MarketSearch extends Component {
         return post.category.name
       })
       let newerZips = newZips.length > 0 ? newZips : this.state.chooseZip
+      console.log(newerZips)
       return this.setState({
         catNames: catNames,
         chooseCat: newerZips,
