@@ -131,7 +131,7 @@ class CustomerContainer extends Component {
       this.setState({
         chosenFarmer: farmer,
         following: false,
-        length: farmer.follwers.length
+        length: farmer.followers.length
       })
     }
 
