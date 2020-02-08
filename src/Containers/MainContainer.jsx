@@ -27,7 +27,7 @@ class MainContainer extends Component {
     this.setState({ selectForm: false })
   }
 
-  changeAvatar = (e, { name, value }) => {
+  changeAvatar = (_e, { name, value }) => {
     //debugger
     this.setState({
       user: {

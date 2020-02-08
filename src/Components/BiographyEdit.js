@@ -3,7 +3,6 @@ import { Form } from 'semantic-ui-react'
 export default class Biography extends Component {
   sendBio = event => {
     let bio = this.props.bio
-    debugger
     let num = bio.id
     fetch(`https://personal-farmers-market.herokuapp.com/biographies/${num}`, {
       method: 'PATCH',

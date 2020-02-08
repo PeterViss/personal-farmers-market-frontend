@@ -9,8 +9,7 @@ function App() {
    <div className="App">
      <MainContainer />
    </div>
-  </Router> 
-  
+  </Router>
   )
 }
 

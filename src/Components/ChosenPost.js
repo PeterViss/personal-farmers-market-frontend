@@ -19,7 +19,6 @@ class ChosenPost extends Component {
     value: '',
     post: {}
   }
-  /////////////////////////////////////////////////////////////////////////////////////////
   handleSubmit = e => {
     let value = this.state.value
     let postId = this.props.post.id
@@ -47,7 +46,6 @@ class ChosenPost extends Component {
         })
       )
   }
-  //////////////////////////////////////////////////////////////////////////////////////////////
   addAttendee = user => {
     fetch('https://personal-farmers-market.herokuapp.com/attends', {
       method: 'POST',
@@ -70,7 +68,6 @@ class ChosenPost extends Component {
         })
       })
   }
-  //////////////////////////////////////////////////////////////////////////////////////////////
   deletePost = (e, comment) => {
     let newComments = this.state.post.comments.filter(
       com => com.id !== comment.id
@@ -96,13 +93,12 @@ class ChosenPost extends Component {
       )
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////
   handleChange = (e, { value }) => {
     this.setState({
       value: value
     })
   }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////
+
   componentDidMount() {
     let id = this.props.post.id
     fetch(`https://personal-farmers-market.herokuapp.com/posts/${id}`)
@@ -113,7 +109,7 @@ class ChosenPost extends Component {
         })
       )
   }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////
+
   render() {
     let user = this.props.user ? this.props.user : null
     let userId = this.props.user ? this.props.user.id : null
@@ -217,20 +213,7 @@ class ChosenPost extends Component {
                   <Form.Button
                     color="black"
                     onClick={this.props.changeDisplay}
-                    content="Done"
-                  />
-                </Form.Group>
-              </Form>
-            ) : (
-              <Button onClick={this.props.changeDisplay} color="vk">
-                hide
-              </Button>
-            )}
-          </Card.Content>
-        </Card>
-      )
-    }
-  }
+                    content="Done" /> </Form.Group> </Form>) : ( <Button onClick={this.props.changeDisplay} color="vk"> hide </Button>)} </Card.Content> </Card>) } }
 }
 
 export default ChosenPost
