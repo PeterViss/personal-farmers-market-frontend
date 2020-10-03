@@ -22,27 +22,21 @@ export default class FarmerProfile extends Component {
       )
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
   changeDisplay = () => {
     this.setState({
       displayPost: false
     })
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////
   render() {
-    let post = this.state.post
-    let farmer = this.props.farmer
-    let customer = this.props.customer
-    let cats = farmer.categories
-      ? farmer.categories.map(category => category.name)
-      : null
-    let newCats = cats.sort()
-    let catNames = Array.from(new Set(newCats))
-    //debugger
-    //console.log(farmer)
-    // console.log(customer)
-    return farmer ? (
+    const post = this.state.post
+    const farmer = this.props.farmer
+    const customer = this.props.customer
+    const cats = farmer.categories && farmer.categories.map(category => category.name)
+    const newCats = cats.sort()
+    const catNames = Array.from(new Set(newCats))
+
+    return farmer && (
       <Grid>
         <Grid.Row>
           <Grid.Column align="center">
@@ -149,8 +143,8 @@ export default class FarmerProfile extends Component {
           <Grid.Column width={1} />
         </Grid.Row>
       </Grid>
-    ) : (
-      <h1>Farmer Does Not Exist</h1>
+    ) || (
+      <h1>Sorry! This Profile Does Not Exist!</h1>
     )
   }
 }

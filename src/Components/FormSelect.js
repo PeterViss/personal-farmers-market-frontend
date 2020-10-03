@@ -8,7 +8,7 @@ class FormSelect extends Component {
   }
 
   render() {
-    let options1 = [
+    const options1 = [
       'NoHair',
       'Hat',
       'Hijab',
@@ -33,7 +33,7 @@ class FormSelect extends Component {
       'ShortHairDreads01',
       'ShortHairDreads02',
       'ShortHairFrizzle',
-      'ShortHairShaggyMullet',
+      'ShortHairShaggyMulconst',
       'ShortHairShortCurly',
       'ShortHairShortFlat',
       'ShortHairShortRound',
@@ -42,7 +42,7 @@ class FormSelect extends Component {
       'ShortHairTheCaesar',
       'ShortHairTheCaesarSidePart'
     ]
-    let options2 = [
+    const options2 = [
       'Blank',
       'Kurt',
       'Prescription01',
@@ -52,7 +52,7 @@ class FormSelect extends Component {
       'Wayfarers'
     ]
 
-    let options3 = [
+    const options3 = [
       'Auburn',
       'Black',
       'Blonde',
@@ -65,7 +65,7 @@ class FormSelect extends Component {
       'SilverGray'
     ]
 
-    let options4 = [
+    const options4 = [
       'Blank',
       'BeardMedium',
       'BeardMajestic',
@@ -73,7 +73,7 @@ class FormSelect extends Component {
       'MoustacheMagnum'
     ]
 
-    let options5 = [
+    const options5 = [
       'Auburn',
       'Black',
       'Blonde',
@@ -84,7 +84,7 @@ class FormSelect extends Component {
       'Red'
     ]
 
-    let options6 = [
+    const options6 = [
       'BlazerShirt',
       'BlazerSweater',
       'CollarSweater',
@@ -95,7 +95,7 @@ class FormSelect extends Component {
       'ShirtVNeck'
     ]
 
-    let options7 = [
+    const options7 = [
       'Black',
       'Blue02',
       'Blue03',
@@ -112,7 +112,7 @@ class FormSelect extends Component {
       'White'
     ]
 
-    let options8 = [
+    const options8 = [
       'Close',
       'Cry',
       'Default',
@@ -127,7 +127,7 @@ class FormSelect extends Component {
       'WinkWacky'
     ]
 
-    let options9 = [
+    const options9 = [
       'Angry',
       'AngryNatural',
       'Default',
@@ -142,7 +142,7 @@ class FormSelect extends Component {
       'UpDownNatural'
     ]
 
-    let options10 = [
+    const options10 = [
       'Concerned',
       'Default',
       'Disbelief',
@@ -157,7 +157,7 @@ class FormSelect extends Component {
       'Vomit'
     ]
 
-    let options11 = [
+    const options11 = [
       'Tanned',
       'Yellow',
       'Pale',
@@ -167,8 +167,8 @@ class FormSelect extends Component {
       'Black'
     ]
 
-    let noClothesColor = ['BlazerShirt', 'BlazerSweater']
-    let hats = [
+    const noClothesColor = ['BlazerShirt', 'BlazerSweater']
+    const hats = [
       'NoHair',
       'Hat',
       'Hijab',
@@ -178,8 +178,8 @@ class FormSelect extends Component {
       'WinterHat3',
       'WinterHat4'
     ]
-    let noFacialHairCol = ['Hijab']
-    let nohatColor = ['Hat', 'NoHair']
+    const noFacialHairCol = ['Hijab']
+    const nohatColor = ['Hat', 'NoHair']
     //debugger
 
     return (

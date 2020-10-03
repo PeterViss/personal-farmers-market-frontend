@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 import FarmerContainer from './FarmerContainer'
 import CustomerContainer from './CustomerContainer'
 import { Route, Redirect, withRouter } from 'react-router-dom'
 import Login from '../Components/Login'
-//https://personal-farmers-market.herokuapp.com/
 class MainContainer extends Component {
   state = {
     selectForm: false,
@@ -15,10 +14,9 @@ class MainContainer extends Component {
       user: {}
     })
     localStorage.clear()
-    // window.location.reload()
     this.props.history.push('/Login')
   }
-  ////////////////////////////////////////////////////////////////////////////////////////////
+  
   enableSelect = () => {
     this.setState({ selectForm: true })
   }
@@ -28,7 +26,6 @@ class MainContainer extends Component {
   }
 
   changeAvatar = (_e, { name, value }) => {
-    //debugger
     this.setState({
       user: {
         ...this.state.user,
@@ -61,15 +58,13 @@ class MainContainer extends Component {
       selectForm: false
     })
   }
-  ////////////////////////////////////////////////////////////////////////////////////////////
+  
   updateLoggedInUser = newUser => {
-    //debugger
     this.setState({
       user: newUser
     })
   }
 
-  //////////////////////////////////////////////////////////////////////////////////////////
   setBio = event => {
     this.setState({
       user: {
@@ -81,7 +76,6 @@ class MainContainer extends Component {
       }
     })
   }
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   componentDidMount() {
     //check to see if token, if exist, get user/userstate
@@ -99,11 +93,11 @@ class MainContainer extends Component {
         })
     }
   }
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
   render() {
     return (
       <div>
-        {this.state.user.username ? (
+        {this.state.user.username && (
           this.state.user.role === 'farmer' ? (
             <FarmerContainer
               farmer={this.state.user}
@@ -128,7 +122,7 @@ class MainContainer extends Component {
               disableForm={this.disableForm}
             />
           )
-        ) : (
+        ) || (
           <Redirect to="/" />
         )}
 

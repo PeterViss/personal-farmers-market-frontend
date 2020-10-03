@@ -8,7 +8,7 @@ export default class FarmerSearch extends Component {
     filtered: []
   }
 
-  handleSearchChange = (e, { value }) => {
+  handleSearchChange = (_e, { value }) => {
     if (value === '') {
       this.setState({ value: value, filtered: [] })
     } else {
@@ -25,7 +25,7 @@ export default class FarmerSearch extends Component {
       })
     }
   }
-
+  
   componentDidMount() {
     fetch('https://personal-farmers-market.herokuapp.com/user/farmers')
       .then(resp => resp.json())
@@ -37,7 +37,6 @@ export default class FarmerSearch extends Component {
   }
 
   render() {
-    // debugger
     return (
       <Grid>
         <Grid.Row columns={3}>
@@ -98,7 +97,6 @@ export default class FarmerSearch extends Component {
                               header={<h3>{farmer.biography.name}</h3>}
                             />
                             <Divider />
-                            {/* <h5>Categories</h5> */}
                             <Card.Description textAlign="left">
                               <ul>
                                 {Array.from(

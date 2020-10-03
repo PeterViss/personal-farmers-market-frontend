@@ -8,14 +8,13 @@ import Post from '../Components/Post'
 
 class FarmerContainer extends Component {
   state = {
-    // post: false,
     activeItem: 'Home',
     categories: [],
     states: [],
     posts: [],
     newPost: {}
   }
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   falsePost = data => {
     let newPosts = this.state.posts.filter(post => post.id !== data.id)
     let newerPosts = [...newPosts, data]
@@ -23,25 +22,23 @@ class FarmerContainer extends Component {
       return a.id - b.id
     })
     this.setState({
-      //post: !this.state.post,
       posts: [...sortedPosts]
     })
   }
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   navigating = e => {
     this.setState({
       activeItem: e.target.innerText
     })
   }
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   createPost = post => {
     this.setState({
       posts: [...this.state.posts, post]
     })
   }
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   changePosts = data => {
     debugger
     let nuPosts = this.state.posts.filter(post => post.id !== data.id)
@@ -50,9 +47,6 @@ class FarmerContainer extends Component {
     })
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   componentDidMount() {
     fetch('https://personal-farmers-market.herokuapp.com/categories')
       .then(resp => resp.json())
@@ -78,10 +72,8 @@ class FarmerContainer extends Component {
         })
       )
   }
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   render() {
-    //debugger
-    //console.log(this.state.posts)
     let names = ['Home']
     return (
       <div>
@@ -117,18 +109,6 @@ class FarmerContainer extends Component {
             />
           )}
         />
-
-        {/* <Route
-          exact
-          path="/Bio"
-          render={() => (
-            <BiographyEdit
-              bio={this.props.farmer.biography}
-              bioHandler={this.props.bioHandler}
-              sendBio={this.sendBio}
-            />
-          )}
-        /> */}
 
         <Route
           exact

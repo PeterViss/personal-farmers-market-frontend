@@ -25,7 +25,6 @@ class PostContainer extends Component {
     bio: false,
     newBio: false
   }
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   changeDisplay = post => {
     this.setState({
@@ -42,7 +41,6 @@ class PostContainer extends Component {
     })
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   onePost = post => {
     this.setState({
@@ -53,7 +51,6 @@ class PostContainer extends Component {
     })
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////
   resetPosts = data => {
     this.setState({
       post: false
@@ -61,7 +58,6 @@ class PostContainer extends Component {
     this.props.changePosts(data)
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////
   renderRedirect = () => {
     this.setState({
       create: true,
@@ -76,14 +72,12 @@ class PostContainer extends Component {
     })
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////
-  falsifyPost = data => {
+  falsifyPost = () => {
     this.setState({
       post: false
     })
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////
   changePost = data => {
     this.setState({
       post: false
@@ -91,20 +85,18 @@ class PostContainer extends Component {
     return this.props.falsePost(data)
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////
   choosePost = post => {
     this.setState({
       chosenPost: post
     })
   }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-  changeSelect = (e, { name, value }) => {
-    debugger
+  
+  changeSelect = (_e, { value }) => {
     this.setState({
       topType: value
     })
   }
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
   editBio = () => {
     this.setState({
       bio: true
@@ -122,20 +114,15 @@ class PostContainer extends Component {
       newBio: true
     })
   }
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
   render() {
     let posts = this.props.posts
     let newCategories = posts ? posts.map(post => post.category.name) : null
     let newerCats = newCategories.sort()
     let cats = Array.from(new Set(newerCats))
-    //debugger
     let places = this.props.posts.map(post => post.state.name)
     let states = Array.from(new Set(places))
-    // console.log(this.props.farmer.avatar)
 
-    //console.log(this.props.categories)
     return (
       <Grid>
         <Grid.Row />

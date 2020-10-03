@@ -14,13 +14,13 @@ class CustomerContainer extends Component {
     following: false,
     length: 0
   }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   navigating = e => {
     return this.setState({
       activeItem: e.target.innerText
     })
   }
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   toggleUnFollow = (customer, farmer) => {
     let followers = farmer.followers.filter(follower => {
       if (follower.id !== customer.id) {
@@ -66,7 +66,6 @@ class CustomerContainer extends Component {
     return this.props.updateUser(newCustomer)
   }
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
   toggleFollow = (customer, farmer) => {
     let thisCustomer = {
       customer: customer.id,
@@ -104,7 +103,7 @@ class CustomerContainer extends Component {
       })
     return this.props.updateUser(newCustomer)
   }
-  //////////////////////////////////////////////////////////////////////////////////////////////////////
+
   chooseFarmer = farmer => {
     if (farmer.followers.length !== 0) {
       let followers = farmer.followers.filter(follower => {
@@ -137,9 +136,7 @@ class CustomerContainer extends Component {
 
     this.props.history.push('/FarmerProfile')
   }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////
   render() {
     return (
       <div>

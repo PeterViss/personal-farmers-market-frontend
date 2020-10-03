@@ -3,7 +3,7 @@ import MainContainer from './Containers/MainContainer'
 import {BrowserRouter as Router} from "react-router-dom"
 import './App.css';
 
-function App() {
+const App = () => {
   return (
   <Router>
    <div className="App">
