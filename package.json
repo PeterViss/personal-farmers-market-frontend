@@ -6,7 +6,7 @@
     "avataaars": "^1.2.1",
     "eslint-react": "0.0.4",
     "input-moment": "^0.4.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "moment-timezone": "^0.5.26",
     "rc-datetime-picker": "^1.6.1",
     "react": "^16.8.6",
